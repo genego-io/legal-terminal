@@ -81,11 +81,11 @@ export function PrecPanel({ id, query: initialQuery = '' }: Props) {
               }}
             >
               <div style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                <span style={{ color: 'var(--text-muted)', fontSize: 10, fontFamily: "'IBM Plex Mono', monospace", minWidth: 16, marginTop: 2, flexShrink: 0 }}>{i + 1}</span>
+                <span style={{ color: 'var(--text-muted)', fontSize: 10, fontFamily: 'var(--font-mono)', minWidth: 16, marginTop: 2, flexShrink: 0 }}>{i + 1}</span>
                 <span style={{ color: 'var(--text-heading)', fontSize: 13, fontWeight: 500, lineHeight: 1.4 }}>{c.name}</span>
               </div>
               <div style={{ display: 'flex', gap: 10, alignItems: 'center', paddingLeft: 24 }}>
-                <span style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: "'IBM Plex Mono', monospace" }}>{c.citation}</span>
+                <span style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: 'var(--font-mono)' }}>{c.citation}</span>
                 <RelevanceBar score={c.relevance_score} />
               </div>
               <div style={{ paddingLeft: 24, color: 'var(--text-muted)', fontSize: 10 }}>

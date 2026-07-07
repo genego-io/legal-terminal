@@ -199,7 +199,7 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
                   <span style={{ color: 'var(--text-heading)', fontWeight: 600, fontSize: 14 }}>{selectedClause.label}</span>
                 </div>
                 <div className="section-label">Clause text</div>
-                <div style={{ color: 'var(--text)', fontSize: 12, lineHeight: 1.75, background: 'var(--bg)', padding: '12px 16px', border: '1px solid var(--border)', marginBottom: 12, fontFamily: "'IBM Plex Mono', monospace" }}>
+                <div style={{ color: 'var(--text)', fontSize: 12, lineHeight: 1.75, background: 'var(--bg)', padding: '12px 16px', border: '1px solid var(--border)', marginBottom: 12, fontFamily: 'var(--font-mono)' }}>
                   {selectedClause.text}
                 </div>
                 <div style={{ color: 'var(--risk-high)', fontSize: 12, marginBottom: 20, display: 'flex', gap: 8 }}>

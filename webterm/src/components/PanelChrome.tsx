@@ -59,7 +59,7 @@ export function RiskBadge({ risk }: { risk: string }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
       <span style={{ width: 6, height: 6, borderRadius: '50%', background: color, display: 'inline-block', flexShrink: 0 }} />
-      <span style={{ color, fontSize: 10, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace", letterSpacing: '0.04em' }}>{risk}</span>
+      <span style={{ color, fontSize: 10, fontWeight: 500, fontFamily: 'var(--font-sans)', letterSpacing: '0.04em' }}>{risk}</span>
     </span>
   )
 }

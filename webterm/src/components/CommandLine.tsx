@@ -81,7 +81,7 @@ export function CommandLine({ onOpenPalette }: Props) {
             >
               <span className="mnemonic-badge">{s.cmd}</span>
               <span style={{ flex: 1, color: 'var(--text-dim)' }}>{s.desc}</span>
-              <span style={{ color: 'var(--text-muted)', fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>{s.tool}</span>
+              <span style={{ color: 'var(--text-muted)', fontSize: 10, fontFamily: 'var(--font-mono)' }}>{s.tool}</span>
             </button>
           ))}
         </div>
@@ -98,7 +98,7 @@ export function CommandLine({ onOpenPalette }: Props) {
             <Menu size={16} />
           </button>
         )}
-        <span style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600, flexShrink: 0 }}>›</span>
+        <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 500, flexShrink: 0 }}>›</span>
         <input
           ref={inputRef}
           className="term-input"

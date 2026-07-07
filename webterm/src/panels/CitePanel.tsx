@@ -116,7 +116,7 @@ export function CitePanel({ id, query: initialQuery = '' }: Props) {
                     ].map(([k, v]) => (
                       <tr key={k} style={{ borderBottom: '1px solid var(--border)' }}>
                         <td style={{ color: 'var(--text-muted)', padding: '6px 0', width: 140, fontSize: 11 }}>{k}</td>
-                        <td style={{ color: 'var(--text)', padding: '6px 0', fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, wordBreak: 'break-all' }}>{v}</td>
+                        <td style={{ color: 'var(--text)', padding: '6px 0', fontFamily: 'var(--font-mono)', fontSize: 12, wordBreak: 'break-all' }}>{v}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -159,7 +159,7 @@ export function CitePanel({ id, query: initialQuery = '' }: Props) {
                 onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-hover)')}
                 onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
               >
-                <div style={{ color: 'var(--text-dim)', fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>{h.citation}</div>
+                <div style={{ color: 'var(--text-dim)', fontSize: 11, fontFamily: 'var(--font-mono)', marginBottom: 2 }}>{h.citation}</div>
                 <div style={{ display: 'flex', gap: 8 }}>
                   <span style={{ color: h.result.valid ? 'var(--risk-low)' : 'var(--risk-critical)', fontSize: 10 }}>
                     {h.result.valid ? 'valid' : 'invalid'}

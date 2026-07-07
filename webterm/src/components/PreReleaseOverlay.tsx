@@ -72,7 +72,7 @@ export function PreReleaseOverlay() {
       }}>
         <div style={{ padding: '28px 28px 20px', borderBottom: '1px solid var(--border)' }}>
           <div style={{
-            display: 'inline-block', fontSize: 10, fontWeight: 700,
+            display: 'inline-block', fontSize: 10, fontWeight: 500,
             letterSpacing: '0.08em', textTransform: 'uppercase',
             color: 'var(--accent)', background: 'var(--accent-faint)',
             border: '1px solid var(--accent-dim)', padding: '2px 8px', marginBottom: 14,
@@ -82,13 +82,13 @@ export function PreReleaseOverlay() {
           <h2
             id="prerelease-title"
             className="legal"
-            style={{ margin: '0 0 10px', fontSize: 26, fontWeight: 700, color: 'var(--text-heading)', lineHeight: 1.2 }}
+            style={{ margin: '0 0 10px', fontSize: 26, fontWeight: 500, color: 'var(--text-heading)', lineHeight: 1.2 }}
           >
             Legal Terminal
           </h2>
           <p style={{ margin: 0, fontSize: 13, color: 'var(--text-dim)', lineHeight: 1.65 }}>
             This is an early MVP — a Bloomberg-style terminal showcase built on top of{' '}
-            <strong style={{ color: 'var(--text-heading)', fontWeight: 600 }}>legal-mcp</strong>.
+            <strong style={{ color: 'var(--text-heading)', fontWeight: 500 }}>legal-mcp</strong>.
             Mock fixtures run by default; live MCP is optional. Not production-ready — interfaces,
             integrations, and coverage are still evolving.
           </p>
@@ -113,7 +113,7 @@ export function PreReleaseOverlay() {
             >
               <ExternalLink size={14} style={{ color: 'var(--accent)', flexShrink: 0 }} />
               <span style={{ flex: 1, minWidth: 0 }}>
-                <span style={{ display: 'block', fontSize: 12, fontWeight: 600 }}>{link.label}</span>
+                <span style={{ display: 'block', fontSize: 12, fontWeight: 500 }}>{link.label}</span>
                 <span style={{ display: 'block', fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
                   {link.desc}
                 </span>
@@ -126,7 +126,7 @@ export function PreReleaseOverlay() {
           padding: '14px 28px 24px', display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', gap: 12,
         }}>
-          <span style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
+          <span style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
             Esc to dismiss
           </span>
           <button type="button" className="btn-primary" onClick={dismiss} style={{ padding: '8px 20px', fontSize: 12 }}>

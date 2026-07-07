@@ -71,7 +71,7 @@ export function DocaPanel({ id }: { id: string }) {
                   background: file === f.name ? 'var(--accent-faint)' : 'var(--bg-panel2)',
                   border: '1px solid ' + (file === f.name ? 'var(--accent-dim)' : 'var(--border)'),
                   color: file === f.name ? 'var(--accent)' : 'var(--text-muted)',
-                  fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, padding: '2px 8px', cursor: 'pointer',
+                  fontFamily: 'var(--font-mono)', fontSize: 10, padding: '2px 8px', cursor: 'pointer',
                 }}
               >
                 {f.path ? `${f.path}` : f.name}
@@ -117,7 +117,7 @@ export function DocaPanel({ id }: { id: string }) {
           <>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 14 }}>
               <RiskBadge risk={result.risk_level} />
-              <span style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: "'IBM Plex Mono', monospace" }}>{result.metadata.file}</span>
+              <span style={{ color: 'var(--text-muted)', fontSize: 11, fontFamily: 'var(--font-mono)' }}>{result.metadata.file}</span>
             </div>
 
             <div className="section-label">Contract metadata</div>
@@ -126,7 +126,7 @@ export function DocaPanel({ id }: { id: string }) {
                 {Object.entries(result.metadata).filter(([k]) => k !== 'file').map(([k, v]) => (
                   <tr key={k} style={{ borderBottom: '1px solid var(--border)' }}>
                     <td style={{ color: 'var(--text-muted)', padding: '5px 0', width: 130, fontSize: 11, textTransform: 'capitalize' }}>{k.replace(/_/g, ' ')}</td>
-                    <td style={{ color: v ? 'var(--text)' : 'var(--text-muted)', padding: '5px 0', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>
+                    <td style={{ color: v ? 'var(--text)' : 'var(--text-muted)', padding: '5px 0', fontFamily: 'var(--font-mono)', fontSize: 11 }}>
                       {v ?? 'null — confirm manually'}
                     </td>
                   </tr>

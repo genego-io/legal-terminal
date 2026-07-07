@@ -63,7 +63,7 @@ export function AudtPanel({ id }: { id: string }) {
             {filtered.map(e => (
               <tr key={e.id}>
                 <td className="mono-cell">{ts(e.timestamp)}</td>
-                <td style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, whiteSpace: 'nowrap' }}>
+                <td style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 11, whiteSpace: 'nowrap' }}>
                   <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: CATEGORY_COLOR[e.category] ?? 'var(--text-muted)', marginRight: 6, verticalAlign: 'middle' }} />
                   {e.tool}
                 </td>
@@ -71,7 +71,7 @@ export function AudtPanel({ id }: { id: string }) {
                 <td style={{ color: 'var(--text-dim)', fontSize: 11, maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {JSON.stringify(e.input).slice(0, 80)}…
                 </td>
-                <td style={{ color: e.success ? 'var(--risk-low)' : 'var(--risk-critical)', fontSize: 11, fontFamily: "'IBM Plex Mono', monospace' " }}>
+                <td style={{ color: e.success ? 'var(--risk-low)' : 'var(--risk-critical)', fontSize: 11, fontFamily: 'var(--font-mono)' }}>
                   {e.success ? 'ok' : 'err'}
                 </td>
                 <td className="num">{e.duration_ms}</td>

@@ -114,10 +114,10 @@ function CaseCards({ cases }: { cases: Case[] }) {
       {cases.map(c => (
         <button key={c.id} onClick={() => navigate('PREC', { query: c.name })}
           style={cardStyle} title="Open in Precedent Search">
-          <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 13, fontWeight: 600, color: 'var(--text-heading)', marginBottom: 2 }}>
+          <div style={{ fontFamily: 'var(--font-serif)', fontSize: 13, fontWeight: 500, color: 'var(--text-heading)', marginBottom: 2 }}>
             {c.name}
           </div>
-          <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>
+          <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: 4 }}>
             {c.citation} · {c.court} · {c.year}
           </div>
           <div style={{ fontSize: 11, color: 'var(--text-dim)', lineHeight: 1.5 }}>{c.holding}</div>
@@ -134,10 +134,10 @@ function StatuteCards({ statutes }: { statutes: Statute[] }) {
       {statutes.map(s => (
         <button key={s.id} onClick={() => navigate('STAT', { statuteId: s.id })}
           style={cardStyle} title="Open in Statute Viewer">
-          <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 13, fontWeight: 600, color: 'var(--text-heading)', marginBottom: 2 }}>
+          <div style={{ fontFamily: 'var(--font-serif)', fontSize: 13, fontWeight: 500, color: 'var(--text-heading)', marginBottom: 2 }}>
             {s.title}
           </div>
-          <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>{s.id}</div>
+          <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{s.id}</div>
         </button>
       ))}
     </div>
@@ -150,15 +150,15 @@ function CitationCard({ result }: { result: CitationResult }) {
     <button onClick={() => navigate('CITE', { query: result.citation })} style={{ ...cardStyle, marginTop: 8 }} title="Open in Citation Console">
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 6 }}>
         <span style={{
-          fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', padding: '1px 7px',
+          fontSize: 10, fontWeight: 500, letterSpacing: '0.06em', padding: '1px 7px',
           color: result.valid ? 'var(--risk-low)' : 'var(--risk-critical)',
           border: `1px solid ${result.valid ? 'var(--risk-low)' : 'var(--risk-critical)'}`,
         }}>
           {result.valid ? 'VALID' : 'INVALID'}
         </span>
-        <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: 'var(--text-dim)' }}>{result.normalized || result.citation}</span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text-dim)' }}>{result.normalized || result.citation}</span>
       </div>
-      <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
+      <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
         {result.reporter_name ? `${result.reporter_name} (${result.reporter})` : result.reporter}
         {' · '}integrity: {result.integrity}
         {result.issues.length > 0 && ` · ${result.issues.length} issue${result.issues.length === 1 ? '' : 's'}`}
@@ -177,7 +177,7 @@ function ContractCards({ contracts }: { contracts: Contract[] }) {
           <RiskBadge risk={c.risk_level} />
           <div style={{ flex: 1, textAlign: 'left' }}>
             <div style={{ fontSize: 12, fontWeight: 500, color: 'var(--text-heading)' }}>{c.title}</div>
-            <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
+            <div style={{ fontSize: 10, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
               {c.id} · {c.clauses.length} clauses
             </div>
           </div>
@@ -191,7 +191,7 @@ function BriefCard({ outline }: { outline: BriefOutline }) {
   const { navigate } = useTerminalStore()
   return (
     <button onClick={() => navigate('BRF')} style={{ ...cardStyle, marginTop: 8 }} title="Open in Brief Builder">
-      <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 13, fontWeight: 600, color: 'var(--text-heading)', marginBottom: 4 }}>
+      <div style={{ fontFamily: 'var(--font-serif)', fontSize: 13, fontWeight: 500, color: 'var(--text-heading)', marginBottom: 4 }}>
         {outline.case_type}
       </div>
       {outline.issue_statement && (
@@ -289,7 +289,7 @@ export function ChatPanel({ id }: { id: string }) {
               }}>
                 <Scale size={24} />
               </div>
-              <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 20, fontWeight: 600, color: 'var(--text-heading)', marginBottom: 6 }}>
+              <div style={{ fontFamily: 'var(--font-serif)', fontSize: 20, fontWeight: 500, color: 'var(--text-heading)', marginBottom: 6 }}>
                 How can I assist with your matter?
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 28, lineHeight: 1.6 }}>
@@ -302,7 +302,7 @@ export function ChatPanel({ id }: { id: string }) {
                     style={{ ...cardStyle, display: 'flex', gap: 10, alignItems: 'flex-start', padding: '12px 14px' }}>
                     <span style={{ color: 'var(--accent)', marginTop: 1 }}>{s.icon}</span>
                     <span>
-                      <span style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-heading)', marginBottom: 3 }}>{s.label}</span>
+                      <span style={{ display: 'block', fontSize: 12, fontWeight: 500, color: 'var(--text-heading)', marginBottom: 3 }}>{s.label}</span>
                       <span style={{ display: 'block', fontSize: 11, color: 'var(--text-muted)', lineHeight: 1.5 }}>{s.prompt}</span>
                     </span>
                   </button>
@@ -333,7 +333,7 @@ export function ChatPanel({ id }: { id: string }) {
                 <Scale size={14} />
               </div>
               <div style={{ minWidth: 0, flex: 1 }}>
-                <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 12, fontWeight: 600, color: 'var(--text-heading)', marginBottom: 4 }}>
+                <div style={{ fontFamily: 'var(--font-serif)', fontSize: 12, fontWeight: 500, color: 'var(--text-heading)', marginBottom: 4 }}>
                   Paralegal
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--text-dim)', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>

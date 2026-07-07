@@ -131,7 +131,7 @@ export function TrigPanel({ id }: { id: string }) {
                     <td style={{ fontSize: 11 }}>{m.from}</td>
                     <td style={{ fontSize: 11 }}>{m.subject}</td>
                     <td><span className="trig-cat-badge" style={{ background: catColor(m.categoryId) }}>{catLabel(m.categoryId)}</span></td>
-                    <td style={{ fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>{m.attachments.join(', ')}</td>
+                    <td style={{ fontSize: 10, fontFamily: 'var(--font-mono)' }}>{m.attachments.join(', ')}</td>
                     <td><span className={`status-chip ${m.status === 'processed' ? 'complete' : m.status === 'pending' ? 'queued' : 'processing'}`}>{m.status}</span></td>
                     <td style={{ whiteSpace: 'nowrap' }}>
                       {m.status === 'pending' && <button type="button" className="btn" style={{ fontSize: 10, marginRight: 4 }} onClick={() => process(m.id)}>Process</button>}

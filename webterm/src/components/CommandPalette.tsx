@@ -47,13 +47,13 @@ export function CommandPalette({ open, onClose }: Props) {
         onKeyDown={e => { if (e.key === 'Escape') onClose() }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 14px', borderBottom: '1px solid var(--border)' }}>
-          <span style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 12 }}>›</span>
+          <span style={{ color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: 12 }}>›</span>
           <Command.Input
             ref={inputRef}
             placeholder="Search modules, mnemonics, recent commands…"
             style={{
               flex: 1, background: 'transparent', border: 'none', outline: 'none',
-              color: 'var(--text-heading)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 13,
+              color: 'var(--text-heading)', fontFamily: 'var(--font-mono)', fontSize: 13,
               caretColor: 'var(--accent)',
             }}
           />
@@ -69,7 +69,7 @@ export function CommandPalette({ open, onClose }: Props) {
 
           {commandHistory.length > 0 && (
             <Command.Group heading={
-              <div style={{ padding: '8px 14px 2px', fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+              <div style={{ padding: '8px 14px 2px', fontSize: 9, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
                 Recent
               </div>
             }>
@@ -85,8 +85,8 @@ export function CommandPalette({ open, onClose }: Props) {
                     onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-hover)')}
                     onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                   >
-                    <span style={{ color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, marginRight: 8 }}>↑</span>
-                    <span style={{ color: 'var(--text-dim)', fontSize: 12, fontFamily: "'IBM Plex Mono', monospace" }}>{cmd}</span>
+                    <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 10, marginRight: 8 }}>↑</span>
+                    <span style={{ color: 'var(--text-dim)', fontSize: 12, fontFamily: 'var(--font-mono)' }}>{cmd}</span>
                   </Command.Item>
                 )
               })}
@@ -94,7 +94,7 @@ export function CommandPalette({ open, onClose }: Props) {
           )}
 
           <Command.Group heading={
-            <div style={{ padding: '8px 14px 2px', fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
+            <div style={{ padding: '8px 14px 2px', fontSize: 9, fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
               Modules
             </div>
           }>
@@ -109,7 +109,7 @@ export function CommandPalette({ open, onClose }: Props) {
               >
                 <span className="mnemonic-badge" style={{ marginRight: 4 }}>{m.cmd}</span>
                 <span style={{ flex: 1, color: 'var(--text-dim)', fontSize: 12 }}>{m.desc}</span>
-                <span style={{ color: 'var(--text-muted)', fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>{m.tool}</span>
+                <span style={{ color: 'var(--text-muted)', fontSize: 10, fontFamily: 'var(--font-mono)' }}>{m.tool}</span>
               </Command.Item>
             ))}
           </Command.Group>

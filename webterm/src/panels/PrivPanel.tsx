@@ -64,7 +64,7 @@ export function PrivPanel({ id }: { id: string }) {
               background: file === f ? 'var(--bg-selected)' : 'var(--bg-panel2)',
               border: '1px solid ' + (file === f ? 'var(--accent-dim)' : 'var(--border)'),
               color: file === f ? 'var(--accent)' : 'var(--text-muted)',
-              fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, padding: '4px 10px', cursor: 'pointer',
+              fontFamily: 'var(--font-mono)', fontSize: 11, padding: '4px 10px', cursor: 'pointer',
             }}>{f}</button>
           ))}
         </div>
@@ -110,7 +110,7 @@ export function PrivPanel({ id }: { id: string }) {
                     <td style={{ fontWeight: 500 }}>{p.label}</td>
                     <td>
                       {res ? (
-                        <span style={{ color: RISK_COLOR[res.risk], fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>
+                        <span style={{ color: RISK_COLOR[res.risk], fontWeight: 600, fontFamily: 'var(--font-mono)', fontSize: 11 }}>
                           {res.risk}
                         </span>
                       ) : (

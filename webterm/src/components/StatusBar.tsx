@@ -10,7 +10,7 @@ function Clock() {
     return () => clearInterval(id)
   }, [])
   return (
-    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: 'var(--text-muted)' }}>
+    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)' }}>
       {t.toLocaleTimeString('en-US', { hour12: false })}
     </span>
   )
@@ -32,7 +32,7 @@ export function StatusBar() {
               display: 'inline-flex', alignItems: 'center', gap: 5,
               background: 'var(--confidential-faint)', border: '1px solid var(--confidential-border)',
               color: 'var(--confidential)', fontSize: 10, padding: '1px 7px', cursor: 'pointer',
-              fontFamily: "'IBM Plex Mono', monospace", letterSpacing: '0.04em',
+              fontFamily: 'var(--font-mono)', letterSpacing: '0.04em',
             }}
             title="Confidential mode active — click to open settings"
           >

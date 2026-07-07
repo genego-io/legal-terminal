@@ -140,7 +140,7 @@ export function ConfPanel({ id }: { id: string }) {
                       <div className="conf-provider-head">
                         {p.isLocal && <Lock size={11} />}
                         <span>{p.label}</span>
-                        <span style={{ color: RISK_COLOR[p.risk], fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700 }}>{p.risk}</span>
+                        <span style={{ color: RISK_COLOR[p.risk], fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 700 }}>{p.risk}</span>
                       </div>
                       <div className="conf-provider-flags">
                         ZDR {p.zdr ? <CheckCircle size={11} style={{ color: 'var(--risk-low)' }} /> : <XCircle size={11} style={{ color: 'var(--risk-high)' }} />}

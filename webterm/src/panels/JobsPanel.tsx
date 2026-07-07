@@ -81,7 +81,7 @@ export function JobsPanel({ id }: { id: string }) {
             {counts[s]} {s}
           </span>
         ))}
-        <span style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontSize: 10, fontFamily: "'IBM Plex Mono', monospace", alignSelf: 'center' }}>
+        <span style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontSize: 10, fontFamily: 'var(--font-mono)', alignSelf: 'center' }}>
           auto-refresh 2s
         </span>
       </div>
@@ -113,7 +113,7 @@ export function JobsPanel({ id }: { id: string }) {
                   </td>
                   <td className="mono-cell">{ts(j.queued_at)}</td>
                   <td className="mono-cell">{ts(j.completed_at)}</td>
-                  <td style={{ color: RISK_COLOR[j.risk_level ?? ''] ?? 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>
+                  <td style={{ color: RISK_COLOR[j.risk_level ?? ''] ?? 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>
                     {j.risk_level ?? '—'}
                   </td>
                   <td className="num">{j.flags ?? '—'}</td>
@@ -146,7 +146,7 @@ export function JobsPanel({ id }: { id: string }) {
             ].map(([k, v]) => (
               <div key={k} style={{ marginBottom: 10 }}>
                 <div style={{ color: 'var(--text-muted)', fontSize: 10, marginBottom: 2 }}>{k}</div>
-                <div style={{ color: 'var(--text-dim)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, wordBreak: 'break-all' }}>{v}</div>
+                <div style={{ color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', fontSize: 11, wordBreak: 'break-all' }}>{v}</div>
               </div>
             ))}
             {selected.error && (

@@ -182,7 +182,7 @@ export function HomePanel() {
               <tbody>
                 {recentActivity.slice(0, 10).map(ev => (
                   <tr key={ev.id}>
-                    <td style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>{ev.text}</td>
+                    <td style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>{ev.text}</td>
                     <td className="mono-cell" style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                       <TimeAgo ts={ev.ts} />
                     </td>

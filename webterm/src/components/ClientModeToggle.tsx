@@ -55,7 +55,7 @@ export function ClientModeToggle() {
           border: '1px solid ' + (isLive ? 'var(--risk-low)' : 'var(--border-bright)'),
           color: isLive ? 'var(--risk-low)' : 'var(--text-muted)',
           fontSize: 10, padding: '1px 7px', cursor: 'pointer',
-          fontFamily: "'IBM Plex Mono', monospace",
+          fontFamily: 'var(--font-mono)',
           letterSpacing: '0.04em',
           opacity: switching ? 0.5 : 1,
           transition: 'all 0.15s',
@@ -72,12 +72,12 @@ export function ClientModeToggle() {
           padding: 12, width: 300, zIndex: 200,
           boxShadow: '0 8px 32px var(--shadow-lg)',
         }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>
+          <div style={{ fontSize: 10, fontWeight: 500, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>
             Connect to live server
           </div>
           <div style={{ fontSize: 11, color: 'var(--text-dim)', marginBottom: 10, lineHeight: 1.5 }}>
-            Start <code style={{ fontFamily: "'IBM Plex Mono', monospace", color: 'var(--accent)' }}>python main.py --transport sse</code> in the{' '}
-            <code style={{ fontFamily: "'IBM Plex Mono', monospace", color: 'var(--accent)' }}>legal-mcp</code> directory first.
+            Start <code style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>python main.py --transport sse</code> in the{' '}
+            <code style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>legal-mcp</code> directory first.
           </div>
           <input
             ref={inputRef}

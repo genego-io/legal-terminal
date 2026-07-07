@@ -30,11 +30,11 @@ export function LivePanel({ id }: { id: string }) {
               <tbody>
                 <tr style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ color: 'var(--text-muted)', padding: '5px 0', width: 110 }}>Transport</td>
-                  <td style={{ color: 'var(--text)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>{status.server_config.transport}</td>
+                  <td style={{ color: 'var(--text)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>{status.server_config.transport}</td>
                 </tr>
                 <tr style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ color: 'var(--text-muted)', padding: '5px 0' }}>Port</td>
-                  <td style={{ color: 'var(--text)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>:{status.server_config.port}</td>
+                  <td style={{ color: 'var(--text)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>:{status.server_config.port}</td>
                 </tr>
                 <tr>
                   <td style={{ color: 'var(--text-muted)', padding: '5px 0', verticalAlign: 'top' }}>Categories</td>
@@ -71,7 +71,7 @@ export function LivePanel({ id }: { id: string }) {
                 <span style={{ color: 'var(--risk-medium)', fontSize: 10, marginLeft: 'auto' }}>billable — env: {status.pacer.environment}</span>
               </div>
               <div style={{ color: 'var(--text-muted)', fontSize: 12, marginBottom: 8 }}>Disabled. Set <code>PACER_ENABLED=true</code> + credentials.</div>
-              <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: 'var(--text-muted)', lineHeight: 1.8 }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)', lineHeight: 1.8 }}>
                 {['PACER_ENABLED=true', 'PACER_ENVIRONMENT=qa', 'PACER_LOGIN_ID=...', 'PACER_PASSWORD=...'].map(v => (
                   <div key={v}>{v}</div>
                 ))}

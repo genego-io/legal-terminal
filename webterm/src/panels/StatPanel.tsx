@@ -56,7 +56,7 @@ export function StatPanel({ id, statuteId }: Props) {
               <span>Amended {statute.last_amended}</span>
             </div>
             <div className="section-label">Statutory text</div>
-            <div style={{ color: 'var(--text)', fontSize: 12, lineHeight: 1.85, background: 'var(--bg)', padding: '14px 18px', border: '1px solid var(--border)', marginBottom: 20, fontFamily: "'IBM Plex Mono', monospace" }}>
+            <div style={{ color: 'var(--text)', fontSize: 12, lineHeight: 1.85, background: 'var(--bg)', padding: '14px 18px', border: '1px solid var(--border)', marginBottom: 20, fontFamily: 'var(--font-mono)' }}>
               {statute.text}
             </div>
             <div className="section-label">Legislative history</div>

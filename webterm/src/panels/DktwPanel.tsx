@@ -94,7 +94,7 @@ export function DktwPanel({ id }: { id: string }) {
         }}>
           <Clock size={13} style={{ color: 'var(--risk-medium)', flexShrink: 0 }} />
           <div style={{ fontSize: 11, color: 'var(--text-muted)', lineHeight: 1.5 }}>
-            <strong style={{ color: 'var(--risk-medium)', fontWeight: 700 }}>Under consideration</strong>
+            <strong style={{ color: 'var(--risk-medium)', fontWeight: 500 }}>Under consideration</strong>
             {' '}— Docket Watch is on the roadmap pending PACER API access and production
             infrastructure. The watch list below is a preview mockup. Vote it up to move it higher.
           </div>
@@ -123,7 +123,7 @@ export function DktwPanel({ id }: { id: string }) {
               <Radar size={20} />
             </div>
             <div>
-              <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 17, fontWeight: 700, color: 'var(--text-heading)', letterSpacing: '0.01em' }}>
+              <div style={{ fontFamily: 'var(--font-serif)', fontSize: 17, fontWeight: 500, color: 'var(--text-heading)', letterSpacing: '0.01em' }}>
                 Docket Watch
               </div>
               <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>
@@ -143,7 +143,7 @@ export function DktwPanel({ id }: { id: string }) {
             {HOW_IT_WORKS.map((step, i) => (
               <div key={i} style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border)', padding: '14px 16px' }}>
                 <div style={{ color: 'var(--accent)', marginBottom: 8 }}>{step.icon}</div>
-                <div style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 13, fontWeight: 600, color: 'var(--text-heading)', marginBottom: 6 }}>
+                <div style={{ fontFamily: 'var(--font-serif)', fontSize: 13, fontWeight: 500, color: 'var(--text-heading)', marginBottom: 6 }}>
                   {step.title}
                 </div>
                 <div style={{ fontSize: 11, color: 'var(--text-muted)', lineHeight: 1.6 }}>{step.body}</div>
@@ -227,7 +227,7 @@ export function DktwPanel({ id }: { id: string }) {
                   <td style={{ color: 'var(--text-dim)', fontSize: 11 }}>{e.lastChecked}</td>
                   <td style={{ textAlign: 'center' }}>
                     {e.newCases > 0
-                      ? <span style={{ color: 'var(--risk-critical)', fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: 12 }}>{e.newCases}</span>
+                      ? <span style={{ color: 'var(--risk-critical)', fontFamily: 'var(--font-mono)', fontWeight: 500, fontSize: 12 }}>{e.newCases}</span>
                       : <span style={{ color: 'var(--text-muted)' }}>—</span>
                     }
                   </td>
