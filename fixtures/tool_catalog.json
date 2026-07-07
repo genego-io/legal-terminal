@@ -1,0 +1,113 @@
+[
+  {
+    "toolId": "searchPrecedents",
+    "label": "Search precedents",
+    "category": "Research",
+    "params": [{ "key": "query", "label": "Search query", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "searchCaseLaw",
+    "label": "Search case law",
+    "category": "Research",
+    "params": [{ "key": "query", "label": "Search query", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "extractStatute",
+    "label": "Extract statute",
+    "category": "Research",
+    "params": [{ "key": "id", "label": "Statute ID", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "researchLegalIssue",
+    "label": "Research legal issue",
+    "category": "Research",
+    "params": [{ "key": "issue", "label": "Issue description", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "validateCitation",
+    "label": "Validate citation",
+    "category": "Citation",
+    "params": [{ "key": "citation", "label": "Citation", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "normalizeCitation",
+    "label": "Normalize citation",
+    "category": "Citation",
+    "params": [{ "key": "citation", "label": "Citation", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "verifyCitationIntegrity",
+    "label": "Verify citation integrity",
+    "category": "Citation",
+    "params": [{ "key": "citation", "label": "Citation", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "analyzeContract",
+    "label": "Analyze contract",
+    "category": "Contract",
+    "params": [{ "key": "contractId", "label": "Contract", "type": "contract", "required": true }]
+  },
+  {
+    "toolId": "compareContracts",
+    "label": "Compare contracts",
+    "category": "Contract",
+    "params": [
+      { "key": "a", "label": "Contract A", "type": "contract", "required": true },
+      { "key": "b", "label": "Contract B", "type": "contract", "required": true }
+    ]
+  },
+  {
+    "toolId": "suggestAlternatives",
+    "label": "Suggest clause alternatives",
+    "category": "Contract",
+    "params": [
+      { "key": "clauseText", "label": "Clause text", "type": "text", "required": true },
+      { "key": "clauseType", "label": "Clause type key", "type": "text", "required": true }
+    ]
+  },
+  {
+    "toolId": "generateNegotiationGuide",
+    "label": "Generate negotiation guide",
+    "category": "Contract",
+    "params": [
+      { "key": "contractId", "label": "Contract", "type": "contract", "required": true },
+      { "key": "partyRole", "label": "Party role", "type": "select", "required": true, "options": ["buyer", "seller", "mutual"] }
+    ]
+  },
+  {
+    "toolId": "listContracts",
+    "label": "List contracts",
+    "category": "Contract",
+    "params": []
+  },
+  {
+    "toolId": "analyzeDocument",
+    "label": "Analyze document",
+    "category": "Document",
+    "params": [{ "key": "file", "label": "Filename", "type": "file", "required": true }]
+  },
+  {
+    "toolId": "queueDocumentAnalysis",
+    "label": "Queue document analysis",
+    "category": "Document",
+    "params": [{ "key": "file", "label": "Filename", "type": "file", "required": true }]
+  },
+  {
+    "toolId": "checkPrivilegeRisk",
+    "label": "Check privilege risk",
+    "category": "Privilege",
+    "params": [
+      { "key": "file", "label": "Filename", "type": "file", "required": true },
+      { "key": "provider", "label": "Provider", "type": "select", "required": true, "options": ["ollama", "openai", "anthropic", "azure_openai"] }
+    ]
+  },
+  {
+    "toolId": "generateBriefOutline",
+    "label": "Generate brief outline",
+    "category": "Brief",
+    "params": [
+      { "key": "caseType", "label": "Case type", "type": "text", "required": true },
+      { "key": "facts", "label": "Facts summary", "type": "text", "required": false }
+    ]
+  }
+]

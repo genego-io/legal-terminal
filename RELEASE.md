@@ -1,4 +1,4 @@
-# Legal Terminal — v0.2.0-pre.2
+# Legal Terminal — v0.2.0-pre.3
 
 **Pre-release · July 7, 2026**
 
@@ -6,6 +6,40 @@ Bloomberg-style keyboard-first terminal over [legal-mcp](https://github.com/agen
 Dual-surface interface: a React web terminal and a Python TUI, both fully testable offline or connected live.
 
 See [FEATURES.md](./FEATURES.md) for a detailed breakdown of terminal-native capabilities.
+
+---
+
+## What's new since v0.2.0-pre.2
+
+### Settings redesign (`CONF`)
+- Tabbed layout: **Privacy**, **General**, **Integrations**, **Notifications**
+- Persisted app settings in `localStorage` (`legal-term-settings`)
+- Provider trust as card grid (tablet-friendly)
+
+### Workflow Builder (`WKFL`)
+- **Browse** tab — system playbooks with **Run workflow** when `executable_steps` exist
+- **Builder** tab — create/save/test-run custom tool sequences from the MCP catalog
+
+### Automations (`AUTM` · F8)
+- Schedule workflows once, daily, weekly, or on events (`job_complete`, `email_received`, etc.)
+- Enable/disable toggles, run history, manual **Run now**
+
+### Triggers (`TRIG`)
+- **Paralegal inbox** queue with category badges
+- **POP3 configuration** (saved locally; simulated connection test)
+- **Category rules** — match inbound mail → automation + Paralegal prompt templates
+- **Simulate inbound** demo using seed messages
+
+### Execution engine
+- `workflowRunner`, `automationScheduler`, `triggerRouter` services
+- User data in localStorage: workflows, automations, triggers, inbox, settings
+- New fixtures: `tool_catalog.json`, `trigger_categories.json`, `inbox_seed.json`, `automations_seed.json`
+
+### Contract Workbench clarity (pre.2 patch)
+- Fixture library label, Viewing banner, clause breadcrumbs
+
+### Docs
+- [docs/OPERATIONS.md](./docs/OPERATIONS.md) — end-to-end WKFL → AUTM → TRIG guide
 
 ---
 
@@ -130,7 +164,7 @@ cd tui && pip install -e . && legal-term
 legal-term --live http://localhost:8000
 
 # Tests
-cd webterm && npm test          # 56 Vitest
+cd webterm && npm test          # 66 Vitest
 cd tui && python -m pytest tests/  # 41 pytest
 ```
 
@@ -147,6 +181,7 @@ cd tui && python -m pytest tests/  # 41 pytest
 | `F5` | Analysis Queue |
 | `F6` | Workflows |
 | `F7` | Audit Log |
+| `F8` | Automations |
 | `F9` | Privilege Check |
 | `F10` | Integrations |
 | `Ctrl+K` | Command palette |
@@ -156,13 +191,17 @@ cd tui && python -m pytest tests/  # 41 pytest
 
 ## Known limitations
 
+- **Mock inbox** — POP3 is configured and saved locally; inbound mail is simulated (no real polling from the browser)
+- **Automations/triggers** run while the terminal tab is open; no background scheduler when closed
+- User workflows, automations, triggers, and inbox data are **localStorage-only** (per browser)
+- Live MCP has no server-side workflow/automation/inbox tools yet (web falls back to local stores)
 - Docket Watch is a UI preview only — no PACER integration yet
 - Confidential Mode is a client-side posture toggle; does not yet re-route inference to Ollama automatically
 - Workflows and audit log fall back to fixtures even in live mode (no list-all tool on legal-mcp server)
 - No authentication layer on the SSE connection
 - PACER and CourtListener live adapters are scaffolded but disabled by default in legal-mcp
 - Split view is disabled below 1024px viewport width
-- TUI does not yet include CHAT, DOCA, PRIV, BRF, STAT, WTCH, or CONF modules (web only)
+- TUI does not yet include CHAT, DOCA, PRIV, BRF, STAT, WTCH, CONF, AUTM, or TRIG modules (web only)
 
 ---
 

@@ -14,6 +14,8 @@ import { BrfPanel } from '../panels/BrfPanel'
 import { JobsPanel } from '../panels/JobsPanel'
 import { LivePanel } from '../panels/LivePanel'
 import { WkflPanel } from '../panels/WkflPanel'
+import { AutmPanel } from '../panels/AutmPanel'
+import { TrigPanel } from '../panels/TrigPanel'
 import { AudtPanel } from '../panels/AudtPanel'
 
 function renderView(v: ViewState) {
@@ -31,6 +33,8 @@ function renderView(v: ViewState) {
     case 'JOBS': return <JobsPanel id={id} />
     case 'LIVE': return <LivePanel id={id} />
     case 'WKFL': return <WkflPanel id={id} />
+    case 'AUTM': return <AutmPanel id={id} />
+    case 'TRIG': return <TrigPanel id={id} />
     case 'AUDT': return <AudtPanel id={id} />
     case 'WTCH': return <DktwPanel id={id} />
     case 'CONF': return <ConfPanel id={id} />

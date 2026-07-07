@@ -76,11 +76,15 @@ server over SSE — see the Quick Start below.
 | `PRIV` | Privilege Risk Check | `check_privilege_risk` (Heppner / ABA Rule 1.6) |
 | `BRF`  | Brief Builder | `generate_brief_outline`, `create_argument_structure`, `generate_issue_statement` |
 | `JOBS` | Analysis Queue | `queue_document_analysis`, `list_analysis_jobs`, `get_analysis_status` |
-| `WKFL` | Workflow Launcher | `legal-mcp-toolkit` SKILL.md playbooks |
+| `WKFL` | Workflows & Builder | Browse playbooks · build custom tool sequences |
+| `AUTM` | Automations | Schedule workflows · event triggers (F8) |
+| `TRIG` | Triggers | Paralegal inbox · POP3 config · category rules |
 | `AUDT` | Audit Log | `utils.audit` — all tool invocations |
 | `LIVE` | Integration Status | `integration_status` — CourtListener, PACER |
 | `WTCH` | Docket Watch *(under consideration)* | PACER docket monitoring — requires PACER API |
-| `CONF` | Privacy Settings | Confidential Mode — local inference only, ABA Rule 1.6 |
+| `CONF` | Settings | Privacy · General · Integrations · Notifications |
+
+Operations walkthrough: [docs/OPERATIONS.md](./docs/OPERATIONS.md)
 
 ---
 

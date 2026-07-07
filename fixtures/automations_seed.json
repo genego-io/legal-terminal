@@ -1,0 +1,24 @@
+[
+  {
+    "id": "auto-daily-triage",
+    "name": "Daily contract triage",
+    "workflowId": "contract-risk-triage",
+    "workflowSource": "builtin",
+    "schedule": { "type": "daily", "time": "09:00" },
+    "enabled": true,
+    "lastRunAt": null,
+    "nextRunAt": null,
+    "lastStatus": null
+  },
+  {
+    "id": "auto-job-citation",
+    "name": "Citation cleanup on job complete",
+    "workflowId": "citation-cleanup",
+    "workflowSource": "builtin",
+    "schedule": { "type": "event", "event": "job_complete" },
+    "enabled": false,
+    "lastRunAt": null,
+    "nextRunAt": null,
+    "lastStatus": null
+  }
+]

@@ -10,56 +10,18 @@
  */
 
 import { useState, useRef, useEffect } from 'react'
-import { create } from 'zustand'
 import { Scale, ArrowUp, Search, FileText, Quote, PenTool } from 'lucide-react'
 import { PanelChrome, RiskBadge } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
+import { useChatStore, type Attachment } from '../store/chatStore'
 import type { Case, Statute, Contract, CitationResult, BriefOutline } from '../mcp/types'
-
-/* ── Message model ─────────────────────────────────────────────── */
-
-type Attachment =
-  | { kind: 'cases'; cases: Case[] }
-  | { kind: 'statutes'; statutes: Statute[] }
-  | { kind: 'citation'; result: CitationResult }
-  | { kind: 'contracts'; contracts: Contract[] }
-  | { kind: 'brief'; outline: BriefOutline }
-
-interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  text: string
-  ts: number
-  attachments?: Attachment[]
-}
-
-interface ChatStore {
-  messages: ChatMessage[]
-  thinking: boolean
-  push(m: Omit<ChatMessage, 'id' | 'ts'>): void
-  setThinking(v: boolean): void
-  clear(): void
-}
-
-let _msgCounter = 0
-
-const useChatStore = create<ChatStore>(set => ({
-  messages: [],
-  thinking: false,
-  push(m) {
-    const msg: ChatMessage = { ...m, id: `msg-${++_msgCounter}`, ts: Date.now() }
-    set(s => ({ messages: [...s.messages, msg] }))
-  },
-  setThinking(v) { set({ thinking: v }) },
-  clear() { set({ messages: [] }) },
-}))
 
 /* ── Intent router — the paralegal "brain" ─────────────────────── */
 
 const CITATION_RE = /\d+\s+(U\.?S\.?|F\.\d?d?|Cal\.?(App\.?)?\d*(st|nd|rd|th)?|S\.?Ct\.?|N\.?E\.?\d?d?|P\.\d?d?)\s*\d*/i
 
-async function respond(input: string, push: ChatStore['push']): Promise<void> {
+async function respond(input: string, push: ReturnType<typeof useChatStore.getState>['push']): Promise<void> {
   const q = input.toLowerCase()
 
   // Greetings / small talk
@@ -273,7 +235,7 @@ const SUGGESTIONS = [
 /* ── Main panel ────────────────────────────────────────────────── */
 
 export function ChatPanel({ id }: { id: string }) {
-  const { messages, thinking, push, setThinking, clear } = useChatStore()
+  const { messages, thinking, push, setThinking, clear, consumePendingPrompt } = useChatStore()
   const { pushActivity } = useTerminalStore()
   const [input, setInput] = useState('')
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -300,6 +262,11 @@ export function ChatPanel({ id }: { id: string }) {
     setThinking(false)
     inputRef.current?.focus()
   }
+
+  useEffect(() => {
+    const pending = consumePendingPrompt()
+    if (pending && !thinking) send(pending)
+  }, [id])
 
   return (
     <PanelChrome id={id} mnemonic="CHAT" title="Paralegal" subtitle="conversational assistant · research_legal_issue" panelType="CHAT"

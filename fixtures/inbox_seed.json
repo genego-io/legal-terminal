@@ -1,0 +1,29 @@
+[
+  {
+    "id": "inbox-001",
+    "receivedAt": "2026-07-07T08:15:00.000Z",
+    "from": "counterparty@vendorglobal.com",
+    "subject": "Revised NDA for review — Vendor Global / Client Corp",
+    "categoryId": "contract",
+    "attachments": ["vendor_nda_2026.docx"],
+    "status": "pending"
+  },
+  {
+    "id": "inbox-002",
+    "receivedAt": "2026-07-07T09:42:00.000Z",
+    "from": "associate@lawfirm.example.com",
+    "subject": "Privileged — litigation strategy memo re Smith v. ABC",
+    "categoryId": "privilege",
+    "attachments": ["litigation_memo.docx"],
+    "status": "pending"
+  },
+  {
+    "id": "inbox-003",
+    "receivedAt": "2026-07-07T11:05:00.000Z",
+    "from": "court.reporter@example.com",
+    "subject": "Deposition transcript — Martinez 3/15/2026",
+    "categoryId": "litigation",
+    "attachments": ["deposition_notes.docx"],
+    "status": "pending"
+  }
+]

@@ -290,3 +290,33 @@ describe('generateBriefOutline', () => {
     expect(outline.sections.length).toBeGreaterThan(3)
   })
 })
+
+describe('workflow & automation ops', () => {
+  beforeEach(() => { localStorage.clear() })
+
+  it('saves and lists user workflows', async () => {
+    const wf = await c.saveUserWorkflow({
+      id: 'test-wf', title: 'Test', trigger: 'test', steps: [],
+      createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), source: 'user',
+    })
+    const list = await c.getUserWorkflows()
+    expect(list.some(x => x.id === wf.id)).toBe(true)
+  })
+
+  it('runs builtin workflow with executable steps', async () => {
+    const run = await c.runWorkflow('metadata-lookup', 'builtin')
+    expect(run.steps.length).toBeGreaterThan(0)
+  })
+
+  it('simulates inbound inbox message', async () => {
+    const msg = await c.simulateInboundMessage('inbox-001')
+    expect(msg.subject).toBeTruthy()
+    const inbox = await c.getInboxMessages()
+    expect(inbox.some(m => m.id === msg.id)).toBe(true)
+  })
+
+  it('returns tool catalog', async () => {
+    const cat = await c.getToolCatalog()
+    expect(cat.length).toBeGreaterThan(5)
+  })
+})

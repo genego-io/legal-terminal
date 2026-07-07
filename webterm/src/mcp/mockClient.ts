@@ -2,11 +2,18 @@ import type { LegalMcpClient } from './client'
 import type {
   Case, Statute, Contract, AnalysisJob, AuditEntry, Workflow,
   CitationResult, PrivilegeResult, BriefOutline, NegotiationGuide, IntegrationStatus,
+  UserWorkflow, WorkflowRun, Automation, TriggerRule, ParalegalInboxConfig,
+  InboxMessage, TriggerCategory, ToolCatalogEntry, AppSettings,
 } from './types'
 import {
   CASES, STATUTES, CONTRACTS, JOBS, AUDIT_LOG, WORKFLOWS,
   NEGOTIATION_GUIDES, CLAUSE_ALTERNATIVES, DOCUMENT_PROFILES, BRIEF_OUTLINES,
+  TOOL_CATALOG, TRIGGER_CATEGORIES,
 } from '../fixtures'
+import { workflowStore, automationStore, triggerStore, inboxStore, settingsStore } from '../services/stores'
+import { runWorkflow } from '../services/workflowRunner'
+import { triggerRouter } from '../services/triggerRouter'
+import { eventBus } from '../services/eventBus'
 
 const cases: Case[] = CASES
 const statutes: Statute[] = STATUTES
@@ -281,6 +288,7 @@ export class MockClient implements LegalMcpClient {
     }
     jobs = [job, ...jobs]
     logAudit('queue_document_analysis', 'analysis', { file }, true, 42)
+    eventBus.emit('document_upload', { file })
 
     if (profile?.queue_fail || file === 'fail_me.docx') {
       setTimeout(() => {
@@ -311,6 +319,7 @@ export class MockClient implements LegalMcpClient {
           j2.flags = contract?.clauses.filter(cl => cl.risk === 'HIGH' || cl.risk === 'CRITICAL').length ?? 0
           j2.result_summary = `Analysis complete — ${j2.clause_count} clauses, ${j2.flags} flagged`
           logAudit('get_analysis_result', 'analysis', { job_id: job.id }, true, 18)
+          eventBus.emit('job_complete', { job_id: job.id, file: job.file })
         }
       }, 4000)
     }, 1500)
@@ -376,6 +385,134 @@ export class MockClient implements LegalMcpClient {
   async getWorkflows(): Promise<Workflow[]> {
     await delay(100)
     return workflows
+  }
+
+  async getUserWorkflows(): Promise<UserWorkflow[]> {
+    await delay(50)
+    return workflowStore.list()
+  }
+
+  async saveUserWorkflow(w: UserWorkflow): Promise<UserWorkflow> {
+    await delay(80)
+    return workflowStore.save(w)
+  }
+
+  async deleteUserWorkflow(id: string): Promise<void> {
+    await delay(50)
+    workflowStore.delete(id)
+  }
+
+  async runWorkflow(workflowId: string, source: 'builtin' | 'user'): Promise<WorkflowRun> {
+    await delay(100)
+    return runWorkflow(this, workflowId, source)
+  }
+
+  async getToolCatalog(): Promise<ToolCatalogEntry[]> {
+    await delay(30)
+    return TOOL_CATALOG
+  }
+
+  async getAutomations(): Promise<Automation[]> {
+    await delay(50)
+    return automationStore.list()
+  }
+
+  async saveAutomation(a: Automation): Promise<Automation> {
+    await delay(80)
+    return automationStore.save(a)
+  }
+
+  async deleteAutomation(id: string): Promise<void> {
+    await delay(50)
+    automationStore.delete(id)
+  }
+
+  async toggleAutomation(id: string, enabled: boolean): Promise<Automation> {
+    await delay(50)
+    const a = automationStore.get(id)
+    if (!a) throw new Error(`Automation ${id} not found`)
+    return automationStore.save({ ...a, enabled })
+  }
+
+  async runAutomationNow(id: string): Promise<WorkflowRun | null> {
+    await delay(100)
+    const a = automationStore.get(id)
+    if (!a) return null
+    const run = await this.runWorkflow(a.workflowId, a.workflowSource)
+    automationStore.save({ ...a, lastRunAt: new Date().toISOString(), lastStatus: run.status === 'success' ? 'success' : 'error' })
+    return run
+  }
+
+  async getTriggerCategories(): Promise<TriggerCategory[]> {
+    await delay(30)
+    return TRIGGER_CATEGORIES
+  }
+
+  async getTriggerRules(): Promise<TriggerRule[]> {
+    await delay(50)
+    return triggerStore.listRules()
+  }
+
+  async saveTriggerRule(r: TriggerRule): Promise<TriggerRule> {
+    await delay(80)
+    return triggerStore.saveRule(r)
+  }
+
+  async deleteTriggerRule(id: string): Promise<void> {
+    await delay(50)
+    triggerStore.deleteRule(id)
+  }
+
+  async getParalegalInboxConfig(): Promise<ParalegalInboxConfig> {
+    await delay(30)
+    return triggerStore.getInboxConfig()
+  }
+
+  async saveParalegalInboxConfig(cfg: ParalegalInboxConfig): Promise<ParalegalInboxConfig> {
+    await delay(80)
+    return triggerStore.saveInboxConfig(cfg)
+  }
+
+  async getInboxMessages(): Promise<InboxMessage[]> {
+    await delay(50)
+    return inboxStore.list()
+  }
+
+  async simulateInboundMessage(seedId?: string): Promise<InboxMessage> {
+    await delay(150)
+    return triggerRouter.simulateInbound(seedId)
+  }
+
+  async processInboxMessage(id: string): Promise<InboxMessage | null> {
+    await delay(200)
+    return triggerRouter.processMessage(id, async (wfId, src) => {
+      await this.runWorkflow(wfId, src)
+    })
+  }
+
+  async dismissInboxMessage(id: string): Promise<void> {
+    await delay(50)
+    const msg = inboxStore.list().find(m => m.id === id)
+    if (msg) inboxStore.save({ ...msg, status: 'dismissed' })
+  }
+
+  async testPop3Connection(): Promise<{ ok: boolean; message: string }> {
+    await delay(300)
+    const cfg = triggerStore.getInboxConfig()
+    if (!cfg.pop3.host || !cfg.pop3.username) {
+      return { ok: false, message: 'Host and username are required' }
+    }
+    return { ok: true, message: 'Connection test passed (simulated). Real POP3 requires a server-side worker.' }
+  }
+
+  async getAppSettings(): Promise<AppSettings> {
+    await delay(30)
+    return settingsStore.get()
+  }
+
+  async saveAppSettings(partial: Partial<AppSettings>): Promise<AppSettings> {
+    await delay(80)
+    return settingsStore.save(partial)
   }
 
   async getAuditLog(): Promise<AuditEntry[]> {

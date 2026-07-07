@@ -25,7 +25,7 @@ Persistent left navigation grouped by workflow:
 - **Research** — Precedent Search, Statutes, Citations
 - **Contracts** — Contract Workbench, Document Analyzer, Privilege Check
 - **Drafting** — Brief Builder
-- **Operations** — Analysis Queue, Workflows, Audit Log, Integrations, Docket Watch
+- **Operations** — Analysis Queue, Workflows, Automations, Triggers, Audit Log, Integrations, Docket Watch
 
 Collapses to an icon-only rail. Active module is highlighted. Docket Watch shows a **Soon** badge.
 
@@ -109,6 +109,36 @@ A conversational layer on top of the MCP client — not a separate LLM, but an i
 
 ## Backend connection controls
 
+### Privacy Settings panel (`CONF`)
+
+Tabbed settings with persistence in `localStorage` (`legal-term-settings`):
+
+- **Privacy** — Confidential Mode toggle, rules checklist, Ollama endpoint/model, provider trust cards
+- **General** — default startup panel, analysis queue refresh interval, theme, sidebar default
+- **Integrations** — live MCP URL, CourtListener token, PACER username placeholders
+- **Notifications** — email digest toggle, webhook URL, per-category notification toggles
+
+### Workflow Builder (`WKFL`)
+
+- **Browse** — system playbooks from `fixtures/workflows.json`; **Run workflow** when `executable_steps` exist
+- **Builder** — pick tools from MCP catalog, set params, save custom workflows, test run
+- User workflows stored in `legal-term-user-workflows`
+
+### Automations (`AUTM`)
+
+- Link a workflow (system or custom) to a schedule: once, daily, weekly, or event
+- Events: `job_complete`, `document_upload`, `contract_selected`, `email_received`, `app_open`
+- Runs while the terminal tab is open; stored in `legal-term-automations`
+
+### Triggers + Paralegal Inbox (`TRIG`)
+
+- Inbound message queue with category badges (Contract, Privilege, Litigation, HR, General)
+- POP3 configuration saved locally; **Test connection** is simulated
+- Category rules match sender/subject/attachments → run automation + optional Paralegal prompt
+- **Simulate inbound** injects seed messages for demo
+
+See [docs/OPERATIONS.md](./docs/OPERATIONS.md) for a walkthrough.
+
 ### Runtime mock ↔ live toggle (web)
 Status-bar pill showing `mock` or `live`. Click to switch:
 - **Mock → live:** popover for server URL (default `http://localhost:8000`), then connect
@@ -154,12 +184,8 @@ One-click switch between **Standard mode** and **Confidential**. When active:
 - Status bar shows an amber **CONF** badge
 - Status bar and sidebar border tint amber
 
-### Privacy Settings panel (`CONF`)
-Full settings view accessible via the sidebar **Settings** link:
-- Master enable/disable toggle with explanation
-- Six enforced rules listed (local inference only, no cloud MCP, no telemetry, ABA Rule 1.6, etc.)
-- Ollama endpoint and model configuration fields
-- AI provider trust table — same matrix as Privilege Check; non-local providers dim when confidential mode is active
+### Settings panel (`CONF`)
+Full tabbed settings via sidebar **Settings** link — see [Privacy Settings panel](#privacy-settings-panel-conf) above for tab breakdown. Sidebar footer still provides one-click Confidential Mode toggle.
 
 **Note:** Confidential Mode is currently a UI posture toggle. Automatic re-routing of inference to Ollama is planned but not yet wired.
 
@@ -221,11 +247,13 @@ Each module is a full-viewport view with consistent chrome, empty states, and ac
 | `PRIV` | Privilege Check | ✓ | — | All-providers comparison table, document selector |
 | `BRF` | Brief Builder | ✓ | — | Outline generation with example prompts |
 | `JOBS` | Analysis Queue | ✓ | ✓ | Upload zone, auto-refresh table, job detail side panel |
-| `WKFL` | Workflows | ✓ | ✓ | Playbook list with step detail |
+| `WKFL` | Workflows | ✓ | ✓ | Browse playbooks · Builder tab · test run |
+| `AUTM` | Automations | ✓ | — | Schedule workflows · event triggers · F8 |
+| `TRIG` | Triggers | ✓ | — | Paralegal inbox · POP3 config · category rules |
 | `AUDT` | Audit Log | ✓ | ✓ | Filterable invocation log |
 | `LIVE` | Integrations | ✓ | — | CourtListener / PACER / server config status |
 | `WTCH` | Docket Watch | ✓ | — | **Under consideration** — preview UI only |
-| `CONF` | Privacy Settings | ✓ | — | Confidential Mode, Ollama config, provider trust |
+| `CONF` | Settings | ✓ | — | Privacy · General · Integrations · Notifications |
 
 ---
 
@@ -263,7 +291,7 @@ TUI uses a matching graphite/slate Textual CSS theme (`theme.tcss`).
 
 | Surface | Framework | Count | Scope |
 |---------|-----------|-------|-------|
-| Web | Vitest + Testing Library | 44 | MockClient methods, Zustand store navigation/split/confidential mode |
+| Web | Vitest + Testing Library | 66 | MockClient, workflow/automation/trigger ops, Zustand store |
 | TUI | pytest + pytest-asyncio | 39 | MockClient, widget imports, headless `run_test()` smoke |
 
 ```bash
@@ -277,9 +305,12 @@ cd tui && python -m pytest tests/
 
 These are upstream or planned — not terminal-native today:
 
+- **Real POP3/IMAP polling worker** — inbox is simulated in the browser; config is saved for future backend
+- **Server-side automation scheduler** — automations run while the tab is open
+- **Cross-device sync** of user workflows, automations, or triggers
 - **legal-mcp server** — AGPL-3.0, run separately; provides the actual tool implementations
 - **PACER / CourtListener live data** — scaffolded in legal-mcp, disabled by default
 - **Docket Watch backend** — UI preview only; no nightly scan or alert delivery
 - **Ollama inference routing** — Confidential Mode sets posture but does not yet call Ollama
 - **Authentication** — no login or session management on the SSE connection
-- **TUI parity** — CHAT, DOCA, PRIV, BRF, STAT, WTCH, CONF are web-only for now
+- **TUI parity** — CHAT, DOCA, PRIV, BRF, STAT, WTCH, CONF, AUTM, TRIG are web-only for now

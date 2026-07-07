@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react'
 import { ExternalLink } from 'lucide-react'
 
-export const RELEASE_VERSION = '0.2.0-pre.1'
+export const RELEASE_VERSION = '0.2.0-pre.3'
 const STORAGE_KEY = `legal-term-welcome-${RELEASE_VERSION}`
 
 const LINKS = [

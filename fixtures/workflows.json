@@ -10,6 +10,11 @@
       { "n": 3, "tool": "suggest_clause_alternatives",          "desc": "Get rewrite options for flagged clauses" },
       { "n": 4, "tool": "deep_analyze_clause",                  "desc": "Deep reasoning on highest-risk clause (MCP sampling)" },
       { "n": 5, "tool": "export_analysis_report",               "desc": "Export formatted .docx risk report" }
+    ],
+    "executable_steps": [
+      { "id": "s1", "toolId": "analyzeContract", "params": { "contractId": "standard_nda_template" }, "label": "Analyze standard NDA" },
+      { "id": "s2", "toolId": "compareContracts", "params": { "a": "standard_nda_template", "b": "client_proposed_nda" }, "label": "Compare to client NDA" },
+      { "id": "s3", "toolId": "suggestAlternatives", "params": { "clauseText": "Receiving Party may use Confidential Information for any purpose.", "clauseType": "permitted_use" }, "label": "Suggest alternatives for flagged clause" }
     ]
   },
   {
@@ -30,6 +35,9 @@
     "trigger": "What is the governing law / term / liability cap in this contract",
     "steps": [
       { "n": 1, "tool": "extract_contract_metadata", "desc": "Extract parties, dates, governing law, term, liability cap, payment terms as JSON" }
+    ],
+    "executable_steps": [
+      { "id": "s1", "toolId": "analyzeContract", "params": { "contractId": "standard_nda_template" }, "label": "Extract contract metadata" }
     ]
   },
   {
@@ -76,6 +84,11 @@
       { "n": 1, "tool": "validate_citation",          "desc": "Validate citation structure and reporter" },
       { "n": 2, "tool": "normalize_citation",         "desc": "Normalize to Bluebook-style abbreviations" },
       { "n": 3, "tool": "verify_citation_integrity",  "desc": "Cross-check citation against case database" }
+    ],
+    "executable_steps": [
+      { "id": "s1", "toolId": "validateCitation", "params": { "citation": "2022 Cal.App.4th 1234" }, "label": "Validate citation" },
+      { "id": "s2", "toolId": "normalizeCitation", "params": { "citation": "2022 Cal.App.4th 1234" }, "label": "Normalize citation" },
+      { "id": "s3", "toolId": "verifyCitationIntegrity", "params": { "citation": "2022 Cal.App.4th 1234" }, "label": "Verify integrity" }
     ]
   },
   {

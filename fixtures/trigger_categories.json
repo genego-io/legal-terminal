@@ -1,0 +1,8 @@
+[
+  { "id": "contract", "label": "Contract", "color": "#2563eb", "description": "NDAs, MSAs, vendor agreements", "icon": "file-text" },
+  { "id": "privilege", "label": "Privilege", "color": "#9333ea", "description": "Attorney-client, work product, litigation memos", "icon": "shield" },
+  { "id": "litigation", "label": "Litigation", "color": "#dc2626", "description": "Depositions, pleadings, discovery", "icon": "gavel" },
+  { "id": "hr", "label": "HR / Employment", "color": "#ca8a04", "description": "Employment agreements, HR policies", "icon": "users" },
+  { "id": "general", "label": "General", "color": "#64748b", "description": "Uncategorized inbound correspondence", "icon": "inbox" },
+  { "id": "uncategorized", "label": "Uncategorized", "color": "#94a3b8", "description": "No matching category rule", "icon": "help-circle" }
+]

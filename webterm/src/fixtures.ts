@@ -3,6 +3,7 @@
 import type {
   Case, Statute, Contract, AnalysisJob, AuditEntry, Workflow,
   NegotiationGuidesMap, ClauseAlternativesMap, DocumentProfilesMap, BriefOutlinesMap, PanelMeta,
+  ToolCatalogEntry, TriggerCategory, InboxMessage, Automation, TriggerRule,
 } from './mcp/types'
 
 export const CASES = [
@@ -1134,6 +1135,11 @@ export const WORKFLOWS = [
       { "n": 3, "tool": "suggest_clause_alternatives",          "desc": "Get rewrite options for flagged clauses" },
       { "n": 4, "tool": "deep_analyze_clause",                  "desc": "Deep reasoning on highest-risk clause (MCP sampling)" },
       { "n": 5, "tool": "export_analysis_report",               "desc": "Export formatted .docx risk report" }
+    ],
+    "executable_steps": [
+      { "id": "s1", "toolId": "analyzeContract", "params": { "contractId": "standard_nda_template" }, "label": "Analyze standard NDA" },
+      { "id": "s2", "toolId": "compareContracts", "params": { "a": "standard_nda_template", "b": "client_proposed_nda" }, "label": "Compare to client NDA" },
+      { "id": "s3", "toolId": "suggestAlternatives", "params": { "clauseText": "Receiving Party may use Confidential Information for any purpose.", "clauseType": "permitted_use" }, "label": "Suggest alternatives for flagged clause" }
     ]
   },
   {
@@ -1154,6 +1160,9 @@ export const WORKFLOWS = [
     "trigger": "What is the governing law / term / liability cap in this contract",
     "steps": [
       { "n": 1, "tool": "extract_contract_metadata", "desc": "Extract parties, dates, governing law, term, liability cap, payment terms as JSON" }
+    ],
+    "executable_steps": [
+      { "id": "s1", "toolId": "analyzeContract", "params": { "contractId": "standard_nda_template" }, "label": "Extract contract metadata" }
     ]
   },
   {
@@ -1200,6 +1209,11 @@ export const WORKFLOWS = [
       { "n": 1, "tool": "validate_citation",          "desc": "Validate citation structure and reporter" },
       { "n": 2, "tool": "normalize_citation",         "desc": "Normalize to Bluebook-style abbreviations" },
       { "n": 3, "tool": "verify_citation_integrity",  "desc": "Cross-check citation against case database" }
+    ],
+    "executable_steps": [
+      { "id": "s1", "toolId": "validateCitation", "params": { "citation": "2022 Cal.App.4th 1234" }, "label": "Validate citation" },
+      { "id": "s2", "toolId": "normalizeCitation", "params": { "citation": "2022 Cal.App.4th 1234" }, "label": "Normalize citation" },
+      { "id": "s3", "toolId": "verifyCitationIntegrity", "params": { "citation": "2022 Cal.App.4th 1234" }, "label": "Verify integrity" }
     ]
   },
   {
@@ -2826,4 +2840,218 @@ export const PANEL_META = {
     "deposition_notes.docx"
   ]
 } as PanelMeta
+
+export const TOOL_CATALOG = [
+  {
+    "toolId": "searchPrecedents",
+    "label": "Search precedents",
+    "category": "Research",
+    "params": [{ "key": "query", "label": "Search query", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "searchCaseLaw",
+    "label": "Search case law",
+    "category": "Research",
+    "params": [{ "key": "query", "label": "Search query", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "extractStatute",
+    "label": "Extract statute",
+    "category": "Research",
+    "params": [{ "key": "id", "label": "Statute ID", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "researchLegalIssue",
+    "label": "Research legal issue",
+    "category": "Research",
+    "params": [{ "key": "issue", "label": "Issue description", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "validateCitation",
+    "label": "Validate citation",
+    "category": "Citation",
+    "params": [{ "key": "citation", "label": "Citation", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "normalizeCitation",
+    "label": "Normalize citation",
+    "category": "Citation",
+    "params": [{ "key": "citation", "label": "Citation", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "verifyCitationIntegrity",
+    "label": "Verify citation integrity",
+    "category": "Citation",
+    "params": [{ "key": "citation", "label": "Citation", "type": "text", "required": true }]
+  },
+  {
+    "toolId": "analyzeContract",
+    "label": "Analyze contract",
+    "category": "Contract",
+    "params": [{ "key": "contractId", "label": "Contract", "type": "contract", "required": true }]
+  },
+  {
+    "toolId": "compareContracts",
+    "label": "Compare contracts",
+    "category": "Contract",
+    "params": [
+      { "key": "a", "label": "Contract A", "type": "contract", "required": true },
+      { "key": "b", "label": "Contract B", "type": "contract", "required": true }
+    ]
+  },
+  {
+    "toolId": "suggestAlternatives",
+    "label": "Suggest clause alternatives",
+    "category": "Contract",
+    "params": [
+      { "key": "clauseText", "label": "Clause text", "type": "text", "required": true },
+      { "key": "clauseType", "label": "Clause type key", "type": "text", "required": true }
+    ]
+  },
+  {
+    "toolId": "generateNegotiationGuide",
+    "label": "Generate negotiation guide",
+    "category": "Contract",
+    "params": [
+      { "key": "contractId", "label": "Contract", "type": "contract", "required": true },
+      { "key": "partyRole", "label": "Party role", "type": "select", "required": true, "options": ["buyer", "seller", "mutual"] }
+    ]
+  },
+  {
+    "toolId": "listContracts",
+    "label": "List contracts",
+    "category": "Contract",
+    "params": []
+  },
+  {
+    "toolId": "analyzeDocument",
+    "label": "Analyze document",
+    "category": "Document",
+    "params": [{ "key": "file", "label": "Filename", "type": "file", "required": true }]
+  },
+  {
+    "toolId": "queueDocumentAnalysis",
+    "label": "Queue document analysis",
+    "category": "Document",
+    "params": [{ "key": "file", "label": "Filename", "type": "file", "required": true }]
+  },
+  {
+    "toolId": "checkPrivilegeRisk",
+    "label": "Check privilege risk",
+    "category": "Privilege",
+    "params": [
+      { "key": "file", "label": "Filename", "type": "file", "required": true },
+      { "key": "provider", "label": "Provider", "type": "select", "required": true, "options": ["ollama", "openai", "anthropic", "azure_openai"] }
+    ]
+  },
+  {
+    "toolId": "generateBriefOutline",
+    "label": "Generate brief outline",
+    "category": "Brief",
+    "params": [
+      { "key": "caseType", "label": "Case type", "type": "text", "required": true },
+      { "key": "facts", "label": "Facts summary", "type": "text", "required": false }
+    ]
+  }
+] as ToolCatalogEntry[]
+
+export const TRIGGER_CATEGORIES = [
+  { "id": "contract", "label": "Contract", "color": "#2563eb", "description": "NDAs, MSAs, vendor agreements", "icon": "file-text" },
+  { "id": "privilege", "label": "Privilege", "color": "#9333ea", "description": "Attorney-client, work product, litigation memos", "icon": "shield" },
+  { "id": "litigation", "label": "Litigation", "color": "#dc2626", "description": "Depositions, pleadings, discovery", "icon": "gavel" },
+  { "id": "hr", "label": "HR / Employment", "color": "#ca8a04", "description": "Employment agreements, HR policies", "icon": "users" },
+  { "id": "general", "label": "General", "color": "#64748b", "description": "Uncategorized inbound correspondence", "icon": "inbox" },
+  { "id": "uncategorized", "label": "Uncategorized", "color": "#94a3b8", "description": "No matching category rule", "icon": "help-circle" }
+] as TriggerCategory[]
+
+export const INBOX_SEED = [
+  {
+    "id": "inbox-001",
+    "receivedAt": "2026-07-07T08:15:00.000Z",
+    "from": "counterparty@vendorglobal.com",
+    "subject": "Revised NDA for review — Vendor Global / Client Corp",
+    "categoryId": "contract",
+    "attachments": ["vendor_nda_2026.docx"],
+    "status": "pending"
+  },
+  {
+    "id": "inbox-002",
+    "receivedAt": "2026-07-07T09:42:00.000Z",
+    "from": "associate@lawfirm.example.com",
+    "subject": "Privileged — litigation strategy memo re Smith v. ABC",
+    "categoryId": "privilege",
+    "attachments": ["litigation_memo.docx"],
+    "status": "pending"
+  },
+  {
+    "id": "inbox-003",
+    "receivedAt": "2026-07-07T11:05:00.000Z",
+    "from": "court.reporter@example.com",
+    "subject": "Deposition transcript — Martinez 3/15/2026",
+    "categoryId": "litigation",
+    "attachments": ["deposition_notes.docx"],
+    "status": "pending"
+  }
+] as InboxMessage[]
+
+export const AUTOMATIONS_SEED = [
+  {
+    "id": "auto-daily-triage",
+    "name": "Daily contract triage",
+    "workflowId": "contract-risk-triage",
+    "workflowSource": "builtin",
+    "schedule": { "type": "daily", "time": "09:00" },
+    "enabled": true,
+    "lastRunAt": null,
+    "nextRunAt": null,
+    "lastStatus": null
+  },
+  {
+    "id": "auto-job-citation",
+    "name": "Citation cleanup on job complete",
+    "workflowId": "citation-cleanup",
+    "workflowSource": "builtin",
+    "schedule": { "type": "event", "event": "job_complete" },
+    "enabled": false,
+    "lastRunAt": null,
+    "nextRunAt": null,
+    "lastStatus": null
+  }
+] as Automation[]
+
+export const TRIGGER_RULES_SEED = [
+  {
+    "id": "rule-nda-external",
+    "name": "External NDA intake",
+    "categoryId": "contract",
+    "enabled": true,
+    "conditions": {
+      "fromDomains": ["vendorglobal.com", "counterparty.com"],
+      "subjectKeywords": ["NDA", "non-disclosure", "confidentiality"],
+      "attachmentTypes": ["docx", "pdf"]
+    },
+    "action": {
+      "automationId": "auto-daily-triage",
+      "workflowSource": "builtin",
+      "agentPromptTemplate": "Review inbound NDA from {{from}}: {{subject}}. Attachment: {{filename}}. Run contract risk triage and flag high-risk clauses.",
+      "autoRunChat": true
+    }
+  },
+  {
+    "id": "rule-privilege-memo",
+    "name": "Privileged memo routing",
+    "categoryId": "privilege",
+    "enabled": true,
+    "conditions": {
+      "subjectKeywords": ["privileged", "attorney-client", "work product", "litigation strategy"],
+      "attachmentTypes": ["docx", "pdf"]
+    },
+    "action": {
+      "automationId": "",
+      "workflowSource": "builtin",
+      "agentPromptTemplate": "Assess privilege risk for document from {{from}}: \"{{subject}}\" ({{attachmentCount}} attachment(s)). Recommend safe routing per ABA Rule 1.6.",
+      "autoRunChat": true
+    }
+  }
+] as TriggerRule[]
 

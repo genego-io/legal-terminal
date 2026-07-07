@@ -89,3 +89,10 @@ If you prefer Nixpacks over Docker, remove or rename `railway.toml` and Railway 
 ## What is not deployed
 
 This deploy config covers **webterm only**. The TUI (`tui/`) is a local Python app — not containerised here. The `legal-mcp` server is a separate AGPL project and must be deployed independently if you want live tool calls.
+
+### Demo limitations (v0.2.0-pre.3)
+
+- **User workflows, automations, triggers, and inbox data** live in the visitor's browser `localStorage` — not shared across devices or persisted server-side
+- **Automations and triggers** only run while the deployed tab is open
+- **Inbound email (TRIG)** is simulated — POP3 settings are saved locally but no server polls mailboxes
+- Clearing browser site data resets all Operations configuration

@@ -78,12 +78,168 @@ export interface WorkflowStep {
   desc: string
 }
 
+export interface WorkflowStepDef {
+  id: string
+  toolId: string
+  params: Record<string, string>
+  label?: string
+}
+
 export interface Workflow {
   id: string
   mnemonic: string
   title: string
   trigger: string
   steps: WorkflowStep[]
+  executable_steps?: WorkflowStepDef[]
+}
+
+export interface ToolParamDef {
+  key: string
+  label: string
+  type: 'text' | 'select' | 'contract' | 'file'
+  required?: boolean
+  options?: string[]
+}
+
+export interface ToolCatalogEntry {
+  toolId: string
+  label: string
+  category: string
+  params: ToolParamDef[]
+}
+
+export interface UserWorkflow {
+  id: string
+  title: string
+  trigger: string
+  steps: WorkflowStepDef[]
+  createdAt: string
+  updatedAt: string
+  source: 'user'
+}
+
+export interface StepRunResult {
+  stepId: string
+  toolId: string
+  success: boolean
+  duration_ms: number
+  summary: string
+}
+
+export interface WorkflowRun {
+  id: string
+  workflowId: string
+  source: 'builtin' | 'user'
+  status: 'running' | 'success' | 'error'
+  startedAt: string
+  completedAt: string | null
+  steps: StepRunResult[]
+}
+
+export type AutomationEventType =
+  | 'job_complete'
+  | 'document_upload'
+  | 'contract_selected'
+  | 'app_open'
+  | 'email_received'
+
+export type AutomationSchedule =
+  | { type: 'once'; dateTime: string }
+  | { type: 'daily'; time: string }
+  | { type: 'weekly'; dayOfWeek: number; time: string }
+  | { type: 'event'; event: AutomationEventType; categoryId?: string; filter?: string }
+
+export interface Automation {
+  id: string
+  name: string
+  workflowId: string
+  workflowSource: 'builtin' | 'user'
+  schedule: AutomationSchedule
+  enabled: boolean
+  lastRunAt: string | null
+  nextRunAt: string | null
+  lastStatus: 'success' | 'error' | 'skipped' | null
+}
+
+export interface TriggerCategory {
+  id: string
+  label: string
+  color: string
+  description: string
+  icon: string
+}
+
+export interface Pop3Config {
+  host: string
+  port: number
+  username: string
+  password: string
+  useTls: boolean
+  pollIntervalMin: number
+  enabled: boolean
+}
+
+export interface ParalegalInboxConfig {
+  address: string
+  displayName: string
+  pop3: Pop3Config
+}
+
+export interface TriggerConditions {
+  fromDomains?: string[]
+  subjectKeywords?: string[]
+  attachmentTypes?: string[]
+  minAttachments?: number
+}
+
+export interface TriggerAction {
+  automationId: string
+  workflowSource: 'builtin' | 'user'
+  workflowId?: string
+  agentPromptTemplate?: string
+  autoRunChat: boolean
+}
+
+export interface TriggerRule {
+  id: string
+  name: string
+  categoryId: string
+  enabled: boolean
+  conditions: TriggerConditions
+  action: TriggerAction
+}
+
+export type InboxMessageStatus = 'pending' | 'processing' | 'processed' | 'dismissed'
+
+export interface InboxMessage {
+  id: string
+  receivedAt: string
+  from: string
+  subject: string
+  categoryId: string
+  attachments: string[]
+  status: InboxMessageStatus
+  matchedRuleId?: string
+  automationRunId?: string
+}
+
+export type PanelTypeSetting = 'HOME' | 'CHAT' | 'PREC' | 'CTRX' | 'DOCA' | 'JOBS' | 'WKFL'
+
+export interface AppSettings {
+  defaultPanel: PanelTypeSetting
+  jobsRefreshIntervalSec: number
+  sidebarDefaultCollapsed: boolean
+  theme: 'light' | 'dark'
+  liveMcpUrl: string
+  courtListenerToken: string
+  pacerUsername: string
+  emailDigestEnabled: boolean
+  webhookUrl: string
+  categoryNotifications: Record<string, boolean>
+  confidentialMode: boolean
+  localModelUrl: string
+  localModel: string
 }
 
 export interface CitationResult {

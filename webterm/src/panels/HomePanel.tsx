@@ -57,6 +57,8 @@ const GROUPS: GroupDef[] = [
     actions: [
       { cmd: 'JOBS', label: 'View analysis queue',    panel: 'JOBS' },
       { cmd: 'WKFL', label: 'Browse playbooks',       panel: 'WKFL' },
+      { cmd: 'AUTM', label: 'Automations',            panel: 'AUTM' },
+      { cmd: 'TRIG', label: 'Triggers & inbox',       panel: 'TRIG' },
       { cmd: 'AUDT', label: 'Review audit log',       panel: 'AUDT' },
       { cmd: 'LIVE', label: 'Check integrations',     panel: 'LIVE' },
     ],

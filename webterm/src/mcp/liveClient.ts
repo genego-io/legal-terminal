@@ -18,6 +18,7 @@ import type {
   AnalysisJob, AuditEntry, Workflow,
   CitationResult, PrivilegeResult, BriefOutline,
   NegotiationGuide, IntegrationStatus,
+  UserWorkflow, Automation, TriggerRule, ParalegalInboxConfig, AppSettings,
 } from './types'
 
 // ─── helpers ────────────────────────────────────────────────────────────────
@@ -197,11 +198,39 @@ export class LiveClient implements LegalMcpClient {
   }
 
   async getWorkflows(): Promise<Workflow[]> {
-    // Workflows come from the SKILL.md layer — no dedicated server tool.
-    // Fall back to the static list from fixtures.
     const { WORKFLOWS } = await import('../fixtures')
     return WORKFLOWS as unknown as Workflow[]
   }
+
+  // Ops features use local stores until server tools exist
+  private async _localOps() {
+    const { MockClient } = await import('./mockClient')
+    return new MockClient()
+  }
+
+  async getUserWorkflows() { return (await this._localOps()).getUserWorkflows() }
+  async saveUserWorkflow(w: UserWorkflow) { return (await this._localOps()).saveUserWorkflow(w) }
+  async deleteUserWorkflow(id: string) { return (await this._localOps()).deleteUserWorkflow(id) }
+  async runWorkflow(workflowId: string, source: 'builtin' | 'user') { return (await this._localOps()).runWorkflow(workflowId, source) }
+  async getToolCatalog() { return (await this._localOps()).getToolCatalog() }
+  async getAutomations() { return (await this._localOps()).getAutomations() }
+  async saveAutomation(a: Automation) { return (await this._localOps()).saveAutomation(a) }
+  async deleteAutomation(id: string) { return (await this._localOps()).deleteAutomation(id) }
+  async toggleAutomation(id: string, enabled: boolean) { return (await this._localOps()).toggleAutomation(id, enabled) }
+  async runAutomationNow(id: string) { return (await this._localOps()).runAutomationNow(id) }
+  async getTriggerCategories() { return (await this._localOps()).getTriggerCategories() }
+  async getTriggerRules() { return (await this._localOps()).getTriggerRules() }
+  async saveTriggerRule(r: TriggerRule) { return (await this._localOps()).saveTriggerRule(r) }
+  async deleteTriggerRule(id: string) { return (await this._localOps()).deleteTriggerRule(id) }
+  async getParalegalInboxConfig() { return (await this._localOps()).getParalegalInboxConfig() }
+  async saveParalegalInboxConfig(cfg: ParalegalInboxConfig) { return (await this._localOps()).saveParalegalInboxConfig(cfg) }
+  async getInboxMessages() { return (await this._localOps()).getInboxMessages() }
+  async simulateInboundMessage(seedId?: string) { return (await this._localOps()).simulateInboundMessage(seedId) }
+  async processInboxMessage(id: string) { return (await this._localOps()).processInboxMessage(id) }
+  async dismissInboxMessage(id: string) { return (await this._localOps()).dismissInboxMessage(id) }
+  async testPop3Connection() { return (await this._localOps()).testPop3Connection() }
+  async getAppSettings() { return (await this._localOps()).getAppSettings() }
+  async saveAppSettings(partial: Partial<AppSettings>) { return (await this._localOps()).saveAppSettings(partial) }
 
   async getAuditLog(): Promise<AuditEntry[]> {
     // The server's audit log is local-only. No tool exposes it remotely.

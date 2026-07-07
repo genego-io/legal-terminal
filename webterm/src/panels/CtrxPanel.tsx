@@ -3,6 +3,7 @@ import { PanelChrome, RiskBadge, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
 import { CONTRACT_PICKER } from '../fixtureMeta'
+import { eventBus } from '../services/eventBus'
 import type { Contract, ContractClause } from '../mcp/types'
 
 interface Props { id: string; contractId?: string }
@@ -130,7 +131,7 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
                 key={c.id}
                 type="button"
                 className={`ctrx-chip${active ? ' active' : ''}`}
-                onClick={() => { setContractId(c.id); loadContract(c.id) }}
+                onClick={() => { setContractId(c.id); loadContract(c.id); eventBus.emit('contract_selected', { contractId: c.id }) }}
               >
                 <span className="ctrx-chip-type">{c.type}</span>
                 <span className="ctrx-chip-dot" style={{ background: RISK_DOT[c.risk_level] }} />

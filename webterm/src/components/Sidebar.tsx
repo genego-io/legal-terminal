@@ -2,7 +2,7 @@ import {
   Search, BookOpen, Quote,
   FileText, FolderOpen, ShieldAlert,
   PenTool, Scale,
-  ClockIcon, GitBranch, ScrollText, Activity,
+  ClockIcon, GitBranch, ScrollText, Activity, Zap, Mail,
   ChevronLeft, ChevronRight, Home,
   Radar, Lock, Unlock, Sun, Moon,
 } from 'lucide-react'
@@ -55,6 +55,8 @@ const GROUPS: Group[] = [
     items: [
       { type: 'JOBS', label: 'Analysis Queue', icon: <ClockIcon size={14} />,   fkey: 'F5' },
       { type: 'WKFL', label: 'Workflows',       icon: <GitBranch size={14} />,   fkey: 'F6' },
+      { type: 'AUTM', label: 'Automations',     icon: <Zap size={14} />,         fkey: 'F8' },
+      { type: 'TRIG', label: 'Triggers',        icon: <Mail size={14} /> },
       { type: 'AUDT', label: 'Audit Log',        icon: <ScrollText size={14} />, fkey: 'F7' },
       { type: 'LIVE', label: 'Integrations',     icon: <Activity size={14} />,   fkey: 'F10' },
       { type: 'WTCH', label: 'Docket Watch',     icon: <Radar size={14} /> },
@@ -183,7 +185,7 @@ export function Sidebar() {
 
         {!collapsed && (
           <div style={{ padding: '6px 12px 8px', fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
-            v0.2.0-pre.1
+            v0.2.0-pre.3
           </div>
         )}
       </div>

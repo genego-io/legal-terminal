@@ -6,7 +6,7 @@ export type PanelType =
   | 'CHAT'
   | 'PREC' | 'CASE' | 'STAT' | 'CITE'
   | 'CTRX' | 'DOCA' | 'PRIV' | 'BRF'
-  | 'JOBS' | 'LIVE' | 'WKFL' | 'AUDT'
+  | 'JOBS' | 'LIVE' | 'WKFL' | 'AUDT' | 'AUTM' | 'TRIG'
   | 'WTCH' | 'CONF'
 
 export type ViewType = PanelType | 'HOME'

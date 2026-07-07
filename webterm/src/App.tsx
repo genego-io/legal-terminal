@@ -9,11 +9,13 @@ import { Workspace } from './components/Workspace'
 import { useTerminalStore } from './store/terminalStore'
 import type { PanelType } from './store/terminalStore'
 import { TABLET_BREAKPOINT } from './hooks/useViewport'
+import { automationScheduler } from './services/automationScheduler'
+import { client } from './mcp/index'
 
 const FKEY_MAP: Record<string, PanelType> = {
   F1: 'CHAT',
   F2: 'PREC', F3: 'CITE', F4: 'CTRX', F5: 'JOBS',
-  F6: 'WKFL', F7: 'AUDT', F9: 'PRIV', F10: 'LIVE',
+  F6: 'WKFL', F7: 'AUDT', F8: 'AUTM', F9: 'PRIV', F10: 'LIVE',
 }
 
 export default function App() {
@@ -25,6 +27,14 @@ export default function App() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    automationScheduler.setRunHandler(async (a) => {
+      await client.runWorkflow(a.workflowId, a.workflowSource)
+    })
+    automationScheduler.start()
+    return () => automationScheduler.stop()
+  }, [])
 
   useEffect(() => {
     const mq = window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`)

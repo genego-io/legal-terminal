@@ -1,0 +1,35 @@
+[
+  {
+    "id": "rule-nda-external",
+    "name": "External NDA intake",
+    "categoryId": "contract",
+    "enabled": true,
+    "conditions": {
+      "fromDomains": ["vendorglobal.com", "counterparty.com"],
+      "subjectKeywords": ["NDA", "non-disclosure", "confidentiality"],
+      "attachmentTypes": ["docx", "pdf"]
+    },
+    "action": {
+      "automationId": "auto-daily-triage",
+      "workflowSource": "builtin",
+      "agentPromptTemplate": "Review inbound NDA from {{from}}: {{subject}}. Attachment: {{filename}}. Run contract risk triage and flag high-risk clauses.",
+      "autoRunChat": true
+    }
+  },
+  {
+    "id": "rule-privilege-memo",
+    "name": "Privileged memo routing",
+    "categoryId": "privilege",
+    "enabled": true,
+    "conditions": {
+      "subjectKeywords": ["privileged", "attorney-client", "work product", "litigation strategy"],
+      "attachmentTypes": ["docx", "pdf"]
+    },
+    "action": {
+      "automationId": "",
+      "workflowSource": "builtin",
+      "agentPromptTemplate": "Assess privilege risk for document from {{from}}: \"{{subject}}\" ({{attachmentCount}} attachment(s)). Recommend safe routing per ABA Rule 1.6.",
+      "autoRunChat": true
+    }
+  }
+]
