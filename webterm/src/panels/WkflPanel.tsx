@@ -14,66 +14,82 @@ export function WkflPanel({ id }: { id: string }) {
   const [workflows, setWorkflows] = useState<Workflow[]>([])
   const [selected, setSelected] = useState<Workflow | null>(null)
   const [loading, setLoading] = useState(true)
-  const { openPanel } = useTerminalStore()
+  const { navigate, pushActivity } = useTerminalStore()
 
   useEffect(() => {
     client.getWorkflows().then(w => { setWorkflows(w); setSelected(w[0] ?? null); setLoading(false) })
   }, [])
 
+  function launch(w: Workflow) {
+    const p = MNEMONIC_TO_PANEL[w.mnemonic]
+    if (p) { pushActivity(`WKFL launched "${w.title}"`); navigate(p) }
+  }
+
   return (
-    <PanelChrome id={id} mnemonic="WKFL" title="Workflow Launcher" subtitle="legal-mcp-toolkit SKILL.md — 8 playbooks">
+    <PanelChrome id={id} mnemonic="WKFL" title="Workflow Launcher" subtitle="legal-mcp SKILL.md playbooks" panelType="WKFL">
       {loading && <LoadingDots />}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* Workflow list */}
-        <div style={{ width: 200, borderRight: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
-          {workflows.map(w => (
-            <button key={w.id} onClick={() => setSelected(w)} style={{
-              display: 'flex', gap: 8, alignItems: 'center',
-              width: '100%', padding: '8px 12px',
-              background: selected?.id === w.id ? 'var(--bg-selected)' : 'transparent',
-              border: 'none', borderBottom: '1px solid var(--border)',
-              cursor: 'pointer', textAlign: 'left',
-            }}>
-              <span className="mnemonic-badge" style={{ fontSize: 9, padding: '1px 5px' }}>{w.mnemonic}</span>
-              <span style={{ color: 'var(--text-dim)', fontSize: 11 }}>{w.title}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Detail */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: 16 }} className="info-pane">
-          {selected && (
-            <>
-              <h3 style={{ marginBottom: 4 }}>{selected.title}</h3>
-              <div style={{ color: 'var(--text-muted)', fontSize: 12, marginBottom: 16, fontStyle: 'italic' }}>
-                Trigger: "{selected.trigger}"
-              </div>
-
-              <div className="section-label">Tool call sequence</div>
-              {selected.steps.map(step => (
-                <div key={step.n} style={{ display: 'flex', gap: 12, marginBottom: 10, padding: '8px 12px', background: 'var(--bg)', border: '1px solid var(--border)' }}>
-                  <div style={{ color: 'var(--text-muted)', fontSize: 11, minWidth: 16, fontFamily: "'IBM Plex Mono', monospace" }}>{step.n}</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ color: 'var(--accent)', fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 3 }}>{step.tool}</div>
-                    <div style={{ color: 'var(--text-muted)', fontSize: 11, lineHeight: 1.5 }}>{step.desc}</div>
-                  </div>
+      {!loading && (
+        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+          {/* Workflow list */}
+          <div style={{ width: 240, borderRight: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
+            {workflows.map(w => (
+              <button key={w.id} onClick={() => setSelected(w)} style={{
+                display: 'flex', gap: 10, alignItems: 'flex-start',
+                width: '100%', padding: '10px 14px',
+                background: selected?.id === w.id ? 'var(--bg-selected)' : 'transparent',
+                border: 'none', borderBottom: '1px solid var(--border)',
+                cursor: 'pointer', textAlign: 'left',
+              }}>
+                <span className="mnemonic-badge" style={{ marginTop: 1 }}>{w.mnemonic}</span>
+                <div>
+                  <div style={{ color: 'var(--text-dim)', fontSize: 12, fontWeight: 500, marginBottom: 2 }}>{w.title}</div>
+                  <div style={{ color: 'var(--text-muted)', fontSize: 10, lineHeight: 1.4 }}>{w.trigger}</div>
                 </div>
-              ))}
-
-              <button
-                onClick={() => { const p = MNEMONIC_TO_PANEL[selected.mnemonic]; if (p) openPanel(p) }}
-                className="btn-primary" style={{ marginTop: 10 }}
-              >
-                Open {selected.mnemonic} →
               </button>
+            ))}
+            {workflows.length === 0 && (
+              <div style={{ padding: 16, color: 'var(--text-muted)', fontSize: 12 }}>No workflows loaded.</div>
+            )}
+          </div>
 
-              <div style={{ marginTop: 14, color: 'var(--text-muted)', fontSize: 11, borderTop: '1px solid var(--border)', paddingTop: 10 }}>
-                Source: <code>legal-mcp-toolkit/SKILL.md</code> — MCP execution + skill methodology layers
-              </div>
-            </>
-          )}
+          {/* Detail */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+            {selected ? (
+              <>
+                <h3 style={{ marginBottom: 5, fontSize: 15 }}>{selected.title}</h3>
+                <div style={{ color: 'var(--text-muted)', fontSize: 12, marginBottom: 20, fontStyle: 'italic' }}>
+                  Trigger: "{selected.trigger}"
+                </div>
+
+                <div className="section-label">Tool call sequence</div>
+                {selected.steps.map(step => (
+                  <div key={step.n} style={{ display: 'flex', gap: 14, marginBottom: 10, padding: '10px 14px', background: 'var(--bg)', border: '1px solid var(--border)' }}>
+                    <div style={{ color: 'var(--text-muted)', fontSize: 11, minWidth: 20, fontFamily: "'IBM Plex Mono', monospace", paddingTop: 1 }}>
+                      {step.n}.
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ color: 'var(--accent)', fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>{step.tool}</div>
+                      <div style={{ color: 'var(--text-muted)', fontSize: 11, lineHeight: 1.5 }}>{step.desc}</div>
+                    </div>
+                  </div>
+                ))}
+
+                <div style={{ marginTop: 16, display: 'flex', gap: 8 }}>
+                  <button onClick={() => launch(selected)} className="btn-primary">
+                    Open {selected.mnemonic} →
+                  </button>
+                </div>
+
+                <div style={{ marginTop: 16, color: 'var(--text-muted)', fontSize: 11, borderTop: '1px solid var(--border)', paddingTop: 10 }}>
+                  Source: <code>legal-mcp/SKILL.md</code>
+                </div>
+              </>
+            ) : (
+              <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>Select a workflow to view its playbook.</div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </PanelChrome>
   )
 }

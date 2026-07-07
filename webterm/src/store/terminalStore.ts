@@ -5,64 +5,104 @@ export type PanelType =
   | 'CTRX' | 'DOCA' | 'PRIV' | 'BRF'
   | 'JOBS' | 'LIVE' | 'WKFL' | 'AUDT'
 
-export interface Panel {
-  id: string
-  type: PanelType
+export type ViewType = PanelType | 'HOME'
+
+export interface ViewState {
+  type: ViewType
   query?: string
   contractId?: string
   statuteId?: string
 }
 
+export interface ActivityEvent {
+  id: string
+  text: string
+  ts: number
+}
+
 interface TerminalStore {
-  panels: Panel[]
-  activePanel: string | null
+  // Navigation
+  view: ViewState
+  splitView: ViewState | null
+  sidebarCollapsed: boolean
+
+  // Context
   commandHistory: string[]
   selectedCase: string | null
   selectedContract: string | null
+  recentActivity: ActivityEvent[]
 
-  openPanel: (type: PanelType, opts?: Partial<Panel>) => void
-  closePanel: (id: string) => void
-  setActivePanel: (id: string | null) => void
-  pushCommand: (cmd: string) => void
-  setSelectedCase: (id: string | null) => void
-  setSelectedContract: (id: string | null) => void
-  resetPanels: () => void
+  // Actions
+  navigate(type: ViewType, opts?: Partial<ViewState>): void
+  pinSplit(type: PanelType): void
+  closeSplit(): void
+  setSidebarCollapsed(v: boolean): void
+  pushCommand(cmd: string): void
+  pushActivity(text: string): void
+  setSelectedCase(id: string | null): void
+  setSelectedContract(id: string | null): void
+
+  // Backward-compat shims used by panels
+  openPanel(type: PanelType, opts?: Partial<ViewState>): void
+  closePanel(id: string): void
+  setActivePanel(id: string | null): void
+  activePanel: string | null
+  resetPanels(): void
+
+  // panels[] kept for any code that reads it
+  panels: { id: string; type: ViewType }[]
 }
 
-const defaultPanels: Panel[] = [
-  { id: 'panel-prec', type: 'PREC' },
-  { id: 'panel-cite', type: 'CITE' },
-  { id: 'panel-ctrx', type: 'CTRX' },
-  { id: 'panel-jobs', type: 'JOBS' },
-]
+let _activityCounter = 0
 
-let counter = 100
+export const useTerminalStore = create<TerminalStore>((set, get) => ({
+  view: { type: 'HOME' },
+  splitView: null,
+  sidebarCollapsed: false,
 
-export const useTerminalStore = create<TerminalStore>((set) => ({
-  panels: defaultPanels,
-  activePanel: 'panel-prec',
   commandHistory: [],
   selectedCase: null,
   selectedContract: null,
+  recentActivity: [],
 
-  openPanel: (type, opts) => set(s => {
-    const existing = s.panels.find(p => p.type === type)
-    if (existing) return { activePanel: existing.id }
-    const panel: Panel = { id: `panel-${++counter}`, type, ...opts }
-    return { panels: [...s.panels, panel], activePanel: panel.id }
-  }),
+  // Derived — panels[] is a synthetic list for any legacy code
+  panels: [{ id: 'view-home', type: 'HOME' }],
+  activePanel: 'view-home',
 
-  closePanel: (id) => set(s => ({
-    panels: s.panels.filter(p => p.id !== id),
-    activePanel: s.activePanel === id ? (s.panels[0]?.id ?? null) : s.activePanel,
-  })),
+  navigate(type, opts) {
+    const view: ViewState = { type, ...opts }
+    set({ view, panels: [{ id: `view-${type}`, type }], activePanel: `view-${type}` })
+  },
 
-  setActivePanel: (id) => set({ activePanel: id }),
+  pinSplit(type) {
+    set({ splitView: { type } })
+  },
 
-  pushCommand: (cmd) => set(s => ({ commandHistory: [cmd, ...s.commandHistory].slice(0, 50) })),
+  closeSplit() {
+    set({ splitView: null })
+  },
 
-  setSelectedCase: (id) => set({ selectedCase: id }),
-  setSelectedContract: (id) => set({ selectedContract: id }),
+  setSidebarCollapsed(v) {
+    set({ sidebarCollapsed: v })
+  },
 
-  resetPanels: () => set({ panels: defaultPanels, activePanel: 'panel-prec' }),
+  pushCommand(cmd) {
+    set(s => ({ commandHistory: [cmd, ...s.commandHistory].slice(0, 50) }))
+  },
+
+  pushActivity(text) {
+    const event: ActivityEvent = { id: `act-${++_activityCounter}`, text, ts: Date.now() }
+    set(s => ({ recentActivity: [event, ...s.recentActivity].slice(0, 30) }))
+  },
+
+  setSelectedCase(id) { set({ selectedCase: id }) },
+  setSelectedContract(id) { set({ selectedContract: id }) },
+
+  // Shims
+  openPanel(type, opts) { get().navigate(type, opts) },
+  closePanel(_id) { get().navigate('HOME') },
+  setActivePanel(id) { set({ activePanel: id }) },
+  resetPanels() {
+    set({ view: { type: 'HOME' }, splitView: null, panels: [{ id: 'view-home', type: 'HOME' }], activePanel: 'view-home' })
+  },
 }))

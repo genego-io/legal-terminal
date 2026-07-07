@@ -13,17 +13,17 @@
 
 ### Web Terminal
 
-| Workspace | Precedent Search |
-|-----------|-----------------|
-| ![Workspace](docs/screenshots/web-01-workspace.png) | ![PREC Search](docs/screenshots/web-02-prec-search.png) |
+| Home Dashboard | Precedent Search — full master-detail |
+|----------------|--------------------------------------|
+| ![Home](docs/screenshots/web-01-home.png) | ![PREC](docs/screenshots/web-02-prec.png) |
 
-| Contract Workbench — Critical Clause | Workflow Launcher |
-|--------------------------------------|------------------|
-| ![CTRX Clause](docs/screenshots/web-03-ctrx-clause.png) | ![WKFL](docs/screenshots/web-04-wkfl.png) |
+| Contract Workbench — clause analysis | Privilege Check — provider comparison |
+|---------------------------------------|---------------------------------------|
+| ![CTRX](docs/screenshots/web-03-ctrx.png) | ![PRIV](docs/screenshots/web-04-priv.png) |
 
-| Privilege Risk Check |
-|----------------------|
-| ![PRIV](docs/screenshots/web-05-priv.png) |
+| Ctrl+K Command Palette |
+|------------------------|
+| ![Palette](docs/screenshots/web-05-palette.png) |
 
 ---
 
@@ -46,8 +46,9 @@ inspired by Bloomberg Terminal's density and workflow philosophy. It wraps the
 [legal-mcp](https://github.com/agentic-ops/legal-mcp) Model Context Protocol server
 in a professional-grade UI — both a browser-based web terminal and a native Python TUI.
 
-**Current state:** MVP with fully mocked backend. All interactions work; the MCP
-server is not live-wired. Drop in a `LiveClient` to connect to the real server.
+**Current state:** Full hybrid UI with sidebar navigation, home dashboard, Ctrl+K command palette,
+and full-viewport module views. Includes both a `MockClient` (works offline) and a `LiveClient`
+that connects to a running `legal-mcp` server over SSE — see the Quick Start below.
 
 ---
 

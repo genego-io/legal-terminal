@@ -1,69 +1,69 @@
 import './index.css'
+import { useState, useEffect } from 'react'
+import { Sidebar } from './components/Sidebar'
 import { CommandLine } from './components/CommandLine'
-import { FKeyStrip, StatusBar, ActivityStrip } from './components/StatusBar'
+import { CommandPalette } from './components/CommandPalette'
+import { StatusBar } from './components/StatusBar'
 import { Workspace } from './components/Workspace'
 import { useTerminalStore } from './store/terminalStore'
-import { useEffect } from 'react'
+import type { PanelType } from './store/terminalStore'
+
+const FKEY_MAP: Record<string, PanelType> = {
+  F2: 'PREC', F3: 'CITE', F4: 'CTRX', F5: 'JOBS',
+  F6: 'WKFL', F7: 'AUDT', F9: 'PRIV', F10: 'LIVE',
+}
 
 export default function App() {
-  const { openPanel } = useTerminalStore()
+  const [paletteOpen, setPaletteOpen] = useState(false)
+  const { navigate } = useTerminalStore()
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      const map: Record<string, () => void> = {
-        F2:  () => openPanel('PREC'),
-        F3:  () => openPanel('CITE'),
-        F4:  () => openPanel('CTRX'),
-        F5:  () => openPanel('JOBS'),
-        F6:  () => openPanel('WKFL'),
-        F7:  () => openPanel('AUDT'),
-        F9:  () => openPanel('PRIV'),
-        F10: () => openPanel('LIVE'),
-      }
-      if (e.key in map && !e.ctrlKey && !e.metaKey) {
+      // F-keys
+      if (e.key in FKEY_MAP && !e.ctrlKey && !e.metaKey) {
         e.preventDefault()
-        map[e.key]()
+        navigate(FKEY_MAP[e.key])
+        return
+      }
+      // Ctrl+K → palette
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault()
+        setPaletteOpen(p => !p)
+        return
+      }
+      // Escape → close palette
+      if (e.key === 'Escape' && paletteOpen) {
+        setPaletteOpen(false)
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [openPanel])
+  }, [navigate, paletteOpen])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', background: 'var(--bg)' }}>
-      {/* Top header */}
-      <div style={{
-        background: 'var(--bg-panel2)', borderBottom: '1px solid var(--border)',
-        display: 'flex', alignItems: 'stretch', flexShrink: 0,
-      }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg)' }}>
+      {/* Left sidebar */}
+      <Sidebar />
+
+      {/* Main area */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
+        {/* Top bar: command input */}
         <div style={{
-          padding: '8px 16px', borderRight: '1px solid var(--border)',
-          display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0,
+          background: 'var(--bg-panel2)', borderBottom: '1px solid var(--border)',
+          display: 'flex', alignItems: 'stretch', flexShrink: 0, height: 38,
         }}>
-          <span style={{ color: 'var(--text-heading)', fontWeight: 700, fontSize: 13, letterSpacing: '0.04em' }}>
-            Legal Terminal
-          </span>
-          <span style={{
-            color: 'var(--text-muted)', fontSize: 10, fontFamily: "'IBM Plex Mono', monospace",
-            border: '1px solid var(--border-bright)', padding: '1px 6px',
-          }}>
-            legal-mcp
-          </span>
+          <CommandLine onOpenPalette={() => setPaletteOpen(true)} />
         </div>
-        <CommandLine />
+
+        {/* View area */}
+        <Workspace />
+
+        {/* Status bar */}
+        <StatusBar />
       </div>
 
-      {/* Activity strip */}
-      <ActivityStrip />
-
-      {/* Main workspace */}
-      <Workspace />
-
-      {/* F-key strip */}
-      <FKeyStrip />
-
-      {/* Status bar */}
-      <StatusBar />
+      {/* Ctrl+K palette */}
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
     </div>
   )
 }

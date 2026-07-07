@@ -1,100 +1,173 @@
 import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
+import { useTerminalStore } from '../store/terminalStore'
 import type { PrivilegeResult } from '../mcp/types'
 
-const PROVIDERS = ['openai', 'anthropic', 'azure_openai', 'vertex_ai', 'openrouter', 'ollama', 'unknown']
-const MOCK_FILES = ['vendor_nda_2026.docx', 'litigation_memo.docx', 'client_strategy.pdf', 'deposition_notes.docx']
+const PROVIDERS = [
+  { id: 'ollama',         label: 'Ollama (local)',      zdr: true,  training: false, hipaa: false },
+  { id: 'azure_openai',   label: 'Azure OpenAI',        zdr: true,  training: false, hipaa: true  },
+  { id: 'vertex_ai',      label: 'Google Vertex AI',    zdr: true,  training: false, hipaa: true  },
+  { id: 'openai',         label: 'OpenAI API',          zdr: false, training: false, hipaa: false },
+  { id: 'anthropic',      label: 'Anthropic API',       zdr: false, training: false, hipaa: false },
+  { id: 'openrouter',     label: 'OpenRouter',          zdr: false, training: true,  hipaa: false },
+  { id: 'unknown',        label: 'Unknown provider',    zdr: false, training: true,  hipaa: false },
+]
+
+const MOCK_FILES = [
+  'vendor_nda_2026.docx',
+  'litigation_memo.docx',
+  'client_strategy.pdf',
+  'deposition_notes.docx',
+]
 
 const RISK_LABELS: Record<string, string> = {
-  CRITICAL: 'Critical risk — do not route',
-  HIGH: 'High risk — attorney authorization required',
-  MEDIUM: 'Medium risk — review provider terms',
-  LOW: 'Low risk — proceed with caution',
+  CRITICAL: 'Critical — do not route under any circumstances',
+  HIGH:     'High — attorney authorization required before routing',
+  MEDIUM:   'Medium — review provider data retention terms',
+  LOW:      'Low — local inference, no data leaves your machine',
+}
+
+const RISK_COLOR: Record<string, string> = {
+  CRITICAL: 'var(--risk-critical)', HIGH: 'var(--risk-high)',
+  MEDIUM: 'var(--risk-medium)', LOW: 'var(--risk-low)',
 }
 
 export function PrivPanel({ id }: { id: string }) {
   const [file, setFile] = useState('litigation_memo.docx')
-  const [provider, setProvider] = useState('openai')
-  const [result, setResult] = useState<PrivilegeResult | null>(null)
+  const [results, setResults] = useState<(PrivilegeResult & { providerId: string })[]>([])
   const [loading, setLoading] = useState(false)
+  const { pushActivity } = useTerminalStore()
 
-  async function check() {
+  async function checkAll() {
     setLoading(true)
-    const res = await client.checkPrivilegeRisk(file, provider)
-    setResult(res); setLoading(false)
+    const res = await Promise.all(
+      PROVIDERS.map(async p => {
+        const r = await client.checkPrivilegeRisk(file, p.id)
+        return { ...r, providerId: p.id }
+      })
+    )
+    setResults(res)
+    setLoading(false)
+    const high = res.filter(r => r.risk === 'HIGH' || r.risk === 'CRITICAL').length
+    pushActivity(`PRIV "${file}" → ${high} high-risk providers`)
   }
 
-  const RISK_COLOR: Record<string, string> = {
-    CRITICAL: 'var(--risk-critical)', HIGH: 'var(--risk-high)',
-    MEDIUM: 'var(--risk-medium)', LOW: 'var(--risk-low)',
+  async function checkOne(providerId: string) {
+    setLoading(true)
+    const r = await client.checkPrivilegeRisk(file, providerId)
+    setResults(prev => {
+      const next = prev.filter(p => p.providerId !== providerId)
+      return [...next, { ...r, providerId }].sort((a, b) =>
+        ['CRITICAL','HIGH','MEDIUM','LOW'].indexOf(a.risk) - ['CRITICAL','HIGH','MEDIUM','LOW'].indexOf(b.risk)
+      )
+    })
+    setLoading(false)
+    pushActivity(`PRIV "${file}" vs ${providerId} → ${r.risk}`)
   }
 
-  function btn(active: boolean) {
-    return {
-      background: active ? 'var(--bg-selected)' : 'var(--bg-panel2)',
-      border: '1px solid ' + (active ? 'var(--accent-dim)' : 'var(--border)'),
-      color: active ? 'var(--accent)' : 'var(--text-muted)',
-      fontFamily: 'inherit', fontSize: 11, padding: '3px 10px', cursor: 'pointer',
-    } as const
-  }
+  const sortedResults = results.slice().sort((a, b) =>
+    ['CRITICAL','HIGH','MEDIUM','LOW'].indexOf(a.risk) - ['CRITICAL','HIGH','MEDIUM','LOW'].indexOf(b.risk)
+  )
 
   return (
-    <PanelChrome id={id} mnemonic="PRIV" title="Privilege Risk Check" subtitle="check_privilege_risk · ABA Rule 1.6 · Heppner">
-      <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--border)' }}>
-        <div className="section-label" style={{ marginBottom: 5 }}>File</div>
-        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>
-          {MOCK_FILES.map(f => <button key={f} onClick={() => setFile(f)} style={btn(file === f)}>{f}</button>)}
+    <PanelChrome id={id} mnemonic="PRIV" title="Privilege Risk Check" subtitle="check_privilege_risk · ABA Rule 1.6 · Heppner" panelType="PRIV">
+      {/* File selector */}
+      <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
+        <div className="section-label" style={{ marginBottom: 6 }}>Document</div>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
+          {MOCK_FILES.map(f => (
+            <button key={f} onClick={() => setFile(f)} style={{
+              background: file === f ? 'var(--bg-selected)' : 'var(--bg-panel2)',
+              border: '1px solid ' + (file === f ? 'var(--accent-dim)' : 'var(--border)'),
+              color: file === f ? 'var(--accent)' : 'var(--text-muted)',
+              fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, padding: '4px 10px', cursor: 'pointer',
+            }}>{f}</button>
+          ))}
         </div>
-        <div className="section-label" style={{ marginBottom: 5 }}>Inference provider</div>
-        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center', marginBottom: 8 }}>
-          {PROVIDERS.map(p => <button key={p} onClick={() => setProvider(p)} style={btn(provider === p)}>{p}</button>)}
-        </div>
-        <button onClick={check} className="btn-primary">Assess risk</button>
+        <button onClick={checkAll} className="btn-primary">
+          Assess all providers
+        </button>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto' }} className="info-pane">
-        {loading && <LoadingDots />}
-        {result && !loading && (
-          <>
-            {/* Risk verdict — plain indicator, no emoji */}
-            <div style={{
-              borderLeft: `3px solid ${RISK_COLOR[result.risk] ?? 'var(--text-muted)'}`,
-              paddingLeft: 14, marginBottom: 16,
-            }}>
-              <div style={{ color: RISK_COLOR[result.risk] ?? 'var(--text-muted)', fontWeight: 700, fontSize: 14, marginBottom: 2 }}>
-                {result.risk}
-              </div>
-              <div style={{ color: 'var(--text-dim)', fontSize: 12 }}>{RISK_LABELS[result.risk]}</div>
-              <div style={{ color: 'var(--text-muted)', fontSize: 11, marginTop: 2 }}>
-                Provider: {result.provider}
-              </div>
-            </div>
+      {loading && <LoadingDots />}
 
-            <div className="section-label">Privilege indicators detected</div>
-            {result.indicators.map((ind, i) => (
-              <div key={i} style={{ color: 'var(--text-dim)', fontSize: 12, marginBottom: 4, display: 'flex', gap: 8 }}>
-                <span style={{ color: 'var(--text-muted)' }}>·</span><span>{ind}</span>
-              </div>
-            ))}
-
-            <div style={{ background: 'var(--bg)', border: '1px solid var(--border)', padding: '10px 14px', marginTop: 14, marginBottom: 10 }}>
-              <div className="section-label" style={{ marginBottom: 6 }}>Recommendation</div>
-              <div style={{ color: 'var(--text)', fontSize: 12, lineHeight: 1.7 }}>{result.recommendation}</div>
-            </div>
-
-            <div style={{ color: 'var(--text-muted)', fontSize: 11, borderTop: '1px solid var(--border)', paddingTop: 10 }}>
-              {result.notice}
-            </div>
-          </>
-        )}
-        {!result && !loading && (
-          <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>
-            <p style={{ marginTop: 0 }}>Assess whether a document is safe to route through an AI inference provider.</p>
-            <p>Based on <em>United States v. Heppner</em> (S.D.N.Y. Feb. 2026) and ABA Model Rule 1.6.</p>
+      {/* Provider comparison table */}
+      {!loading && results.length === 0 && (
+        <div className="empty-state">
+          <div className="empty-state-title">Privilege risk assessment</div>
+          <div className="empty-state-desc">
+            Evaluate whether it is safe to route a privileged document through an AI inference provider.
+            Based on <em>US v. Heppner</em> (S.D.N.Y. Feb. 2026) and ABA Model Rule 1.6.
           </div>
-        )}
-      </div>
+          <button className="btn-primary" onClick={checkAll} style={{ marginTop: 4 }}>
+            Assess all providers
+          </button>
+        </div>
+      )}
+
+      {!loading && sortedResults.length > 0 && (
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Risk</th>
+                <th style={{ textAlign: 'center' }}>ZDR</th>
+                <th style={{ textAlign: 'center' }}>No training</th>
+                <th style={{ textAlign: 'center' }}>HIPAA</th>
+                <th>Verdict</th>
+              </tr>
+            </thead>
+            <tbody>
+              {PROVIDERS.map(p => {
+                const res = sortedResults.find(r => r.providerId === p.id)
+                return (
+                  <tr key={p.id} style={{ cursor: 'pointer' }} onClick={() => !res && checkOne(p.id)}>
+                    <td style={{ fontWeight: 500 }}>{p.label}</td>
+                    <td>
+                      {res ? (
+                        <span style={{ color: RISK_COLOR[res.risk], fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>
+                          {res.risk}
+                        </span>
+                      ) : (
+                        <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>—</span>
+                      )}
+                    </td>
+                    <td style={{ textAlign: 'center', color: p.zdr ? 'var(--risk-low)' : 'var(--text-muted)' }}>
+                      {p.zdr ? '✓' : '—'}
+                    </td>
+                    <td style={{ textAlign: 'center', color: !p.training ? 'var(--risk-low)' : 'var(--risk-medium)' }}>
+                      {!p.training ? '✓' : '✗'}
+                    </td>
+                    <td style={{ textAlign: 'center', color: p.hipaa ? 'var(--risk-low)' : 'var(--text-muted)' }}>
+                      {p.hipaa ? '✓' : '—'}
+                    </td>
+                    <td style={{ color: 'var(--text-muted)', fontSize: 11, maxWidth: 280 }}>
+                      {res ? RISK_LABELS[res.risk] : ''}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+
+          {/* Indicators from first result */}
+          {sortedResults[0]?.indicators.length > 0 && (
+            <div style={{ padding: '16px 20px', borderTop: '1px solid var(--border)' }}>
+              <div className="section-label" style={{ marginBottom: 8 }}>Privilege indicators detected in document</div>
+              {sortedResults[0].indicators.map((ind, i) => (
+                <div key={i} style={{ color: 'var(--text-dim)', fontSize: 12, marginBottom: 5, display: 'flex', gap: 8 }}>
+                  <span style={{ color: 'var(--text-muted)' }}>·</span><span>{ind}</span>
+                </div>
+              ))}
+              <div style={{ marginTop: 12, color: 'var(--text-muted)', fontSize: 11 }}>
+                {sortedResults[0].notice}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </PanelChrome>
   )
 }

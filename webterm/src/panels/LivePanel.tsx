@@ -12,7 +12,7 @@ export function LivePanel({ id }: { id: string }) {
   }, [])
 
   return (
-    <PanelChrome id={id} mnemonic="LIVE" title="Integration Status" subtitle="integration_status · CourtListener · PACER">
+    <PanelChrome id={id} mnemonic="LIVE" title="Integration Status" subtitle="integration_status · CourtListener · PACER" panelType="LIVE">
       <div style={{ flex: 1, overflowY: 'auto', padding: 16 }} className="info-pane">
         {loading && <LoadingDots />}
         {status && !loading && (

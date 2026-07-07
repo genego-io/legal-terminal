@@ -25,7 +25,7 @@ export function AudtPanel({ id }: { id: string }) {
   const filtered = category ? entries.filter(e => e.category === category) : entries
 
   return (
-    <PanelChrome id={id} mnemonic="AUDT" title="Audit Log" subtitle="utils.audit — all tool invocations">
+    <PanelChrome id={id} mnemonic="AUDT" title="Audit Log" subtitle="utils.audit — all tool invocations" panelType="AUDT">
       <div style={{ display: 'flex', gap: 6, padding: '6px 10px', borderBottom: '1px solid var(--border)', flexWrap: 'wrap' }}>
         <button onClick={() => setCategory(null)} style={{
           background: !category ? 'var(--bg-selected)' : 'var(--bg-panel2)',

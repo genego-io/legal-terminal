@@ -23,7 +23,7 @@ export function DocaPanel({ id }: { id: string }) {
   }
 
   return (
-    <PanelChrome id={id} mnemonic="DOCA" title="Document Analyzer" subtitle="analyze_document · extract_contract_metadata">
+    <PanelChrome id={id} mnemonic="DOCA" title="Document Analyzer" subtitle="analyze_document · extract_contract_metadata" panelType="DOCA">
       <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--border)' }}>
         <div className="section-label">Select file</div>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 8 }}>

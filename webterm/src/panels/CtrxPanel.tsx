@@ -1,25 +1,26 @@
 import { useState, useEffect } from 'react'
 import { PanelChrome, RiskBadge, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
+import { useTerminalStore } from '../store/terminalStore'
 import type { Contract, ContractClause } from '../mcp/types'
 
 interface Props { id: string; contractId?: string }
 type View = 'analyze' | 'compare' | 'negotiate'
 
 const CONTRACTS = [
-  { id: 'standard_nda_template', label: 'Standard NDA' },
-  { id: 'client_proposed_nda', label: 'Client NDA (Proposed)' },
+  { id: 'standard_nda_template',          label: 'Standard NDA' },
+  { id: 'client_proposed_nda',            label: 'Client NDA (Proposed)' },
   { id: 'master_services_agreement_tech', label: 'Tech MSA' },
 ]
 
-function btn(active: boolean) {
+function selBtn(active: boolean): React.CSSProperties {
   return {
     background: active ? 'var(--bg-selected)' : 'transparent',
     border: '1px solid ' + (active ? 'var(--accent-dim)' : 'var(--border)'),
     color: active ? 'var(--accent)' : 'var(--text-muted)',
     fontFamily: 'inherit', fontSize: 11, fontWeight: 600,
-    padding: '3px 10px', cursor: 'pointer',
-  } as const
+    padding: '4px 12px', cursor: 'pointer',
+  }
 }
 
 export function CtrxPanel({ id, contractId: initial }: Props) {
@@ -33,6 +34,7 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
   const [negotiationRole, setNegotiationRole] = useState<'buyer' | 'seller' | 'mutual'>('buyer')
   const [negotiation, setNegotiation] = useState<Awaited<ReturnType<typeof client.generateNegotiationGuide>> | null>(null)
   const [diffs, setDiffs] = useState<{ key: string; change: string }[]>([])
+  const { pushActivity } = useTerminalStore()
 
   async function loadContract(cid = contractId) {
     setLoading(true)
@@ -40,6 +42,7 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
     setContract(c)
     if (c?.clauses.length) setSelectedClause(c.clauses[0])
     setLoading(false)
+    pushActivity(`CTRX analyze "${cid}"`)
   }
 
   async function loadAlts(clause: ContractClause) {
@@ -51,12 +54,14 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
     setLoading(true)
     const guide = await client.generateNegotiationGuide(contractId, negotiationRole)
     setNegotiation(guide); setLoading(false)
+    pushActivity(`CTRX negotiate "${contractId}" as ${negotiationRole}`)
   }
 
   async function loadCompare() {
     setLoading(true)
     const { diffs: d } = await client.compareContracts(contractId, compareId)
     setDiffs(d); setLoading(false)
+    pushActivity(`CTRX compare "${contractId}" vs "${compareId}"`)
   }
 
   useEffect(() => { loadContract() }, [])
@@ -70,12 +75,12 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
   }
 
   return (
-    <PanelChrome id={id} mnemonic="CTRX" title="Contract Workbench" subtitle="analyze · compare · negotiate">
+    <PanelChrome id={id} mnemonic="CTRX" title="Contract Workbench" subtitle="analyze · compare · negotiate" panelType="CTRX">
       {/* Contract selector */}
-      <div style={{ display: 'flex', gap: 4, padding: '6px 10px', borderBottom: '1px solid var(--border)', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: 6, padding: '8px 14px', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
         {CONTRACTS.map(c => (
           <button key={c.id} onClick={() => { setContractId(c.id); loadContract(c.id) }}
-            style={btn(contractId === c.id)}>
+            style={selBtn(contractId === c.id)}>
             {c.label}
           </button>
         ))}
@@ -95,57 +100,63 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
       {/* ANALYZE */}
       {view === 'analyze' && !loading && contract && (
         <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-          <div style={{ width: 230, borderRight: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
-            <div style={{ padding: '6px 12px 5px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 8, alignItems: 'center' }}>
-              <span style={{ fontSize: 11, color: 'var(--text-dim)', fontWeight: 500 }}>{contract.title}</span>
+          {/* Clause list */}
+          <div style={{ width: 260, borderRight: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
+            <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 8, alignItems: 'center' }}>
+              <span style={{ fontSize: 12, color: 'var(--text-dim)', fontWeight: 500, flex: 1 }}>{contract.title}</span>
               <RiskBadge risk={contract.risk_level} />
             </div>
             {sortedClauses.map(cl => (
               <button key={cl.key} onClick={() => setSelectedClause(cl)} style={{
-                display: 'flex', gap: 8, alignItems: 'center', width: '100%', padding: '7px 12px',
+                display: 'flex', gap: 10, alignItems: 'center', width: '100%', padding: '8px 12px',
                 background: selectedClause?.key === cl.key ? 'var(--bg-selected)' : 'transparent',
                 border: 'none', borderBottom: '1px solid var(--border)', cursor: 'pointer', textAlign: 'left',
               }}>
                 <RiskBadge risk={cl.risk} />
-                <span style={{ color: 'var(--text-dim)', fontSize: 11 }}>{cl.label}</span>
+                <span style={{ color: 'var(--text-dim)', fontSize: 12 }}>{cl.label}</span>
               </button>
             ))}
             {contract.missing_clauses.length > 0 && (
-              <div style={{ padding: '8px 12px', borderTop: '1px solid var(--border-bright)' }}>
+              <div style={{ padding: '10px 12px', borderTop: '1px solid var(--border)' }}>
                 <div className="section-label" style={{ marginBottom: 6 }}>Missing clauses</div>
                 {contract.missing_clauses.map(m => (
-                  <div key={m} style={{ color: 'var(--risk-medium)', fontSize: 11, marginBottom: 3 }}>
+                  <div key={m} style={{ color: 'var(--risk-medium)', fontSize: 11, marginBottom: 4 }}>
                     · {m.replace(/_/g, ' ')}
                   </div>
                 ))}
               </div>
             )}
           </div>
-          <div style={{ flex: 1, overflowY: 'auto', padding: 16 }} className="info-pane">
-            {selectedClause && (
+
+          {/* Clause detail */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+            {selectedClause ? (
               <>
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 10 }}>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 14 }}>
                   <RiskBadge risk={selectedClause.risk} />
-                  <span style={{ color: 'var(--text-heading)', fontWeight: 600, fontSize: 13 }}>{selectedClause.label}</span>
+                  <span style={{ color: 'var(--text-heading)', fontWeight: 600, fontSize: 14 }}>{selectedClause.label}</span>
                 </div>
-                <div style={{ color: 'var(--text)', fontSize: 12, lineHeight: 1.7, background: 'var(--bg)', padding: '10px 14px', border: '1px solid var(--border)', marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace" }}>
+                <div className="section-label">Clause text</div>
+                <div style={{ color: 'var(--text)', fontSize: 12, lineHeight: 1.75, background: 'var(--bg)', padding: '12px 16px', border: '1px solid var(--border)', marginBottom: 12, fontFamily: "'IBM Plex Mono', monospace" }}>
                   {selectedClause.text}
                 </div>
-                <div style={{ color: 'var(--risk-high)', fontSize: 12, marginBottom: 14, display: 'flex', gap: 8 }}>
+                <div style={{ color: 'var(--risk-high)', fontSize: 12, marginBottom: 20, display: 'flex', gap: 8 }}>
                   <span>↳</span><span>{selectedClause.risk_note}</span>
                 </div>
                 {alternatives.length > 0 && (
                   <>
                     <div className="section-label">Suggested alternatives</div>
                     {alternatives.map((alt, i) => (
-                      <div key={i} style={{ background: 'var(--bg)', border: '1px solid var(--border)', padding: '8px 12px', marginBottom: 6, fontSize: 12, color: 'var(--text-dim)', lineHeight: 1.6 }}>
-                        <span style={{ color: 'var(--text-muted)', fontSize: 10, marginRight: 8 }}>Alt {i + 1}</span>
+                      <div key={i} style={{ background: 'var(--bg)', border: '1px solid var(--border)', padding: '10px 14px', marginBottom: 8, fontSize: 12, color: 'var(--text-dim)', lineHeight: 1.7 }}>
+                        <div style={{ color: 'var(--text-muted)', fontSize: 10, marginBottom: 4 }}>Alt {i + 1}</div>
                         {alt}
                       </div>
                     ))}
                   </>
                 )}
               </>
+            ) : (
+              <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>Select a clause from the list.</div>
             )}
           </div>
         </div>
@@ -153,24 +164,24 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
 
       {/* COMPARE */}
       {view === 'compare' && !loading && (
-        <div style={{ flex: 1, overflowY: 'auto', padding: 16 }} className="info-pane">
-          <div style={{ display: 'flex', gap: 8, marginBottom: 14, flexWrap: 'wrap', alignItems: 'center' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+          <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap', alignItems: 'center' }}>
             <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>Base:</span>
             <select value={contractId} onChange={e => setContractId(e.target.value)}
-              style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)', color: 'var(--text)', fontFamily: 'inherit', fontSize: 11, padding: '4px 8px' }}>
+              style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)', color: 'var(--text)', fontFamily: 'inherit', fontSize: 12, padding: '5px 10px' }}>
               {CONTRACTS.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
             </select>
             <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>vs.</span>
             <select value={compareId} onChange={e => setCompareId(e.target.value)}
-              style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)', color: 'var(--text)', fontFamily: 'inherit', fontSize: 11, padding: '4px 8px' }}>
+              style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)', color: 'var(--text)', fontFamily: 'inherit', fontSize: 12, padding: '5px 10px' }}>
               {CONTRACTS.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
             </select>
             <button onClick={loadCompare} className="btn-primary">Compare</button>
           </div>
           {diffs.length === 0 && <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>Select two contracts and press Compare.</div>}
           {diffs.map(d => (
-            <div key={d.key} style={{ borderBottom: '1px solid var(--border)', padding: '8px 0' }}>
-              <div style={{ color: 'var(--text-dim)', fontSize: 11, fontWeight: 600, marginBottom: 3 }}>{d.key.replace(/_/g, ' ')}</div>
+            <div key={d.key} style={{ borderBottom: '1px solid var(--border)', padding: '10px 0' }}>
+              <div style={{ color: 'var(--text-dim)', fontSize: 12, fontWeight: 600, marginBottom: 4 }}>{d.key.replace(/_/g, ' ')}</div>
               <div style={{ color: 'var(--risk-high)', fontSize: 12 }}>↳ {d.change}</div>
             </div>
           ))}
@@ -179,47 +190,42 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
 
       {/* NEGOTIATE */}
       {view === 'negotiate' && !loading && (
-        <div style={{ flex: 1, overflowY: 'auto', padding: 16 }} className="info-pane">
-          <div style={{ display: 'flex', gap: 6, marginBottom: 14, alignItems: 'center' }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+          <div style={{ display: 'flex', gap: 8, marginBottom: 16, alignItems: 'center', flexWrap: 'wrap' }}>
             <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>Party role:</span>
             {(['buyer', 'seller', 'mutual'] as const).map(r => (
-              <button key={r} onClick={() => setNegotiationRole(r)} style={btn(negotiationRole === r)}>
-                {r}
-              </button>
+              <button key={r} onClick={() => setNegotiationRole(r)} style={selBtn(negotiationRole === r)}>{r}</button>
             ))}
-            <button onClick={loadNegotiation} className="btn-primary" style={{ marginLeft: 8 }}>Generate</button>
+            <button onClick={loadNegotiation} className="btn-primary" style={{ marginLeft: 6 }}>Generate guide</button>
           </div>
+          {!negotiation && <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>Select a party role and press Generate guide.</div>}
           {negotiation && (
             <>
               {negotiation.clauses.map(cl => (
-                <div key={cl.key} style={{ borderBottom: '1px solid var(--border)', padding: '8px 0' }}>
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 4 }}>
-                    <span style={{
-                      color: positionColor[cl.recommended_position] ?? 'var(--text-muted)',
-                      fontWeight: 600, fontSize: 11,
-                    }}>
+                <div key={cl.key} style={{ borderBottom: '1px solid var(--border)', padding: '10px 0' }}>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 5 }}>
+                    <span style={{ color: positionColor[cl.recommended_position] ?? 'var(--text-muted)', fontWeight: 700, fontSize: 11, minWidth: 70 }}>
                       {cl.recommended_position.toUpperCase()}
                     </span>
-                    <span style={{ color: 'var(--text-dim)', fontSize: 12 }}>{cl.label}</span>
+                    <span style={{ color: 'var(--text-dim)', fontSize: 13 }}>{cl.label}</span>
                   </div>
-                  <div style={{ color: 'var(--text-dim)', fontSize: 12, marginBottom: 4 }}>{cl.rationale}</div>
+                  <div style={{ color: 'var(--text-dim)', fontSize: 12, marginBottom: 4, paddingLeft: 80 }}>{cl.rationale}</div>
                   {cl.recommended_position !== 'accept' && (
-                    <div style={{ color: 'var(--text-muted)', fontSize: 11, fontStyle: 'italic', paddingLeft: 8 }}>{cl.fallback_text}</div>
+                    <div style={{ color: 'var(--text-muted)', fontSize: 11, fontStyle: 'italic', paddingLeft: 80 }}>{cl.fallback_text}</div>
                   )}
                 </div>
               ))}
               {negotiation.missing_clauses.length > 0 && (
-                <div style={{ marginTop: 10 }}>
+                <div style={{ marginTop: 12 }}>
                   <div className="section-label">Missing clauses</div>
                   {negotiation.missing_clauses.map(m => (
-                    <div key={m} style={{ color: 'var(--risk-medium)', fontSize: 11 }}>· {m}</div>
+                    <div key={m} style={{ color: 'var(--risk-medium)', fontSize: 12 }}>· {m}</div>
                   ))}
                 </div>
               )}
-              <div style={{ marginTop: 14, color: 'var(--text-muted)', fontSize: 11, borderTop: '1px solid var(--border)', paddingTop: 10 }}>{negotiation.notice}</div>
+              <div style={{ marginTop: 16, color: 'var(--text-muted)', fontSize: 11, borderTop: '1px solid var(--border)', paddingTop: 10 }}>{negotiation.notice}</div>
             </>
           )}
-          {!negotiation && <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>Select a party role and press Generate.</div>}
         </div>
       )}
     </PanelChrome>

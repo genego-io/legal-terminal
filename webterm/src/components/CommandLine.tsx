@@ -1,35 +1,39 @@
 import { useState, useRef } from 'react'
 import type { KeyboardEvent } from 'react'
 import { useTerminalStore } from '../store/terminalStore'
-import type { PanelType } from '../store/terminalStore'
+import type { ViewType } from '../store/terminalStore'
 
-const MNEMONICS: { cmd: string; panel: PanelType; desc: string; tool: string }[] = [
-  { cmd: 'PREC', panel: 'PREC', desc: 'Precedent & case search', tool: 'search_precedents' },
-  { cmd: 'CASE', panel: 'CASE', desc: 'Case law research', tool: 'search_case_law' },
-  { cmd: 'STAT', panel: 'STAT', desc: 'Statute viewer', tool: 'extract_statute' },
-  { cmd: 'CITE', panel: 'CITE', desc: 'Citation console', tool: 'validate_citation' },
-  { cmd: 'CTRX', panel: 'CTRX', desc: 'Contract workbench', tool: 'analyze_clauses' },
-  { cmd: 'DOCA', panel: 'DOCA', desc: 'Document analyzer', tool: 'analyze_document' },
-  { cmd: 'PRIV', panel: 'PRIV', desc: 'Privilege risk check', tool: 'check_privilege_risk' },
-  { cmd: 'BRF',  panel: 'BRF',  desc: 'Brief builder', tool: 'generate_brief_outline' },
-  { cmd: 'JOBS', panel: 'JOBS', desc: 'Analysis queue', tool: 'list_analysis_jobs' },
-  { cmd: 'LIVE', panel: 'LIVE', desc: 'Integration status', tool: 'integration_status' },
-  { cmd: 'WKFL', panel: 'WKFL', desc: 'Workflow launcher', tool: 'skill_playbooks' },
-  { cmd: 'AUDT', panel: 'AUDT', desc: 'Audit log', tool: 'utils.audit' },
+export const MNEMONICS: { cmd: string; panel: ViewType; desc: string; tool: string }[] = [
+  { cmd: 'PREC', panel: 'PREC', desc: 'Precedent & case search',   tool: 'search_precedents' },
+  { cmd: 'CASE', panel: 'CASE', desc: 'Case law research',          tool: 'search_case_law' },
+  { cmd: 'STAT', panel: 'STAT', desc: 'Statute viewer',             tool: 'extract_statute' },
+  { cmd: 'CITE', panel: 'CITE', desc: 'Citation console',           tool: 'validate_citation' },
+  { cmd: 'CTRX', panel: 'CTRX', desc: 'Contract workbench',         tool: 'analyze_clauses' },
+  { cmd: 'DOCA', panel: 'DOCA', desc: 'Document analyzer',          tool: 'analyze_document' },
+  { cmd: 'PRIV', panel: 'PRIV', desc: 'Privilege risk check',       tool: 'check_privilege_risk' },
+  { cmd: 'BRF',  panel: 'BRF',  desc: 'Brief builder',              tool: 'generate_brief_outline' },
+  { cmd: 'JOBS', panel: 'JOBS', desc: 'Analysis queue',             tool: 'list_analysis_jobs' },
+  { cmd: 'LIVE', panel: 'LIVE', desc: 'Integration status',         tool: 'integration_status' },
+  { cmd: 'WKFL', panel: 'WKFL', desc: 'Workflow launcher',          tool: 'skill_playbooks' },
+  { cmd: 'AUDT', panel: 'AUDT', desc: 'Audit log',                  tool: 'utils.audit' },
 ]
 
-function parseCommand(raw: string): { panel: PanelType | null; query: string } {
+function parseCommand(raw: string): { panel: ViewType | null; query: string } {
   const parts = raw.trim().toUpperCase().split(/\s+/)
   const match = MNEMONICS.find(m => m.cmd === parts[0])
   if (!match) return { panel: null, query: raw }
   return { panel: match.panel, query: parts.slice(1).join(' ').toLowerCase() }
 }
 
-export function CommandLine() {
+interface Props {
+  onOpenPalette?: () => void
+}
+
+export function CommandLine({ onOpenPalette }: Props) {
   const [value, setValue] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const { openPanel, pushCommand } = useTerminalStore()
+  const { navigate, pushCommand } = useTerminalStore()
 
   const suggestions = value
     ? MNEMONICS.filter(m =>
@@ -43,7 +47,7 @@ export function CommandLine() {
     if (!cmd) return
     pushCommand(cmd)
     const { panel, query } = parseCommand(cmd)
-    if (panel) openPanel(panel, { query: query || undefined })
+    if (panel) navigate(panel, { query: query || undefined })
     setValue('')
     setShowSuggestions(false)
   }
@@ -89,12 +93,11 @@ export function CommandLine() {
 
       <div style={{
         display: 'flex', alignItems: 'center', gap: 8,
-        background: 'var(--bg)', borderTop: '1px solid var(--border)',
-        padding: '7px 14px',
+        background: 'transparent',
+        padding: '6px 14px',
+        height: '100%',
       }}>
-        <span style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, fontWeight: 600, flexShrink: 0 }}>
-          ›
-        </span>
+        <span style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600, flexShrink: 0 }}>›</span>
         <input
           ref={inputRef}
           className="term-input"
@@ -103,17 +106,24 @@ export function CommandLine() {
           onKeyDown={onKey}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           onFocus={() => value && setShowSuggestions(true)}
-          placeholder="PREC breach of contract  ·  CITE 2022 Cal.App.4th 1234  ·  CTRX  ·  Tab to complete"
+          placeholder="PREC breach of contract  ·  CITE 2022 Cal.App.4th 1234  ·  Tab to complete"
           spellCheck={false}
           autoComplete="off"
-          autoFocus
         />
-        <kbd style={{
-          color: 'var(--text-muted)', fontSize: 10, border: '1px solid var(--border-bright)',
-          padding: '1px 5px', fontFamily: 'inherit', flexShrink: 0, background: 'var(--bg-panel2)',
-        }}>
-          Enter
-        </kbd>
+        {onOpenPalette && (
+          <button
+            onClick={onOpenPalette}
+            style={{
+              background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)',
+              color: 'var(--text-muted)', fontSize: 10, padding: '2px 7px',
+              cursor: 'pointer', fontFamily: 'inherit', flexShrink: 0,
+              display: 'flex', alignItems: 'center', gap: 4,
+            }}
+            title="Open command palette (Ctrl+K)"
+          >
+            <span>Ctrl</span><span style={{ opacity: 0.5 }}>+</span><span>K</span>
+          </button>
+        )}
       </div>
     </div>
   )

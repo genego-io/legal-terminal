@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useTerminalStore } from '../store/terminalStore'
+import type { PanelType } from '../store/terminalStore'
 
 interface Props {
   id: string
@@ -8,35 +9,35 @@ interface Props {
   subtitle?: string
   children: ReactNode
   actions?: ReactNode
+  panelType?: PanelType
 }
 
-export function PanelChrome({ id, mnemonic, title, subtitle, children, actions }: Props) {
-  const { activePanel, setActivePanel, closePanel } = useTerminalStore()
-  const isActive = activePanel === id
+export function PanelChrome({ mnemonic, title, subtitle, children, actions, panelType }: Props) {
+  const { pinSplit, splitView, closeSplit } = useTerminalStore()
+  const isSplit = splitView?.type === panelType
 
   return (
-    <div
-      className="panel-chrome"
-      style={{ height: '100%', outline: isActive ? '1px solid var(--accent-dim)' : 'none' }}
-      onClick={() => setActivePanel(id)}
-    >
-      <div className="panel-header">
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg-panel)', overflow: 'hidden' }}>
+      <div className="module-header">
         <span className="mnemonic-badge">{mnemonic}</span>
-        <span style={{ color: 'var(--text-dim)', fontWeight: 600 }}>{title}</span>
-        {subtitle && <span style={{ color: 'var(--text-muted)', fontWeight: 400, textTransform: 'none', letterSpacing: 0, fontSize: 11 }}>— {subtitle}</span>}
+        <span className="module-title">{title}</span>
+        {subtitle && <span className="module-subtitle">— {subtitle}</span>}
         <span style={{ flex: 1 }} />
         {actions}
-        <button
-          onClick={e => { e.stopPropagation(); closePanel(id) }}
-          style={{
-            background: 'transparent', border: 'none', cursor: 'pointer',
-            color: 'var(--text-muted)', fontSize: 14, lineHeight: 1, padding: '0 2px',
-            fontFamily: 'inherit',
-          }}
-          title="Close panel"
-        >
-          ×
-        </button>
+        {panelType && (
+          <button
+            onClick={() => isSplit ? closeSplit() : pinSplit(panelType)}
+            title={isSplit ? 'Close split' : 'Pin to split view'}
+            style={{
+              background: isSplit ? 'var(--accent-faint)' : 'transparent',
+              border: '1px solid ' + (isSplit ? 'var(--accent-dim)' : 'var(--border-bright)'),
+              color: isSplit ? 'var(--accent)' : 'var(--text-muted)',
+              fontSize: 10, padding: '2px 8px', cursor: 'pointer', fontFamily: 'inherit',
+            }}
+          >
+            {isSplit ? '× split' : '⊞ split'}
+          </button>
+        )}
       </div>
       <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
         {children}
@@ -70,7 +71,7 @@ export function RelevanceBar({ score }: { score: number }) {
 
 export function LoadingDots() {
   return (
-    <div style={{ padding: 16, color: 'var(--text-muted)', fontSize: 12 }}>
+    <div style={{ padding: 24, color: 'var(--text-muted)', fontSize: 12, textAlign: 'center' }}>
       Loading…
     </div>
   )
@@ -78,8 +79,7 @@ export function LoadingDots() {
 
 export function EmptyState({ msg }: { msg: string }) {
   return (
-    <div style={{ padding: 16, color: 'var(--text-muted)', fontSize: 12 }}>
-      {msg}
-    </div>
+    <div style={{ padding: 16, color: 'var(--text-muted)', fontSize: 12 }}>{msg}</div>
   )
 }
+

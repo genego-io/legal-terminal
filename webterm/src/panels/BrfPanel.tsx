@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
+import { useTerminalStore } from '../store/terminalStore'
 import type { BriefOutline } from '../mcp/types'
 
 const CASE_TYPES = ['contract breach', 'employment discrimination', 'negligence', 'IP infringement', 'securities fraud', 'civil rights']
 
 export function BrfPanel({ id, query }: { id: string; query?: string }) {
   const [caseType, setCaseType] = useState(query ?? 'contract breach')
+  const { pushActivity } = useTerminalStore()
   const [facts, setFacts] = useState('')
   const [outline, setOutline] = useState<BriefOutline | null>(null)
   const [loading, setLoading] = useState(false)
@@ -15,6 +17,7 @@ export function BrfPanel({ id, query }: { id: string; query?: string }) {
     setLoading(true)
     const res = await client.generateBriefOutline(caseType, facts)
     setOutline(res); setLoading(false)
+    pushActivity(`BRF "${caseType}" → ${res.sections.length} sections`)
   }
 
   function btn(active: boolean) {
@@ -27,7 +30,7 @@ export function BrfPanel({ id, query }: { id: string; query?: string }) {
   }
 
   return (
-    <PanelChrome id={id} mnemonic="BRF" title="Brief Builder" subtitle="generate_brief_outline · IRAC · issue statement">
+    <PanelChrome id={id} mnemonic="BRF" title="Brief Builder" subtitle="generate_brief_outline · IRAC · issue statement" panelType="BRF">
       <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--border)' }}>
         <div className="section-label" style={{ marginBottom: 5 }}>Case type</div>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 10 }}>

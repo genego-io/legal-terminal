@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react'
 import { PanelChrome } from '../components/PanelChrome'
 import { client } from '../mcp/index'
+import { useTerminalStore } from '../store/terminalStore'
 import type { AnalysisJob } from '../mcp/types'
-
-const STATUS_COLOR: Record<string, string> = {
-  complete: 'var(--risk-low)', processing: 'var(--risk-medium)',
-  queued: 'var(--text-muted)', error: 'var(--risk-critical)',
-}
 
 const RISK_COLOR: Record<string, string> = {
   CRITICAL: 'var(--risk-critical)', HIGH: 'var(--risk-high)',
@@ -21,6 +17,7 @@ export function JobsPanel({ id }: { id: string }) {
   const [jobs, setJobs] = useState<AnalysisJob[]>([])
   const [newFile, setNewFile] = useState('')
   const [selected, setSelected] = useState<AnalysisJob | null>(null)
+  const { pushActivity } = useTerminalStore()
 
   async function refresh() {
     const j = await client.getAnalysisJobs()
@@ -36,71 +33,111 @@ export function JobsPanel({ id }: { id: string }) {
   async function queue() {
     if (!newFile.trim()) return
     await client.queueDocumentAnalysis(newFile.trim())
-    setNewFile(''); refresh()
+    pushActivity(`JOBS queued "${newFile.trim()}"`)
+    setNewFile('')
+    refresh()
   }
 
+  const counts = ['complete', 'processing', 'queued', 'error'].reduce((acc, s) => {
+    acc[s] = jobs.filter(j => j.status === s).length
+    return acc
+  }, {} as Record<string, number>)
+
   return (
-    <PanelChrome id={id} mnemonic="JOBS" title="Analysis Queue" subtitle="queue_document_analysis · list_analysis_jobs"
+    <PanelChrome id={id} mnemonic="JOBS" title="Analysis Queue" subtitle="queue_document_analysis · list_analysis_jobs" panelType="JOBS"
       actions={
         <button onClick={refresh} className="btn" style={{ fontSize: 10 }}>↻ Refresh</button>
       }
     >
-      <div style={{ padding: '7px 10px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 6 }}>
+      {/* Queue toolbar */}
+      <div style={{ padding: '8px 14px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 8, flexShrink: 0 }}>
         <input value={newFile} onChange={e => setNewFile(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && queue()}
-          placeholder="Filename to queue…"
+          placeholder="Filename to queue for analysis…"
           className="field-input" style={{ flex: 1 }}
         />
         <button onClick={queue} className="btn">+ Queue</button>
       </div>
 
-      {/* Summary strip */}
-      <div style={{ display: 'flex', gap: 16, padding: '4px 12px', borderBottom: '1px solid var(--border)', fontSize: 11 }}>
+      {/* Stats strip */}
+      <div style={{ display: 'flex', gap: 6, padding: '6px 14px', borderBottom: '1px solid var(--border)', flexShrink: 0, flexWrap: 'wrap' }}>
         {['complete', 'processing', 'queued', 'error'].map(s => (
-          <span key={s} style={{ color: STATUS_COLOR[s] }}>
-            {jobs.filter(j => j.status === s).length} {s}
+          <span key={s} className={`status-chip ${s}`}>
+            {counts[s]} {s}
           </span>
         ))}
-        <span style={{ color: 'var(--text-muted)', marginLeft: 'auto', fontSize: 10 }}>auto-refresh 2s</span>
+        <span style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontSize: 10, fontFamily: "'IBM Plex Mono', monospace", alignSelf: 'center' }}>
+          auto-refresh 2s
+        </span>
       </div>
 
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        {/* Table */}
         <div style={{ flex: 1, overflowY: 'auto' }}>
           <table className="data-table">
             <thead>
               <tr>
-                {['ID', 'File', 'Status', 'Queued', 'Done', 'Risk', 'Flags'].map(h => (
-                  <th key={h}>{h}</th>
-                ))}
+                <th>ID</th>
+                <th>File</th>
+                <th>Status</th>
+                <th>Queued</th>
+                <th>Completed</th>
+                <th>Risk</th>
+                <th style={{ textAlign: 'right' }}>Flags</th>
               </tr>
             </thead>
             <tbody>
               {jobs.map(j => (
-                <tr key={j.id} onClick={() => setSelected(j)} className={selected?.id === j.id ? 'selected' : ''} style={{ cursor: 'pointer' }}>
+                <tr key={j.id} onClick={() => setSelected(j)}
+                  className={selected?.id === j.id ? 'selected' : ''}
+                  style={{ cursor: 'pointer' }}
+                >
                   <td className="mono-cell">{j.id}</td>
-                  <td style={{ maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{j.file}</td>
-                  <td style={{ color: STATUS_COLOR[j.status], fontWeight: 500 }}>{j.status}</td>
+                  <td style={{ maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{j.file}</td>
+                  <td>
+                    <span className={`status-chip ${j.status}`}>{j.status}</span>
+                  </td>
                   <td className="mono-cell">{ts(j.queued_at)}</td>
                   <td className="mono-cell">{ts(j.completed_at)}</td>
-                  <td style={{ color: RISK_COLOR[j.risk_level ?? ''] ?? 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>{j.risk_level ?? '—'}</td>
+                  <td style={{ color: RISK_COLOR[j.risk_level ?? ''] ?? 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>
+                    {j.risk_level ?? '—'}
+                  </td>
                   <td className="num">{j.flags ?? '—'}</td>
                 </tr>
               ))}
+              {jobs.length === 0 && (
+                <tr>
+                  <td colSpan={7} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: 24 }}>
+                    No jobs in queue.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
+
+        {/* Detail side */}
         {selected && (
-          <div style={{ width: 180, borderLeft: '1px solid var(--border)', padding: 12, overflowY: 'auto', flexShrink: 0, fontSize: 12 }}>
-            <div style={{ color: 'var(--text-heading)', fontWeight: 600, marginBottom: 10 }}>Job detail</div>
-            {[['ID', selected.id], ['File', selected.file], ['Status', selected.status],
-              ['Risk', selected.risk_level ?? '—'], ['Clauses', String(selected.clause_count ?? '—')],
-              ['Flags', String(selected.flags ?? '—')]].map(([k, v]) => (
-              <div key={k} style={{ marginBottom: 8 }}>
-                <div style={{ color: 'var(--text-muted)', fontSize: 10, marginBottom: 1 }}>{k}</div>
-                <div style={{ color: 'var(--text-dim)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>{v}</div>
+          <div style={{ width: 220, borderLeft: '1px solid var(--border)', padding: '16px 14px', overflowY: 'auto', flexShrink: 0 }}>
+            <div style={{ color: 'var(--text-heading)', fontWeight: 600, fontSize: 12, marginBottom: 14 }}>Job detail</div>
+            {[
+              ['ID', selected.id],
+              ['File', selected.file],
+              ['Status', selected.status],
+              ['Risk', selected.risk_level ?? '—'],
+              ['Clauses', String(selected.clause_count ?? '—')],
+              ['Flags', String(selected.flags ?? '—')],
+              ['Queued', ts(selected.queued_at)],
+              ['Completed', ts(selected.completed_at)],
+            ].map(([k, v]) => (
+              <div key={k} style={{ marginBottom: 10 }}>
+                <div style={{ color: 'var(--text-muted)', fontSize: 10, marginBottom: 2 }}>{k}</div>
+                <div style={{ color: 'var(--text-dim)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, wordBreak: 'break-all' }}>{v}</div>
               </div>
             ))}
-            {selected.error && <div style={{ color: 'var(--risk-critical)', fontSize: 11, marginTop: 6 }}>↳ {selected.error}</div>}
+            {selected.error && (
+              <div style={{ color: 'var(--risk-critical)', fontSize: 11, marginTop: 6 }}>↳ {selected.error}</div>
+            )}
           </div>
         )}
       </div>
