@@ -139,7 +139,7 @@ export function DktwPanel({ id }: { id: string }) {
           </p>
 
           {/* How it works */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 24 }}>
+          <div className="dktw-feature-grid">
             {HOW_IT_WORKS.map((step, i) => (
               <div key={i} style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border)', padding: '14px 16px' }}>
                 <div style={{ color: 'var(--accent)', marginBottom: 8 }}>{step.icon}</div>

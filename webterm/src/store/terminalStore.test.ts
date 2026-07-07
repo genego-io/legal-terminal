@@ -54,6 +54,10 @@ describe('closePanel (backward-compat shim)', () => {
 })
 
 describe('splitView', () => {
+  beforeEach(() => {
+    Object.defineProperty(window, 'innerWidth', { value: 1440, configurable: true })
+  })
+
   it('pinSplit sets a secondary view', () => {
     useTerminalStore.getState().pinSplit('CITE')
     expect(useTerminalStore.getState().splitView?.type).toBe('CITE')
@@ -114,6 +118,7 @@ describe('resetPanels', () => {
   })
 
   it('clears splitView', () => {
+    Object.defineProperty(window, 'innerWidth', { value: 1440, configurable: true })
     useTerminalStore.getState().pinSplit('CITE')
     useTerminalStore.getState().resetPanels()
     expect(useTerminalStore.getState().splitView).toBeNull()

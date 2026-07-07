@@ -29,6 +29,7 @@ export function CommandPalette({ open, onClose }: Props) {
 
   return (
     <div
+      className="command-palette-overlay"
       style={{
         position: 'fixed', inset: 0, zIndex: 1000,
         background: 'var(--overlay)',
@@ -38,11 +39,10 @@ export function CommandPalette({ open, onClose }: Props) {
       onClick={e => { if (e.target === e.currentTarget) onClose() }}
     >
       <Command
+        className="command-palette-dialog"
         style={{
-          width: 560, maxHeight: '60vh',
-          background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)',
+          maxHeight: '60vh',
           display: 'flex', flexDirection: 'column', overflow: 'hidden',
-          boxShadow: '0 24px 64px var(--shadow-lg)',
         }}
         onKeyDown={e => { if (e.key === 'Escape') onClose() }}
       >

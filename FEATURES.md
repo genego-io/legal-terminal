@@ -128,9 +128,19 @@ LEGAL_MCP_URL=http://localhost:8000 legal-term
 Widgets retrieve the active client via `get_client()` — no widget changes needed when switching.
 
 ### Mock layer (both surfaces)
-- Shared JSON fixtures in `fixtures/`
+- Shared JSON fixtures in `fixtures/` (canonical source of truth)
+- `scripts/sync-fixtures.mjs` generates `webterm/src/fixtures.ts` at build time — web and TUI read the same JSON
 - Full offline demo with no server
 - Identical data shapes in TypeScript interfaces and Python dataclasses
+
+**Mock coverage (v0.2):**
+- **7 contracts** with `party_roles` maps; buyer / seller / mutual negotiation guides per contract with clause-specific rationales and redline fallback text (`negotiation_guides.json`)
+- **21+ clause keys** with realistic alternatives (`clause_alternatives.json`)
+- **Document profiles** with summaries, snippets, and page counts (`document_profiles.json`); DOCA/PRIV panels share fixture-backed file lists
+- **18 cases**, **9 statutes**, full brief outlines for all BRF case types (multi-paragraph sections), expanded jobs with `result_summary`
+- **Panel constants** in `fixtures/panel_meta.json` — search examples, citation examples, statute quick links, AI providers
+- **Zero-result search** queries for PREC empty-state demos; session audit log appends on tool calls
+- **Single build script:** `scripts/sync-fixtures.mjs` generates `webterm/src/fixtures.ts` (no separate enrich scripts)
 
 ---
 

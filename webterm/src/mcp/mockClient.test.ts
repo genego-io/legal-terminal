@@ -33,8 +33,13 @@ describe('searchPrecedents', () => {
     }
   })
 
-  it('returns results for an unmatched query (fallback ranking)', async () => {
-    const results = await c.searchPrecedents('xyzzy_nomatchwhatsoever')
+  it('returns empty array for zero-result queries', async () => {
+    const results = await c.searchPrecedents('no results expected')
+    expect(results.length).toBe(0)
+  })
+
+  it('returns ranked results for normal queries', async () => {
+    const results = await c.searchPrecedents('contract breach')
     expect(results.length).toBeGreaterThan(0)
   })
 })
@@ -216,5 +221,72 @@ describe('getAuditLog', () => {
       expect(e).toHaveProperty('timestamp')
       expect(typeof e.success).toBe('boolean')
     })
+  })
+
+  it('appends session entries after tool calls', async () => {
+    const before = (await c.getAuditLog()).length
+    await c.searchPrecedents('breach')
+    const after = (await c.getAuditLog()).length
+    expect(after).toBeGreaterThan(before)
+  })
+})
+
+describe('generateNegotiationGuide', () => {
+  it('returns different guides for buyer vs seller', async () => {
+    const buyer = await c.generateNegotiationGuide('client_proposed_nda', 'buyer')
+    const seller = await c.generateNegotiationGuide('client_proposed_nda', 'seller')
+    expect(buyer.party_role).toBe('buyer')
+    expect(seller.party_role).toBe('seller')
+    const buyerInd = buyer.clauses.find(cl => cl.key === 'indemnification')
+    const sellerInd = seller.clauses.find(cl => cl.key === 'indemnification')
+    expect(buyerInd?.recommended_position).not.toBe(sellerInd?.recommended_position)
+  })
+
+  it('mutual differs from buyer on critical clauses', async () => {
+    const buyer = await c.generateNegotiationGuide('vendor_saas_agreement_v2', 'buyer')
+    const mutual = await c.generateNegotiationGuide('vendor_saas_agreement_v2', 'mutual')
+    const bInd = buyer.clauses.find(cl => cl.key === 'indemnification')
+    const mInd = mutual.clauses.find(cl => cl.key === 'indemnification')
+    expect(bInd?.recommended_position).toBe('reject')
+    expect(mInd?.fallback_text).not.toBe(bInd?.fallback_text)
+  })
+})
+
+describe('suggestAlternatives', () => {
+  it('returns non-generic alternatives for governing_law', async () => {
+    const alts = await c.suggestAlternatives('', 'governing_law')
+    expect(alts.length).toBe(3)
+    expect(alts[0]).not.toMatch(/^Alternative 1 for/)
+  })
+})
+
+describe('compareContracts', () => {
+  it('finds diffs between NDA templates', async () => {
+    const { diffs } = await c.compareContracts('standard_nda_template', 'client_proposed_nda')
+    expect(diffs.length).toBeGreaterThan(0)
+  })
+})
+
+describe('analyzeDocument', () => {
+  it('maps vendor_nda_2026.docx to client_proposed_nda risk', async () => {
+    const res = await c.analyzeDocument('vendor_nda_2026.docx')
+    expect(res.risk_level).toBe('HIGH')
+    expect(res.metadata.file).toBe('vendor_nda_2026.docx')
+  })
+})
+
+describe('checkPrivilegeRisk by file', () => {
+  it('returns CRITICAL for litigation_memo.docx', async () => {
+    const r = await c.checkPrivilegeRisk('litigation_memo.docx', 'openai')
+    expect(r.risk).toBe('CRITICAL')
+    expect(r.indicators.some(i => i.includes('Work product'))).toBe(true)
+  })
+})
+
+describe('generateBriefOutline', () => {
+  it('returns distinct outline for motion to dismiss', async () => {
+    const outline = await c.generateBriefOutline('motion to dismiss', 'facts here')
+    expect(outline.case_type.toLowerCase()).toContain('dismiss')
+    expect(outline.sections.length).toBeGreaterThan(3)
   })
 })

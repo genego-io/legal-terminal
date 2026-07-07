@@ -1,0 +1,145 @@
+{
+  "vendor_nda_2026.docx": {
+    "contract_id": "client_proposed_nda",
+    "document_type": "Non-Disclosure Agreement (draft)",
+    "page_count": 8,
+    "summary": "Third-party vendor NDA proposed by Acme Retail Group for evaluation of CloudServe analytics integration. Contains marked-materials-only confidentiality definition and uncapped indemnification — flagged as HIGH overall contract risk.",
+    "snippet": "Recipient shall hold in confidence only information that is specifically marked 'Confidential' at the time of disclosure... Recipient shall indemnify and hold harmless the Disclosing Party against any and all losses arising from unauthorized disclosure, without limitation of liability.",
+    "payment_terms": "Net 30",
+    "privilege": {
+      "risk_override": "HIGH",
+      "indicators": [
+        "Commercial NDA draft — no attorney-client privilege expected, but contains pricing schedules and unreleased product roadmap",
+        "Third-party vendor terms referenced in Exhibit B with volume discount tiers",
+        "Marked 'Draft — For Discussion Purposes Only' — not yet executed"
+      ]
+    }
+  },
+  "saas_msa_draft.docx": {
+    "contract_id": "vendor_saas_agreement_v2",
+    "document_type": "Master Services Agreement (SaaS)",
+    "page_count": 24,
+    "summary": "CloudServe Inc. proposed MSA for enterprise analytics platform. One-sided client indemnification, three-month liability cap, and provider-only termination for convenience. Missing SLA exhibit and audit rights.",
+    "snippet": "Client shall indemnify Provider against all third-party claims arising from Client's use of the Services, including data uploaded by Client, without cap or exclusion. Provider's total liability shall not exceed fees paid in the three (3) months preceding the claim.",
+    "payment_terms": "Net 45",
+    "privilege": {
+      "risk_override": "MEDIUM",
+      "indicators": [
+        "Commercial terms under active negotiation — business counsel review in progress",
+        "Service level metrics referenced but not attached (Exhibit C missing)",
+        "No litigation strategy or privileged legal analysis detected"
+      ]
+    }
+  },
+  "dpa_addendum_eu.pdf": {
+    "contract_id": "master_services_agreement_tech",
+    "document_type": "Data Processing Addendum (GDPR)",
+    "page_count": 12,
+    "summary": "Standard GDPR Article 28 processor addendum with subprocessor list, SCCs, and 72-hour breach notification. Attached to TechVendor MSA for EU employee data processing.",
+    "snippet": "Processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk, including pseudonymisation and encryption of personal data.",
+    "payment_terms": null,
+    "privilege": {
+      "risk_override": "LOW",
+      "indicators": [
+        "Standard GDPR processor terms — regulatory template, not litigation-related",
+        "Subprocessor list attachment (Annex III) with AWS, Snowflake entries",
+        "No client-identifying litigation facts or attorney work product"
+      ]
+    }
+  },
+  "hipaa_baa_template.docx": {
+    "contract_id": "master_services_agreement_tech",
+    "document_type": "HIPAA Business Associate Agreement",
+    "page_count": 6,
+    "summary": "Template BAA for TechVendor Inc. covering PHI processing under covered entity's group health plan. Includes administrative safeguards checklist and breach notification procedures per 45 C.F.R. § 164.410.",
+    "snippet": "Business Associate shall implement administrative, physical, and technical safeguards that reasonably and appropriately protect the confidentiality, integrity, and availability of electronic protected health information.",
+    "payment_terms": null,
+    "privilege": {
+      "risk_override": "LOW",
+      "indicators": [
+        "HIPAA business associate template — compliance document, not privileged",
+        "Administrative safeguards checklist in Appendix A",
+        "No PHI samples or patient identifiers included"
+      ]
+    }
+  },
+  "litigation_memo.docx": {
+    "contract_id": null,
+    "document_type": "Attorney Work Product — Litigation Strategy Memo",
+    "page_count": 14,
+    "summary": "Privileged memo from outside counsel analyzing breach-of-contract claims against Delta Ventures. Contains settlement range ($1.2M–$1.8M), witness credibility assessments, and impeachment strategy for CFO deposition.",
+    "snippet": "PRIVILEGED AND CONFIDENTIAL — ATTORNEY WORK PRODUCT. Preliminary settlement range: $1.2M–$1.8M based on comparable Cal.App. delivery-timing cases. CFO deposition outline attached — focus on Q3 earnings call statements contradicting written delivery timeline.",
+    "payment_terms": null,
+    "privilege": {
+      "risk_override": "CRITICAL",
+      "indicators": [
+        "Attorney-client communication — header marked Privileged and Confidential",
+        "Work product — litigation strategy, settlement valuation, and witness preparation",
+        "Settlement range analysis and impeachment outline for key fact witness",
+        "Mental impressions and legal conclusions of counsel throughout"
+      ]
+    }
+  },
+  "client_strategy.pdf": {
+    "contract_id": null,
+    "document_type": "Board Litigation Strategy Brief",
+    "page_count": 22,
+    "summary": "Board-facing strategy document prepared by litigation counsel for Northstar Capital. Timeline of anticipated motions, budget projections, and privileged analysis of earnout dispute fiduciary duty exposure.",
+    "snippet": "Board should authorize mediation before Q4 earnings. Fiduciary duty exposure under Northstar v. Delta framework if synergy disclosures are incomplete. Estimated defense budget: $850K through summary judgment phase.",
+    "payment_terms": null,
+    "privilege": {
+      "risk_override": "CRITICAL",
+      "indicators": [
+        "Attorney-client communication prepared at direction of General Counsel",
+        "Board litigation strategy timeline with privileged legal recommendations",
+        "Witness preparation notes and document retention hold instructions",
+        "Client-identifying confidential facts regarding pending acquisition dispute"
+      ]
+    }
+  },
+  "deposition_notes.docx": {
+    "contract_id": null,
+    "document_type": "Deposition Preparation Outline",
+    "page_count": 9,
+    "summary": "Attorney notes for upcoming deposition of TechVendor project manager in Smith v. ABC Corp. Contains impeachment points, document binders, and counsel's mental impressions about witness credibility.",
+    "snippet": "Deposition of J. Martinez (PM) — 3/15/2026. Key impeachment: Ex. 12 email ('we can slip the date') vs. trial testimony re time-is-essence. Counsel impression: witness cooperative but may defer to VP on contract interpretation.",
+    "payment_terms": null,
+    "privilege": {
+      "risk_override": "HIGH",
+      "indicators": [
+        "Work product — deposition outline with impeachment strategy",
+        "Attorney mental impressions regarding witness demeanor and credibility",
+        "Cross-reference to privileged trial exhibits not yet produced"
+      ]
+    }
+  },
+  "advisor_agreement_v3.docx": {
+    "contract_id": "employment_severance_draft",
+    "document_type": "Advisory Board Agreement (draft)",
+    "page_count": 11,
+    "summary": "Draft advisory board agreement for former executive — equity grant schedule, monthly retainer, and IP assignment provisions. Mapped to employment severance analysis for restrictive covenant review.",
+    "snippet": "Advisor shall assign to Company all inventions conceived during the Advisory Term relating to Company's business. Monthly retainer: $8,000. Equity grant: 15,000 RSUs vesting over 24 months.",
+    "payment_terms": "Monthly retainer",
+    "privilege": {
+      "risk_override": "MEDIUM",
+      "indicators": [
+        "Advisory board compensation and equity terms — commercial, not privileged",
+        "IP assignment clause overlaps with employment severance analysis",
+        "No explicit attorney-client marking; prepared by HR with business counsel input"
+      ]
+    }
+  },
+  "fail_me.docx": {
+    "contract_id": null,
+    "document_type": "Unknown (encrypted)",
+    "page_count": null,
+    "summary": "Encrypted document container — content cannot be assessed. Simulated parse failure for queue demo.",
+    "snippet": null,
+    "payment_terms": null,
+    "privilege": {
+      "risk_override": "HIGH",
+      "indicators": ["Encrypted container — cannot assess privilege or contract content"]
+    },
+    "queue_fail": true
+  }
+}

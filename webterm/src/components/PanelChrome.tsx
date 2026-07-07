@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useTerminalStore } from '../store/terminalStore'
 import type { PanelType } from '../store/terminalStore'
+import { useViewport } from '../hooks/useViewport'
 
 interface Props {
   id: string
@@ -14,6 +15,7 @@ interface Props {
 
 export function PanelChrome({ mnemonic, title, subtitle, children, actions, panelType }: Props) {
   const { pinSplit, splitView, closeSplit } = useTerminalStore()
+  const { isTablet } = useViewport()
   const isSplit = splitView?.type === panelType
 
   return (
@@ -24,10 +26,11 @@ export function PanelChrome({ mnemonic, title, subtitle, children, actions, pane
         {subtitle && <span className="module-subtitle">— {subtitle}</span>}
         <span style={{ flex: 1 }} />
         {actions}
-        {panelType && (
+        {panelType && !isTablet && (
           <button
             onClick={() => isSplit ? closeSplit() : pinSplit(panelType)}
             title={isSplit ? 'Close split' : 'Pin to split view'}
+            className="split-btn-hide-tablet"
             style={{
               background: isSplit ? 'var(--accent-faint)' : 'transparent',
               border: '1px solid ' + (isSplit ? 'var(--accent-dim)' : 'var(--border-bright)'),

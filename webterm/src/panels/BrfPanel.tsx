@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
+import { BRIEF_CASE_TYPES } from '../fixtureMeta'
 import type { BriefOutline } from '../mcp/types'
 
-const CASE_TYPES = ['contract breach', 'employment discrimination', 'negligence', 'IP infringement', 'securities fraud', 'civil rights']
+const CASE_TYPES = BRIEF_CASE_TYPES
 
 export function BrfPanel({ id, query }: { id: string; query?: string }) {
   const [caseType, setCaseType] = useState(query ?? 'contract breach')

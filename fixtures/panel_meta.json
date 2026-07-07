@@ -1,0 +1,55 @@
+{
+  "search_examples": [
+    "breach of contract delivery",
+    "attorney-client privilege waiver",
+    "indemnification limitation of liability",
+    "personal jurisdiction minimum contacts",
+    "no results expected"
+  ],
+  "brief_case_types": [
+    "contract breach",
+    "employment discrimination",
+    "negligence",
+    "IP infringement",
+    "securities fraud",
+    "civil rights"
+  ],
+  "citation_examples": [
+    "2022 Cal.App.4th 1234",
+    "Smith v. ABC Corp., 2022 Cal.App.4th 1234",
+    "156 Eng. Rep. 145",
+    "2099 Cal.App.4th 9999",
+    "not a real citation"
+  ],
+  "statute_quick_links": [
+    { "label": "Cal. Civ. Code § 1657", "id": "Cal.Civ.Code.1657" },
+    { "label": "Cal. Civ. Code § 1668", "id": "Cal.Civ.Code.1668" },
+    { "label": "Cal. Com. Code § 2106", "id": "Cal.Com.Code.2106" },
+    { "label": "18 U.S.C. § 1030", "id": "18.USC.1030" },
+    { "label": "29 U.S.C. § 623", "id": "29.USC.623" },
+    { "label": "GDPR Art. 28", "id": "GDPR.Art.28" },
+    { "label": "Cal. Civ. Code § 1798.100", "id": "CCPA.1798.100" },
+    { "label": "U.C.C. § 2-714", "id": "UCC.2-714" }
+  ],
+  "ai_providers": [
+    { "id": "ollama", "label": "Ollama (local)", "zdr": true, "training": false, "hipaa": false },
+    { "id": "azure_openai", "label": "Azure OpenAI", "zdr": true, "training": false, "hipaa": true },
+    { "id": "vertex_ai", "label": "Google Vertex AI", "zdr": true, "training": false, "hipaa": true },
+    { "id": "openai", "label": "OpenAI API", "zdr": false, "training": false, "hipaa": false },
+    { "id": "anthropic", "label": "Anthropic API", "zdr": false, "training": false, "hipaa": false },
+    { "id": "openrouter", "label": "OpenRouter", "zdr": false, "training": true, "hipaa": false },
+    { "id": "unknown", "label": "Unknown provider", "zdr": false, "training": true, "hipaa": false }
+  ],
+  "privilege_risk_labels": {
+    "CRITICAL": "Critical — do not route under any circumstances",
+    "HIGH": "High — attorney authorization required before routing",
+    "MEDIUM": "Medium — review provider data retention terms",
+    "LOW": "Low — local inference, no data leaves your machine"
+  },
+  "privilege_demo_files": [
+    "vendor_nda_2026.docx",
+    "litigation_memo.docx",
+    "client_strategy.pdf",
+    "deposition_notes.docx"
+  ]
+}

@@ -43,7 +43,7 @@ export function AudtPanel({ id }: { id: string }) {
         ))}
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+      <div className="table-scroll" style={{ flex: 1, overflowY: 'auto' }}>
         <table className="data-table">
           <thead>
             <tr>
@@ -53,6 +53,13 @@ export function AudtPanel({ id }: { id: string }) {
             </tr>
           </thead>
           <tbody>
+            {filtered.length === 0 && (
+              <tr>
+                <td colSpan={6} style={{ padding: '16px 10px', color: 'var(--text-muted)', fontSize: 12, textAlign: 'center' }}>
+                  No audit entries match this filter.
+                </td>
+              </tr>
+            )}
             {filtered.map(e => (
               <tr key={e.id}>
                 <td className="mono-cell">{ts(e.timestamp)}</td>

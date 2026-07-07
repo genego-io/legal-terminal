@@ -1,9 +1,11 @@
 [
   {
     "id": "standard_nda_template",
+    "short_label": "Standard NDA",
     "title": "Standard Mutual Non-Disclosure Agreement",
     "type": "NDA",
     "risk_level": "MEDIUM",
+    "party_roles": { "buyer": "receiving", "seller": "disclosing", "mutual": "both" },
     "clauses": [
       {
         "key": "confidentiality_scope",
@@ -49,30 +51,32 @@
   },
   {
     "id": "client_proposed_nda",
+    "short_label": "Client NDA (Proposed)",
     "title": "Client Proposed Non-Disclosure Agreement",
     "type": "NDA",
     "risk_level": "HIGH",
+    "party_roles": { "buyer": "receiving", "seller": "disclosing", "mutual": "both" },
     "clauses": [
       {
         "key": "confidentiality_scope",
         "label": "Confidentiality Scope",
         "text": "Recipient shall hold in confidence only information that is specifically marked 'Confidential' at the time of disclosure.",
         "risk": "HIGH",
-        "risk_note": "Narrowly scoped — only marked materials protected. Oral disclosures unprotected. Consider broadening."
+        "risk_note": "Narrowly scoped — only marked materials protected. Oral disclosures unprotected."
       },
       {
         "key": "term_duration",
         "label": "Term & Duration",
         "text": "The obligations of confidentiality shall survive for three (3) years following termination of this Agreement.",
         "risk": "MEDIUM",
-        "risk_note": "3-year survival is below the 5-year market standard. Recommend extending."
+        "risk_note": "3-year survival is below the 5-year market standard."
       },
       {
         "key": "return_of_materials",
         "label": "Return of Materials",
         "text": "Upon termination, Recipient shall return or destroy all Confidential Materials within sixty (60) days.",
         "risk": "MEDIUM",
-        "risk_note": "60-day window is longer than standard 30 days. Creates extended exposure window."
+        "risk_note": "60-day window is longer than standard 30 days."
       },
       {
         "key": "governing_law",
@@ -86,7 +90,7 @@
         "label": "Indemnification",
         "text": "Recipient shall indemnify and hold harmless the Disclosing Party against any and all losses arising from unauthorized disclosure, without limitation of liability.",
         "risk": "CRITICAL",
-        "risk_note": "Unlimited indemnification with no liability cap is highly unusual and risky. Negotiate a cap."
+        "risk_note": "Unlimited indemnification with no liability cap is highly unusual and risky."
       }
     ],
     "missing_clauses": ["remedies", "dispute_resolution", "limitation_of_liability"],
@@ -97,9 +101,11 @@
   },
   {
     "id": "master_services_agreement_tech",
+    "short_label": "Tech MSA",
     "title": "Master Services Agreement — Technology & Software",
     "type": "MSA",
     "risk_level": "MEDIUM",
+    "party_roles": { "buyer": "client", "seller": "provider", "mutual": "both" },
     "clauses": [
       {
         "key": "scope_of_services",
@@ -111,30 +117,30 @@
       {
         "key": "intellectual_property",
         "label": "Intellectual Property",
-        "text": "All work product, code, and deliverables created by Provider specifically for Client under this Agreement shall be works-made-for-hire. Provider retains ownership of its pre-existing tools, frameworks, and methodologies ('Background IP').",
+        "text": "All work product created by Provider for Client shall be works-made-for-hire. Provider retains ownership of its pre-existing tools and methodologies ('Background IP').",
         "risk": "MEDIUM",
-        "risk_note": "Works-for-hire favorable for client but review Background IP carve-out scope carefully."
+        "risk_note": "Works-for-hire favorable for client but review Background IP carve-out scope."
       },
       {
         "key": "data_security",
         "label": "Data Security",
-        "text": "Provider shall maintain industry-standard security controls, including encryption in transit and at rest, access controls, and annual penetration testing. Provider shall notify Client of any confirmed security incident within forty-eight (48) hours.",
+        "text": "Provider shall maintain industry-standard security controls and notify Client of any confirmed security incident within forty-eight (48) hours.",
         "risk": "LOW",
-        "risk_note": "48-hour incident notification is standard. SOC 2 attestation should be referenced."
+        "risk_note": "48-hour incident notification is standard."
       },
       {
         "key": "limitation_of_liability",
         "label": "Limitation of Liability",
-        "text": "Each party's aggregate liability shall not exceed the greater of (i) fees paid in the twelve (12) months preceding the claim or (ii) $500,000. Liability for gross negligence, willful misconduct, or IP infringement is not capped.",
+        "text": "Each party's aggregate liability shall not exceed the greater of fees paid in twelve (12) months or $500,000, except for gross negligence, willful misconduct, or IP infringement.",
         "risk": "LOW",
-        "risk_note": "Balanced cap with appropriate carve-outs for gross negligence and IP."
+        "risk_note": "Balanced cap with appropriate carve-outs."
       },
       {
         "key": "dispute_resolution",
         "label": "Dispute Resolution",
-        "text": "Disputes shall first be escalated to senior management for good-faith negotiation. Unresolved disputes shall be submitted to binding arbitration under JAMS rules in San Francisco, California.",
+        "text": "Disputes shall be submitted to binding arbitration under JAMS rules in San Francisco, California.",
         "risk": "LOW",
-        "risk_note": "JAMS arbitration is standard. Consider specifying arbitrator selection process."
+        "risk_note": "JAMS arbitration is standard."
       }
     ],
     "missing_clauses": [],
@@ -142,5 +148,205 @@
     "governing_law": "Delaware",
     "term": "2 years, auto-renewing",
     "liability_cap": "$500,000"
+  },
+  {
+    "id": "vendor_saas_agreement_v2",
+    "short_label": "Vendor SaaS MSA",
+    "title": "Vendor SaaS Master Services Agreement v2",
+    "type": "MSA",
+    "risk_level": "HIGH",
+    "party_roles": { "buyer": "client", "seller": "provider", "mutual": "both" },
+    "clauses": [
+      {
+        "key": "indemnification",
+        "label": "Indemnification",
+        "text": "Client shall indemnify Provider against all third-party claims arising from Client's use of the Services, including data uploaded by Client, without cap or exclusion.",
+        "risk": "CRITICAL",
+        "risk_note": "One-sided uncapped client indemnity strongly favors Provider."
+      },
+      {
+        "key": "limitation_of_liability",
+        "label": "Limitation of Liability",
+        "text": "Provider's total liability shall not exceed fees paid in the three (3) months preceding the claim. Provider shall have no liability for indirect, consequential, or punitive damages.",
+        "risk": "HIGH",
+        "risk_note": "Three-month fee cap is below market; no reciprocal cap on Client."
+      },
+      {
+        "key": "intellectual_property",
+        "label": "Intellectual Property",
+        "text": "Provider retains all rights in the platform, models, and aggregated usage data. Client receives a non-exclusive license during the term only.",
+        "risk": "HIGH",
+        "risk_note": "No ownership of custom configurations or integrations."
+      },
+      {
+        "key": "data_security",
+        "label": "Data Security",
+        "text": "Provider shall use commercially reasonable efforts to protect Client data. Provider may use anonymized data for product improvement.",
+        "risk": "MEDIUM",
+        "risk_note": "'Commercially reasonable' is vague; training use on client data is implied."
+      },
+      {
+        "key": "termination",
+        "label": "Termination",
+        "text": "Provider may terminate for convenience on thirty (30) days notice. Client may terminate only for uncured material breach.",
+        "risk": "HIGH",
+        "risk_note": "Asymmetric termination rights favor Provider."
+      }
+    ],
+    "missing_clauses": ["dispute_resolution", "service_levels", "audit_rights"],
+    "parties": { "provider": "CloudServe Inc.", "client": "Acme Retail Group" },
+    "governing_law": "Delaware",
+    "term": "1 year, auto-renewing",
+    "liability_cap": "3 months fees"
+  },
+  {
+    "id": "enterprise_nda_mutual",
+    "short_label": "Enterprise Mutual NDA",
+    "title": "Enterprise Mutual Non-Disclosure Agreement",
+    "type": "NDA",
+    "risk_level": "LOW",
+    "party_roles": { "buyer": "party_a", "seller": "party_b", "mutual": "both" },
+    "clauses": [
+      {
+        "key": "confidentiality_scope",
+        "label": "Confidentiality Scope",
+        "text": "Each party shall protect the other's Confidential Information disclosed in connection with a potential transaction, whether oral, written, or electronic.",
+        "risk": "LOW",
+        "risk_note": "Balanced mutual scope covering unmarked oral disclosures with reasonable care standard."
+      },
+      {
+        "key": "term_duration",
+        "label": "Term & Duration",
+        "text": "Confidentiality obligations survive for five (5) years; trade secrets survive indefinitely.",
+        "risk": "LOW",
+        "risk_note": "Market-standard survival with trade secret carve-out."
+      },
+      {
+        "key": "return_of_materials",
+        "label": "Return of Materials",
+        "text": "Upon request, each party shall return or certify destruction of Confidential Materials within thirty (30) days.",
+        "risk": "LOW",
+        "risk_note": "Mutual certification requirement is best practice."
+      },
+      {
+        "key": "governing_law",
+        "label": "Governing Law",
+        "text": "This Agreement shall be governed by the laws of the State of New York, without regard to conflicts principles.",
+        "risk": "LOW",
+        "risk_note": "New York is common for enterprise M&A NDAs."
+      },
+      {
+        "key": "limitation_of_liability",
+        "label": "Limitation of Liability",
+        "text": "Neither party shall be liable for indirect or consequential damages arising from breach; direct damages capped at $1,000,000.",
+        "risk": "LOW",
+        "risk_note": "Mutual liability cap appropriate for exploratory NDAs."
+      }
+    ],
+    "missing_clauses": ["indemnification", "dispute_resolution"],
+    "parties": { "party_a": "Northstar Holdings LLC", "party_b": "Summit Capital Partners" },
+    "governing_law": "New York",
+    "term": "2 years",
+    "liability_cap": "$1,000,000"
+  },
+  {
+    "id": "employment_severance_draft",
+    "short_label": "Employment Severance",
+    "title": "Executive Severance and Release Agreement (Draft)",
+    "type": "Employment",
+    "risk_level": "HIGH",
+    "party_roles": { "buyer": "employee", "seller": "employer", "mutual": "both" },
+    "clauses": [
+      {
+        "key": "severance_payment",
+        "label": "Severance Payment",
+        "text": "Employer shall pay six (6) months base salary in a lump sum within thirty (30) days of the Separation Date, subject to signing this Agreement.",
+        "risk": "MEDIUM",
+        "risk_note": "Verify COBRA and tax gross-up treatment; six months may be below market for executives."
+      },
+      {
+        "key": "non_compete",
+        "label": "Non-Compete",
+        "text": "Employee shall not engage in competing business activities within a fifty (50) mile radius for twelve (12) months following separation.",
+        "risk": "HIGH",
+        "risk_note": "Enforceability varies by state; California generally voids non-competes post-2024."
+      },
+      {
+        "key": "ip_assignment",
+        "label": "IP Assignment",
+        "text": "Employee assigns to Employer all inventions conceived during employment relating to Employer's business, including post-separation improvements to prior work.",
+        "risk": "HIGH",
+        "risk_note": "Post-separation IP sweep is broad; confirm prior inventions schedule."
+      },
+      {
+        "key": "release_of_claims",
+        "label": "Release of Claims",
+        "text": "Employee releases all claims against Employer through the Separation Date, including unknown claims under ADEA, with seven (7) day revocation period.",
+        "risk": "MEDIUM",
+        "risk_note": "ADEA compliance requires specific language and timing; verify OWBPA checklist."
+      },
+      {
+        "key": "confidentiality",
+        "label": "Confidentiality",
+        "text": "Employee shall maintain confidentiality of Employer trade secrets and customer lists indefinitely.",
+        "risk": "LOW",
+        "risk_note": "Standard post-employment confidentiality."
+      }
+    ],
+    "missing_clauses": ["dispute_resolution", "governing_law"],
+    "parties": { "employer": "Acme Technologies Inc.", "employee": "Jane Doe" },
+    "governing_law": "California",
+    "term": "One-time upon separation",
+    "liability_cap": null
+  },
+  {
+    "id": "real_estate_purchase_amendment",
+    "short_label": "RE Purchase Amendment",
+    "title": "Commercial Purchase Agreement — First Amendment",
+    "type": "Real Estate",
+    "risk_level": "MEDIUM",
+    "party_roles": { "buyer": "buyer", "seller": "seller", "mutual": "both" },
+    "clauses": [
+      {
+        "key": "purchase_price",
+        "label": "Purchase Price Adjustment",
+        "text": "Purchase price increased from $12,400,000 to $12,750,000 reflecting updated appraisal and tenant improvement credits.",
+        "risk": "MEDIUM",
+        "risk_note": "Verify appraisal contingency and credit allocation against LOI."
+      },
+      {
+        "key": "due_diligence",
+        "label": "Due Diligence Extension",
+        "text": "Buyer's inspection period extended by fifteen (15) days to complete Phase I ESA and roof structural review.",
+        "risk": "LOW",
+        "risk_note": "Extension is reasonable for environmental and structural items."
+      },
+      {
+        "key": "governing_law",
+        "label": "Governing Law",
+        "text": "This Amendment and the underlying Agreement shall be governed by the laws of the State of Texas.",
+        "risk": "LOW",
+        "risk_note": "Texas law consistent with property location."
+      },
+      {
+        "key": "dispute_resolution",
+        "label": "Dispute Resolution",
+        "text": "Disputes shall be resolved by litigation in state or federal courts located in Travis County, Texas.",
+        "risk": "MEDIUM",
+        "risk_note": "No arbitration; buyer loses forum flexibility if seller is out-of-state."
+      },
+      {
+        "key": "as_is_condition",
+        "label": "As-Is Condition",
+        "text": "Property sold strictly AS-IS with seller disclaiming all warranties except clear title and known material defects disclosed in Schedule B.",
+        "risk": "HIGH",
+        "risk_note": "Broad as-is language shifts repair risk to buyer post-closing."
+      }
+    ],
+    "missing_clauses": ["indemnification", "limitation_of_liability"],
+    "parties": { "buyer": "Delta Properties LLC", "seller": "Lone Star Holdings LP" },
+    "governing_law": "Texas",
+    "term": "Closing on or before August 15, 2026",
+    "liability_cap": null
   }
 ]

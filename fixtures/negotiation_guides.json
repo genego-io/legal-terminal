@@ -1,0 +1,940 @@
+{
+  "standard_nda_template": {
+    "buyer": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "accept",
+          "rationale": "Broad scope favors disclosing party. Standard language. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Confidentiality Scope (buyer position): Recipient shall hold in confidence all information disclosed by Disclosing Party, whether or not marked Confidential, that a reasonable person would deem confidential given the nature of the information and circumstances of disclosure."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "accept",
+          "rationale": "5-year survival is standard for commercial NDAs. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Term & Duration (buyer position): Confidentiality obligations shall survive for five (5) years following termination of this Agreement."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "accept",
+          "rationale": "30-day window is standard. Consider adding a certification requirement. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Return of Materials (buyer position): Upon termination, Recipient shall return or destroy all Confidential Materials within thirty (30) days and certify destruction in writing."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "California is an acceptable jurisdiction for commercial agreements. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Governing Law (buyer position): This Agreement shall be governed by the laws of the State of Delaware, without regard to conflicts of law principles."
+        },
+        {
+          "key": "remedies",
+          "label": "Remedies",
+          "recommended_position": "accept",
+          "rationale": "Standard injunctive relief provision. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Remedies (buyer position): Disclosing Party may seek injunctive relief without posting bond for actual or threatened breach of confidentiality obligations."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "dispute_resolution",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for Standard NDA — buyer (receiving party) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "seller": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "accept",
+          "rationale": "Confidentiality Scope is acceptable as drafted for Standard Mutual Non-Disclosure Agreement. Broad scope favors disclosing party. Standard language.",
+          "fallback_text": "Proposed revision to Confidentiality Scope (seller position): Each party shall protect the other's Confidential Information using the same degree of care it uses for its own confidential information, but no less than reasonable care."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "accept",
+          "rationale": "Term & Duration is acceptable as drafted for Standard Mutual Non-Disclosure Agreement. 5-year survival is standard for commercial NDAs.",
+          "fallback_text": "Proposed revision to Term & Duration (seller position): Confidentiality obligations shall survive for three (3) years following termination, except trade secrets which survive indefinitely."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "accept",
+          "rationale": "Return of Materials is acceptable as drafted for Standard Mutual Non-Disclosure Agreement. 30-day window is standard. Consider adding a certification requirement.",
+          "fallback_text": "Proposed revision to Return of Materials (seller position): Each party shall, upon written request, return or destroy the other party's Confidential Materials within fifteen (15) business days."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Governing Law is acceptable as drafted for Standard Mutual Non-Disclosure Agreement. California is an acceptable jurisdiction for commercial agreements.",
+          "fallback_text": "Proposed revision to Governing Law (seller position): This Agreement shall be governed by the laws of the State of California, excluding its conflict-of-laws rules."
+        },
+        {
+          "key": "remedies",
+          "label": "Remedies",
+          "recommended_position": "accept",
+          "rationale": "Remedies is acceptable as drafted for Standard Mutual Non-Disclosure Agreement. Standard injunctive relief provision.",
+          "fallback_text": "Proposed revision to Remedies (seller position): The parties acknowledge that breach may cause irreparable harm; either party may seek equitable relief in addition to monetary damages."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "dispute_resolution",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for Standard NDA — seller (disclosing party) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "mutual": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Confidentiality Scope: Broad scope favors disclosing party. Standard language. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Confidentiality Scope: Confidential Information includes all written, oral, and electronic information disclosed in connection with the Purpose, except information that is publicly available through no fault of the receiving party."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Term & Duration: 5-year survival is standard for commercial NDAs. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Term & Duration: The term of this Agreement is two (2) years; confidentiality obligations survive for the longer of five (5) years or until information enters the public domain."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Return of Materials: 30-day window is standard. Consider adding a certification requirement. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Return of Materials: Recipient may retain one archival copy solely for compliance purposes, subject to ongoing confidentiality obligations."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Governing Law: California is an acceptable jurisdiction for commercial agreements. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Governing Law: This Agreement shall be governed by the laws of the State of New York; parties consent to exclusive jurisdiction in New York County courts."
+        },
+        {
+          "key": "remedies",
+          "label": "Remedies",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Remedies: Standard injunctive relief provision. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Remedies: Remedies are cumulative; failure to exercise a remedy shall not constitute a waiver of future enforcement."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "dispute_resolution",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for Standard NDA — mutual (both parties) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    }
+  },
+  "client_proposed_nda": {
+    "buyer": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "negotiate",
+          "rationale": "The marked-materials-only scope leaves oral disclosures and unmarked email attachments unprotected. As receiving party you bear the risk of inadvertent disclosure without reciprocal protection for information you share.",
+          "fallback_text": "Confidential Information shall mean all non-public information disclosed in connection with the Purpose, whether oral, written, or electronic, that a reasonable person would understand to be confidential given the nature of the information and circumstances of disclosure. The marking requirement in Section 2.1 is deleted."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "negotiate",
+          "rationale": "Three-year survival is below the five-year commercial standard and may not cover the full evaluation cycle if a transaction closes and integration continues.",
+          "fallback_text": "Confidentiality obligations shall survive for five (5) years following termination of this Agreement; trade secrets shall remain protected for so long as they qualify as trade secrets under applicable law."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "negotiate",
+          "rationale": "60-day window is longer than standard 30 days. From the receiving party perspective, acceptable with targeted improvements.",
+          "fallback_text": "Proposed revision to Return of Materials (buyer position): Upon termination, Recipient shall return or destroy all Confidential Materials within thirty (30) days and certify destruction in writing."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "California jurisdiction acceptable. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Governing Law (buyer position): This Agreement shall be governed by the laws of the State of Delaware, without regard to conflicts of law principles."
+        },
+        {
+          "key": "indemnification",
+          "label": "Indemnification",
+          "recommended_position": "reject",
+          "rationale": "Uncapped indemnification for all losses — including consequential damages and third-party claims — is well outside market for a preliminary NDA. Cal. Civ. Code § 1668 may limit enforceability, but litigation cost is still unacceptable.",
+          "fallback_text": "Each party's indemnification obligation shall be limited to direct damages arising from the indemnifying party's unauthorized disclosure of the other party's Confidential Information, capped at the greater of $250,000 or fees paid under any related services agreement in the twelve (12) months preceding the claim. Consequential, punitive, and lost-profit damages are excluded."
+        }
+      ],
+      "missing_clauses": [
+        "remedies",
+        "dispute_resolution",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for Client NDA (Proposed) — buyer (receiving party) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "seller": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "accept",
+          "rationale": "The marked-materials requirement protects you as disclosing party — you control what triggers confidentiality obligations and reduce ambiguity over oral pitch content.",
+          "fallback_text": "Recipient acknowledges that the marking requirement is intentional. Disclosing Party may, at its option, confirm oral disclosures in writing within fifteen (15) business days to bring them within scope without reopening the definition."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "negotiate",
+          "rationale": "Term & Duration is acceptable as drafted for Client Proposed Non-Disclosure Agreement. 3-year survival is below the 5-year market standard.",
+          "fallback_text": "Proposed revision to Term & Duration (seller position): Confidentiality obligations shall survive for three (3) years following termination, except trade secrets which survive indefinitely."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "negotiate",
+          "rationale": "Return of Materials is acceptable as drafted for Client Proposed Non-Disclosure Agreement. 60-day window is longer than standard 30 days.",
+          "fallback_text": "Proposed revision to Return of Materials (seller position): Each party shall, upon written request, return or destroy the other party's Confidential Materials within fifteen (15) business days."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Governing Law is acceptable as drafted for Client Proposed Non-Disclosure Agreement. California jurisdiction acceptable.",
+          "fallback_text": "Proposed revision to Governing Law (seller position): This Agreement shall be governed by the laws of the State of California, excluding its conflict-of-laws rules."
+        },
+        {
+          "key": "indemnification",
+          "label": "Indemnification",
+          "recommended_position": "accept",
+          "rationale": "Broad indemnification is your primary remedy if the recipient misuses technical specs or pricing. Resist caps that eliminate recovery for willful misconduct or competitor-directed leaks.",
+          "fallback_text": "Indemnification cap shall not apply to breaches caused by Recipient's gross negligence, willful misconduct, or disclosure to a direct competitor. Recipient shall maintain cyber liability insurance naming Disclosing Party as additional insured."
+        }
+      ],
+      "missing_clauses": [
+        "remedies",
+        "dispute_resolution",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for Client NDA (Proposed) — seller (disclosing party) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "mutual": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "negotiate",
+          "rationale": "Mutual exploratory discussions require symmetric scope — neither side should rely on marking formalities when engineers exchange architecture diagrams verbally.",
+          "fallback_text": "Each party shall protect the other's Confidential Information using at least the same degree of care it uses for its own confidential information, but no less than reasonable care. Information need not be marked if disclosed in a meeting identified as confidential in the invitation or minutes."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Term & Duration: 3-year survival is below the 5-year market standard. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Term & Duration: The term of this Agreement is two (2) years; confidentiality obligations survive for the longer of five (5) years or until information enters the public domain."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Return of Materials: 60-day window is longer than standard 30 days. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Return of Materials: Recipient may retain one archival copy solely for compliance purposes, subject to ongoing confidentiality obligations."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Governing Law: California jurisdiction acceptable. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Governing Law: This Agreement shall be governed by the laws of the State of New York; parties consent to exclusive jurisdiction in New York County courts."
+        },
+        {
+          "key": "indemnification",
+          "label": "Indemnification",
+          "recommended_position": "negotiate",
+          "rationale": "A balanced NDA should mutualize indemnity with identical caps and carve-outs for gross negligence, not shift unlimited downstream risk to one party.",
+          "fallback_text": "Each party shall indemnify the other for direct damages arising from its breach of confidentiality obligations, capped at $500,000 aggregate per party. Indemnification procedures require prompt notice, cooperation, and right to assume defense."
+        }
+      ],
+      "missing_clauses": [
+        "remedies",
+        "dispute_resolution",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for Client NDA (Proposed) — mutual (both parties) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    }
+  },
+  "master_services_agreement_tech": {
+    "buyer": {
+      "clauses": [
+        {
+          "key": "scope_of_services",
+          "label": "Scope of Services",
+          "recommended_position": "accept",
+          "rationale": "Clear scope delegation to SOWs. Standard approach. From the client perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Scope of Services (buyer position): Provider shall perform services described in each Statement of Work executed by both parties, incorporating mutually agreed milestones and acceptance criteria."
+        },
+        {
+          "key": "intellectual_property",
+          "label": "Intellectual Property",
+          "recommended_position": "negotiate",
+          "rationale": "Works-for-hire favorable for client but review Background IP carve-out scope. From the client perspective, acceptable with targeted improvements.",
+          "fallback_text": "Proposed revision to Intellectual Property (buyer position): Client owns all deliverables created specifically for Client under paid SOWs; Provider retains Background IP and grants Client a perpetual license to embedded Background IP in deliverables."
+        },
+        {
+          "key": "data_security",
+          "label": "Data Security",
+          "recommended_position": "accept",
+          "rationale": "48-hour incident notification is standard. From the client perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Data Security (buyer position): Provider shall maintain SOC 2 Type II controls, encrypt data in transit and at rest, and notify Client within twenty-four (24) hours of a confirmed security incident."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "accept",
+          "rationale": "Balanced cap with appropriate carve-outs. From the client perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Limitation of Liability (buyer position): Each party's aggregate liability shall not exceed the greater of fees paid in twelve (12) months or $1,000,000, excluding gross negligence, willful misconduct, and IP infringement."
+        },
+        {
+          "key": "dispute_resolution",
+          "label": "Dispute Resolution",
+          "recommended_position": "accept",
+          "rationale": "JAMS arbitration is standard. From the client perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Dispute Resolution (buyer position): Parties shall escalate disputes to executives for good-faith negotiation; unresolved disputes submitted to JAMS arbitration in San Francisco under expedited procedures."
+        }
+      ],
+      "missing_clauses": [],
+      "notice": "Negotiation guide for Tech MSA — buyer (client) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "seller": {
+      "clauses": [
+        {
+          "key": "scope_of_services",
+          "label": "Scope of Services",
+          "recommended_position": "accept",
+          "rationale": "Scope of Services is acceptable as drafted for Master Services Agreement — Technology & Software. Clear scope delegation to SOWs. Standard approach.",
+          "fallback_text": "Proposed revision to Scope of Services (seller position): Services include implementation, configuration, and support as specified in Exhibit A; out-of-scope work requires a change order signed by both parties."
+        },
+        {
+          "key": "intellectual_property",
+          "label": "Intellectual Property",
+          "recommended_position": "negotiate",
+          "rationale": "Intellectual Property is acceptable as drafted for Master Services Agreement — Technology & Software. Works-for-hire favorable for client but review Background IP carve-out scope.",
+          "fallback_text": "Proposed revision to Intellectual Property (seller position): Work product is works-made-for-hire; to the extent not assignable by law, Provider assigns all rights upon payment of applicable fees."
+        },
+        {
+          "key": "data_security",
+          "label": "Data Security",
+          "recommended_position": "accept",
+          "rationale": "Data Security is acceptable as drafted for Master Services Agreement — Technology & Software. 48-hour incident notification is standard.",
+          "fallback_text": "Proposed revision to Data Security (seller position): Provider shall implement administrative, technical, and physical safeguards consistent with industry standards and applicable data protection laws."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "accept",
+          "rationale": "Limitation of Liability is acceptable as drafted for Master Services Agreement — Technology & Software. Balanced cap with appropriate carve-outs.",
+          "fallback_text": "Proposed revision to Limitation of Liability (seller position): Neither party shall be liable for indirect, incidental, or consequential damages; direct damages capped at fees paid in the six (6) months preceding the claim."
+        },
+        {
+          "key": "dispute_resolution",
+          "label": "Dispute Resolution",
+          "recommended_position": "accept",
+          "rationale": "Dispute Resolution is acceptable as drafted for Master Services Agreement — Technology & Software. JAMS arbitration is standard.",
+          "fallback_text": "Proposed revision to Dispute Resolution (seller position): Disputes shall be resolved by litigation in state or federal courts of competent jurisdiction in the county of the defendant's principal place of business."
+        }
+      ],
+      "missing_clauses": [],
+      "notice": "Negotiation guide for Tech MSA — seller (provider) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "mutual": {
+      "clauses": [
+        {
+          "key": "scope_of_services",
+          "label": "Scope of Services",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Scope of Services: Clear scope delegation to SOWs. Standard approach. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Scope of Services: Provider shall assign qualified personnel and maintain service levels set forth in the applicable SOW; Client shall provide timely access and approvals."
+        },
+        {
+          "key": "intellectual_property",
+          "label": "Intellectual Property",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Intellectual Property: Works-for-hire favorable for client but review Background IP carve-out scope. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Intellectual Property: Provider retains platform IP; Client receives a non-exclusive license during the term. Custom integrations developed for Client are owned by Client upon full payment."
+        },
+        {
+          "key": "data_security",
+          "label": "Data Security",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Data Security: 48-hour incident notification is standard. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Data Security: Provider shall not use Client data to train models or improve services without Client's prior written consent; subprocessors require equivalent obligations."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Limitation of Liability: Balanced cap with appropriate carve-outs. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Limitation of Liability: Liability cap does not apply to breaches of confidentiality, data security obligations, or either party's indemnification obligations for third-party IP claims."
+        },
+        {
+          "key": "dispute_resolution",
+          "label": "Dispute Resolution",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Dispute Resolution: JAMS arbitration is standard. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Dispute Resolution: Parties agree to mediate in good faith before arbitration; prevailing party entitled to reasonable attorneys' fees for IP and confidentiality claims."
+        }
+      ],
+      "missing_clauses": [],
+      "notice": "Negotiation guide for Tech MSA — mutual (both parties) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    }
+  },
+  "vendor_saas_agreement_v2": {
+    "buyer": {
+      "clauses": [
+        {
+          "key": "indemnification",
+          "label": "Indemnification",
+          "recommended_position": "reject",
+          "rationale": "Client indemnifies Provider for all third-party claims including data uploaded by Client — without cap. You assume Provider's product defects, security failures, and IP infringement risk.",
+          "fallback_text": "Each party shall indemnify the other only for third-party claims arising from the indemnifying party's breach of this Agreement or gross negligence. Provider shall indemnify Client for IP infringement claims relating to the Services. Aggregate indemnity capped at twelve (12) months fees paid by Client."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "negotiate",
+          "rationale": "Three-month fee cap is far below enterprise SaaS market (typically 12 months fees or $1M). Provider retains broad consequential damage disclaimer with no reciprocal cap on Client.",
+          "fallback_text": "Each party's aggregate liability shall not exceed the greater of fees paid in the twelve (12) months preceding the claim or $2,000,000, except for breaches of confidentiality, data security, or either party's IP indemnification obligations."
+        },
+        {
+          "key": "intellectual_property",
+          "label": "Intellectual Property",
+          "recommended_position": "negotiate",
+          "rationale": "You receive only a term-limited non-exclusive license; custom workflows, integrations, and training data exports may be lost at renewal or termination.",
+          "fallback_text": "Client owns all custom configurations, integrations, and reports developed specifically for Client under paid SOWs. Provider grants a perpetual, royalty-free license to embedded Background IP in deliverables. Client data and anonymization rights addressed in a separate data processing addendum."
+        },
+        {
+          "key": "data_security",
+          "label": "Data Security",
+          "recommended_position": "negotiate",
+          "rationale": "'Commercially reasonable' is vague; training use on client data is implied. From the client perspective, acceptable with targeted improvements.",
+          "fallback_text": "Proposed revision to Data Security (buyer position): Provider shall maintain SOC 2 Type II controls, encrypt data in transit and at rest, and notify Client within twenty-four (24) hours of a confirmed security incident."
+        },
+        {
+          "key": "termination",
+          "label": "Termination",
+          "recommended_position": "negotiate",
+          "rationale": "Provider may terminate for convenience on 30 days notice while Client may terminate only for uncured material breach — leaving you without exit during a failed implementation or post-acquisition integration.",
+          "fallback_text": "Either party may terminate for convenience on ninety (90) days written notice. Client may terminate immediately for Provider's failure to cure a material SLA breach within thirty (30) days. Upon termination, Provider shall export Client data in standard JSON/CSV within thirty (30) days at no additional fee."
+        }
+      ],
+      "missing_clauses": [
+        "dispute_resolution",
+        "service_levels",
+        "audit_rights"
+      ],
+      "notice": "Negotiation guide for Vendor SaaS MSA — buyer (client) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "seller": {
+      "clauses": [
+        {
+          "key": "indemnification",
+          "label": "Indemnification",
+          "recommended_position": "accept",
+          "rationale": "Client-side indemnity for uploaded content and regulatory violations is standard in SaaS — your platform is a conduit; Client controls data classification and use policies.",
+          "fallback_text": "Client indemnification is limited to claims arising from Client Data that Client represented it had lawful rights to upload. Provider's IP infringement indemnity for the core platform remains uncapped as to direct damages."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "accept",
+          "rationale": "Low cap protects Provider from disproportionate exposure relative to subscription economics; enterprise clients often push back but many accept with carve-outs for data breach.",
+          "fallback_text": "Liability cap increased to six (6) months fees only if Client purchases enhanced support tier; otherwise cap remains three (3) months. Cap does not apply to Provider's confidentiality or data security obligations."
+        },
+        {
+          "key": "intellectual_property",
+          "label": "Intellectual Property",
+          "recommended_position": "accept",
+          "rationale": "As provider, Intellectual Property strongly protects your position. No ownership of custom configurations or integrations. Resist buyer-side revisions that cap remedies or narrow scope.",
+          "fallback_text": "Preserve Intellectual Property as drafted. If counterparty insists on changes, offer: Work product is works-made-for-hire; to the extent not assignable by law, Provider assigns all rights upon payment of applicable fees."
+        },
+        {
+          "key": "data_security",
+          "label": "Data Security",
+          "recommended_position": "negotiate",
+          "rationale": "Data Security is acceptable as drafted for Vendor SaaS Master Services Agreement v2. 'Commercially reasonable' is vague; training use on client data is implied.",
+          "fallback_text": "Proposed revision to Data Security (seller position): Provider shall implement administrative, technical, and physical safeguards consistent with industry standards and applicable data protection laws."
+        },
+        {
+          "key": "termination",
+          "label": "Termination",
+          "recommended_position": "accept",
+          "rationale": "As provider, Termination strongly protects your position. Asymmetric termination rights favor Provider. Resist buyer-side revisions that cap remedies or narrow scope.",
+          "fallback_text": "Preserve Termination as drafted. If counterparty insists on changes, offer: Client may terminate for convenience on sixty (60) days notice; Provider may terminate only for non-payment exceeding thirty (30) days."
+        }
+      ],
+      "missing_clauses": [
+        "dispute_resolution",
+        "service_levels",
+        "audit_rights"
+      ],
+      "notice": "Negotiation guide for Vendor SaaS MSA — seller (provider) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "mutual": {
+      "clauses": [
+        {
+          "key": "indemnification",
+          "label": "Indemnification",
+          "recommended_position": "negotiate",
+          "rationale": "Reciprocal indemnities with aligned caps reduce one-sided exposure and mirror how balanced MSAs allocate third-party IP and data claims.",
+          "fallback_text": "Mutual indemnification for third-party IP and data breach claims, each capped at twelve (12) months fees. Separate schedules allocate regulatory compliance responsibility by data type (PII, PCI, HIPAA)."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Limitation of Liability: Three-month fee cap is below market; no reciprocal cap on Client. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Limitation of Liability: Liability cap does not apply to breaches of confidentiality, data security obligations, or either party's indemnification obligations for third-party IP claims."
+        },
+        {
+          "key": "intellectual_property",
+          "label": "Intellectual Property",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Intellectual Property: No ownership of custom configurations or integrations. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Intellectual Property: Provider retains platform IP; Client receives a non-exclusive license during the term. Custom integrations developed for Client are owned by Client upon full payment."
+        },
+        {
+          "key": "data_security",
+          "label": "Data Security",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Data Security: 'Commercially reasonable' is vague; training use on client data is implied. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Data Security: Provider shall not use Client data to train models or improve services without Client's prior written consent; subprocessors require equivalent obligations."
+        },
+        {
+          "key": "termination",
+          "label": "Termination",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Termination: Asymmetric termination rights favor Provider. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for MSA agreements.",
+          "fallback_text": "Propose mutual revision to Termination: Upon termination, Provider shall provide data export in standard format within thirty (30) days and certify deletion of Client data."
+        }
+      ],
+      "missing_clauses": [
+        "dispute_resolution",
+        "service_levels",
+        "audit_rights"
+      ],
+      "notice": "Negotiation guide for Vendor SaaS MSA — mutual (both parties) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    }
+  },
+  "enterprise_nda_mutual": {
+    "buyer": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "accept",
+          "rationale": "Balanced mutual scope covering unmarked oral disclosures with reasonable care standard. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Confidentiality Scope (buyer position): Recipient shall hold in confidence all information disclosed by Disclosing Party, whether or not marked Confidential, that a reasonable person would deem confidential given the nature of the information and circumstances of disclosure."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "accept",
+          "rationale": "Market-standard survival with trade secret carve-out. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Term & Duration (buyer position): Confidentiality obligations shall survive for five (5) years following termination of this Agreement."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "accept",
+          "rationale": "Mutual certification requirement is best practice. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Return of Materials (buyer position): Upon termination, Recipient shall return or destroy all Confidential Materials within thirty (30) days and certify destruction in writing."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "New York is common for enterprise M&A NDAs. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Governing Law (buyer position): This Agreement shall be governed by the laws of the State of Delaware, without regard to conflicts of law principles."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "accept",
+          "rationale": "Mutual liability cap appropriate for exploratory NDAs. From the receiving party perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Limitation of Liability (buyer position): Each party's aggregate liability shall not exceed the greater of fees paid in twelve (12) months or $1,000,000, excluding gross negligence, willful misconduct, and IP infringement."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "dispute_resolution"
+      ],
+      "notice": "Negotiation guide for Enterprise Mutual NDA — buyer (receiving party) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "seller": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "accept",
+          "rationale": "Confidentiality Scope is acceptable as drafted for Enterprise Mutual Non-Disclosure Agreement. Balanced mutual scope covering unmarked oral disclosures with reasonable care standard.",
+          "fallback_text": "Proposed revision to Confidentiality Scope (seller position): Each party shall protect the other's Confidential Information using the same degree of care it uses for its own confidential information, but no less than reasonable care."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "accept",
+          "rationale": "Term & Duration is acceptable as drafted for Enterprise Mutual Non-Disclosure Agreement. Market-standard survival with trade secret carve-out.",
+          "fallback_text": "Proposed revision to Term & Duration (seller position): Confidentiality obligations shall survive for three (3) years following termination, except trade secrets which survive indefinitely."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "accept",
+          "rationale": "Return of Materials is acceptable as drafted for Enterprise Mutual Non-Disclosure Agreement. Mutual certification requirement is best practice.",
+          "fallback_text": "Proposed revision to Return of Materials (seller position): Each party shall, upon written request, return or destroy the other party's Confidential Materials within fifteen (15) business days."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Governing Law is acceptable as drafted for Enterprise Mutual Non-Disclosure Agreement. New York is common for enterprise M&A NDAs.",
+          "fallback_text": "Proposed revision to Governing Law (seller position): This Agreement shall be governed by the laws of the State of California, excluding its conflict-of-laws rules."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "accept",
+          "rationale": "Limitation of Liability is acceptable as drafted for Enterprise Mutual Non-Disclosure Agreement. Mutual liability cap appropriate for exploratory NDAs.",
+          "fallback_text": "Proposed revision to Limitation of Liability (seller position): Neither party shall be liable for indirect, incidental, or consequential damages; direct damages capped at fees paid in the six (6) months preceding the claim."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "dispute_resolution"
+      ],
+      "notice": "Negotiation guide for Enterprise Mutual NDA — seller (disclosing party) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "mutual": {
+      "clauses": [
+        {
+          "key": "confidentiality_scope",
+          "label": "Confidentiality Scope",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Confidentiality Scope: Balanced mutual scope covering unmarked oral disclosures with reasonable care standard. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Confidentiality Scope: Confidential Information includes all written, oral, and electronic information disclosed in connection with the Purpose, except information that is publicly available through no fault of the receiving party."
+        },
+        {
+          "key": "term_duration",
+          "label": "Term & Duration",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Term & Duration: Market-standard survival with trade secret carve-out. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Term & Duration: The term of this Agreement is two (2) years; confidentiality obligations survive for the longer of five (5) years or until information enters the public domain."
+        },
+        {
+          "key": "return_of_materials",
+          "label": "Return of Materials",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Return of Materials: Mutual certification requirement is best practice. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Return of Materials: Recipient may retain one archival copy solely for compliance purposes, subject to ongoing confidentiality obligations."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Governing Law: New York is common for enterprise M&A NDAs. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Governing Law: This Agreement shall be governed by the laws of the State of New York; parties consent to exclusive jurisdiction in New York County courts."
+        },
+        {
+          "key": "limitation_of_liability",
+          "label": "Limitation of Liability",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Limitation of Liability: Mutual liability cap appropriate for exploratory NDAs. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for NDA agreements.",
+          "fallback_text": "Propose mutual revision to Limitation of Liability: Liability cap does not apply to breaches of confidentiality, data security obligations, or either party's indemnification obligations for third-party IP claims."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "dispute_resolution"
+      ],
+      "notice": "Negotiation guide for Enterprise Mutual NDA — mutual (both parties) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    }
+  },
+  "employment_severance_draft": {
+    "buyer": {
+      "clauses": [
+        {
+          "key": "severance_payment",
+          "label": "Severance Payment",
+          "recommended_position": "negotiate",
+          "rationale": "Six months base salary without COBRA subsidy, bonus pro-ration, or acceleration of unvested equity undervalues a VP-level separation after five years of service.",
+          "fallback_text": "Severance increased to nine (9) months base salary plus target bonus pro-rata for year of separation, COBRA premium reimbursement for nine (9) months, and acceleration of 25% of unvested RSUs scheduled to vest within twelve (12) months of Separation Date."
+        },
+        {
+          "key": "non_compete",
+          "label": "Non-Compete",
+          "recommended_position": "negotiate",
+          "rationale": "California Business & Professions Code § 16600 renders most non-competes void. A 50-mile, 12-month restriction creates false comfort for Employer and may taint severance enforceability.",
+          "fallback_text": "Non-compete deleted. Replaced with twelve (12) month non-solicitation of employees with whom Employee had material contact, and non-disclosure of trade secrets under Cal. Civ. Code § 3426."
+        },
+        {
+          "key": "ip_assignment",
+          "label": "IP Assignment",
+          "recommended_position": "negotiate",
+          "rationale": "Post-separation improvements sweep captures personal projects and open-source contributions unrelated to Employer business.",
+          "fallback_text": "Assignment limited to inventions made during employment using Employer resources or relating to Employer's Confidential Information. Employee's Prior Inventions Schedule (Exhibit A) lists excluded projects; post-separation improvements require substantial use of Employer trade secrets."
+        },
+        {
+          "key": "release_of_claims",
+          "label": "Release of Claims",
+          "recommended_position": "negotiate",
+          "rationale": "ADEA compliance requires specific language and timing; verify OWBPA checklist. From the employee perspective, acceptable with targeted improvements.",
+          "fallback_text": "Proposed revision to Release of Claims (buyer position): Employee releases all claims through Separation Date under federal and state law, excluding workers' compensation and vested benefits."
+        },
+        {
+          "key": "confidentiality",
+          "label": "Confidentiality",
+          "recommended_position": "accept",
+          "rationale": "Standard post-employment confidentiality. From the employee perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Confidentiality (buyer position): Recipient shall hold in confidence all information disclosed by Disclosing Party, whether or not marked Confidential, that a reasonable person would deem confidential given the nature of the information and circumstances of disclosure."
+        }
+      ],
+      "missing_clauses": [
+        "dispute_resolution",
+        "governing_law"
+      ],
+      "notice": "Negotiation guide for Employment Severance — buyer (employee) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "seller": {
+      "clauses": [
+        {
+          "key": "severance_payment",
+          "label": "Severance Payment",
+          "recommended_position": "negotiate",
+          "rationale": "Severance Payment is acceptable as drafted for Executive Severance and Release Agreement (Draft). Verify COBRA and tax gross-up treatment; six months may be below market for executives.",
+          "fallback_text": "Proposed revision to Severance Payment (seller position): Severance equals six (6) months salary payable in installments aligned with payroll schedule, less applicable withholdings."
+        },
+        {
+          "key": "non_compete",
+          "label": "Non-Compete",
+          "recommended_position": "accept",
+          "rationale": "Even where partially enforceable, non-compete deters competitive hires and protects customer relationships in multi-state footprint outside California.",
+          "fallback_text": "Non-compete enforceable only in jurisdictions permitting restraints; in California, provision replaced by enhanced non-solicitation and garden-leave consulting fee during restricted period."
+        },
+        {
+          "key": "ip_assignment",
+          "label": "IP Assignment",
+          "recommended_position": "accept",
+          "rationale": "As employer, IP Assignment strongly protects your position. Post-separation IP sweep is broad; confirm prior inventions schedule. Resist buyer-side revisions that cap remedies or narrow scope.",
+          "fallback_text": "Preserve IP Assignment as drafted. If counterparty insists on changes, offer: Assignment covers work product created using Employer resources or relating to Employer's Confidential Information during employment."
+        },
+        {
+          "key": "release_of_claims",
+          "label": "Release of Claims",
+          "recommended_position": "negotiate",
+          "rationale": "Broad release with ADEA waiver is consideration for severance — ensure OWBPA timing and group termination disclosures if applicable.",
+          "fallback_text": "Release includes ADEA waiver with twenty-one (21) day consideration period, seven (7) day revocation, and attachment of workforce demographic data if part of group termination program."
+        },
+        {
+          "key": "confidentiality",
+          "label": "Confidentiality",
+          "recommended_position": "accept",
+          "rationale": "Confidentiality is acceptable as drafted for Executive Severance and Release Agreement (Draft). Standard post-employment confidentiality.",
+          "fallback_text": "Proposed revision to Confidentiality (seller position): Each party shall protect the other's Confidential Information using the same degree of care it uses for its own confidential information, but no less than reasonable care."
+        }
+      ],
+      "missing_clauses": [
+        "dispute_resolution",
+        "governing_law"
+      ],
+      "notice": "Negotiation guide for Employment Severance — seller (employer) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "mutual": {
+      "clauses": [
+        {
+          "key": "severance_payment",
+          "label": "Severance Payment",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced separation packages trade enhanced cash for narrower restrictive covenants and mutual non-disparagement — reduces litigation risk for both sides.",
+          "fallback_text": "Seven (7) months severance, mutual non-disparagement, neutral reference protocol, and Employer-paid outplacement up to $15,000. Restrictive covenants limited to non-solicit and confidentiality."
+        },
+        {
+          "key": "non_compete",
+          "label": "Non-Compete",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Non-Compete: Enforceability varies by state; California generally voids non-competes post-2024. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Employment agreements.",
+          "fallback_text": "Propose mutual revision to Non-Compete: Restrictive covenants enforceable only to the extent permitted by applicable law; if overbroad, courts may blue-pencil to minimum necessary scope."
+        },
+        {
+          "key": "ip_assignment",
+          "label": "IP Assignment",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on IP Assignment: Post-separation IP sweep is broad; confirm prior inventions schedule. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Employment agreements.",
+          "fallback_text": "Propose mutual revision to IP Assignment: Employee shall assist in securing IP rights at Employer's expense during and after employment for assigned inventions."
+        },
+        {
+          "key": "release_of_claims",
+          "label": "Release of Claims",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Release of Claims: ADEA compliance requires specific language and timing; verify OWBPA checklist. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Employment agreements.",
+          "fallback_text": "Propose mutual revision to Release of Claims: Employee does not release claims arising after signing or rights that cannot be waived as a matter of law."
+        },
+        {
+          "key": "confidentiality",
+          "label": "Confidentiality",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Confidentiality: Standard post-employment confidentiality. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Employment agreements.",
+          "fallback_text": "Propose mutual revision to Confidentiality: Confidential Information includes all written, oral, and electronic information disclosed in connection with the Purpose, except information that is publicly available through no fault of the receiving party."
+        }
+      ],
+      "missing_clauses": [
+        "dispute_resolution",
+        "governing_law"
+      ],
+      "notice": "Negotiation guide for Employment Severance — mutual (both parties) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    }
+  },
+  "real_estate_purchase_amendment": {
+    "buyer": {
+      "clauses": [
+        {
+          "key": "purchase_price",
+          "label": "Purchase Price Adjustment",
+          "recommended_position": "negotiate",
+          "rationale": "Verify appraisal contingency and credit allocation against LOI. From the buyer perspective, acceptable with targeted improvements.",
+          "fallback_text": "Proposed revision to Purchase Price Adjustment (buyer position): Purchase price adjusted to $12,600,000 with seller credit of $150,000 for deferred maintenance items identified in inspection report."
+        },
+        {
+          "key": "due_diligence",
+          "label": "Due Diligence Extension",
+          "recommended_position": "accept",
+          "rationale": "Extension is reasonable for environmental and structural items. From the buyer perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Due Diligence Extension (buyer position): Inspection period extended ten (10) days for completion of Phase I ESA and structural engineer report at buyer's expense."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Texas law consistent with property location. From the buyer perspective, acceptable as drafted.",
+          "fallback_text": "Proposed revision to Governing Law (buyer position): This Agreement shall be governed by the laws of the State of Delaware, without regard to conflicts of law principles."
+        },
+        {
+          "key": "dispute_resolution",
+          "label": "Dispute Resolution",
+          "recommended_position": "negotiate",
+          "rationale": "Mandatory Travis County litigation without arbitration or mediation increases cost if Seller is out-of-state LP with counsel in Dallas only.",
+          "fallback_text": "Parties shall mediate in Austin under CPR rules before filing suit. Exclusive jurisdiction remains Travis County; each party consents to personal jurisdiction and waives inconvenient forum only after failed mediation."
+        },
+        {
+          "key": "as_is_condition",
+          "label": "As-Is Condition",
+          "recommended_position": "negotiate",
+          "rationale": "Strict AS-IS with only Schedule B disclosures shifts unknown latent defect risk to Buyer after substantial price increase — inconsistent with extended diligence for roof and Phase I ESA.",
+          "fallback_text": "Seller represents no known material defects except those listed in Schedule B as updated through inspection. Seller responsible for remediation of pre-existing environmental conditions identified in Phase I ESA before closing, up to $200,000 escrow holdback."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for RE Purchase Amendment — buyer (buyer) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "seller": {
+      "clauses": [
+        {
+          "key": "purchase_price",
+          "label": "Purchase Price Adjustment",
+          "recommended_position": "negotiate",
+          "rationale": "Price increase reflects appraisal gap and TI credits already negotiated — resist further credits unless Buyer proves material adverse inspection items.",
+          "fallback_text": "Price firm at $12,750,000; Buyer credit capped at $100,000 for roof items documented in structural report; all other inspection findings deemed waived unless raised before diligence deadline."
+        },
+        {
+          "key": "due_diligence",
+          "label": "Due Diligence Extension",
+          "recommended_position": "accept",
+          "rationale": "Due Diligence Extension is acceptable as drafted for Commercial Purchase Agreement — First Amendment. Extension is reasonable for environmental and structural items.",
+          "fallback_text": "Proposed revision to Due Diligence Extension (seller position): Buyer may terminate during inspection period for any reason with return of earnest money; seller to provide access and existing reports."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Governing Law is acceptable as drafted for Commercial Purchase Agreement — First Amendment. Texas law consistent with property location.",
+          "fallback_text": "Proposed revision to Governing Law (seller position): This Agreement shall be governed by the laws of the State of California, excluding its conflict-of-laws rules."
+        },
+        {
+          "key": "dispute_resolution",
+          "label": "Dispute Resolution",
+          "recommended_position": "negotiate",
+          "rationale": "Dispute Resolution is acceptable as drafted for Commercial Purchase Agreement — First Amendment. No arbitration; buyer loses forum flexibility if seller is out-of-state.",
+          "fallback_text": "Proposed revision to Dispute Resolution (seller position): Disputes shall be resolved by litigation in state or federal courts of competent jurisdiction in the county of the defendant's principal place of business."
+        },
+        {
+          "key": "as_is_condition",
+          "label": "As-Is Condition",
+          "recommended_position": "accept",
+          "rationale": "AS-IS protects Seller from post-closing repair claims after Buyer had extended inspection — standard in Texas commercial closings.",
+          "fallback_text": "AS-IS language preserved; Seller adds disclosure of 2019 roof patch and prior tenant HVAC maintenance logs without assuming repair obligation."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for RE Purchase Amendment — seller (seller) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    },
+    "mutual": {
+      "clauses": [
+        {
+          "key": "purchase_price",
+          "label": "Purchase Price Adjustment",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Purchase Price Adjustment: Verify appraisal contingency and credit allocation against LOI. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Real Estate agreements.",
+          "fallback_text": "Propose mutual revision to Purchase Price Adjustment: Final price subject to proration of taxes, rent, and CAM charges as of closing date per standard closing statement."
+        },
+        {
+          "key": "due_diligence",
+          "label": "Due Diligence Extension",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Due Diligence Extension: Extension is reasonable for environmental and structural items. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Real Estate agreements.",
+          "fallback_text": "Propose mutual revision to Due Diligence Extension: Due diligence items limited to environmental, title, and survey; buyer waives further inspection rights after expiration."
+        },
+        {
+          "key": "governing_law",
+          "label": "Governing Law",
+          "recommended_position": "accept",
+          "rationale": "Balanced posture on Governing Law: Texas law consistent with property location. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Real Estate agreements.",
+          "fallback_text": "Propose mutual revision to Governing Law: This Agreement shall be governed by the laws of the State of New York; parties consent to exclusive jurisdiction in New York County courts."
+        },
+        {
+          "key": "dispute_resolution",
+          "label": "Dispute Resolution",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on Dispute Resolution: No arbitration; buyer loses forum flexibility if seller is out-of-state. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Real Estate agreements.",
+          "fallback_text": "Propose mutual revision to Dispute Resolution: Parties agree to mediate in good faith before arbitration; prevailing party entitled to reasonable attorneys' fees for IP and confidentiality claims."
+        },
+        {
+          "key": "as_is_condition",
+          "label": "As-Is Condition",
+          "recommended_position": "negotiate",
+          "rationale": "Balanced posture on As-Is Condition: Broad as-is language shifts repair risk to buyer post-closing. Propose symmetric obligations, mutual caps, and notice procedures consistent with market standards for Real Estate agreements.",
+          "fallback_text": "Propose mutual revision to As-Is Condition: As-is sale with seller responsible for remediation of pre-closing environmental violations identified in Phase I ESA."
+        }
+      ],
+      "missing_clauses": [
+        "indemnification",
+        "limitation_of_liability"
+      ],
+      "notice": "Negotiation guide for RE Purchase Amendment — mutual (both parties) perspective. Positions reflect mock fixture data for demo purposes only; attorney review required before reliance."
+    }
+  }
+}

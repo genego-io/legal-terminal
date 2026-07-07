@@ -8,6 +8,7 @@ import { StatusBar } from './components/StatusBar'
 import { Workspace } from './components/Workspace'
 import { useTerminalStore } from './store/terminalStore'
 import type { PanelType } from './store/terminalStore'
+import { TABLET_BREAKPOINT } from './hooks/useViewport'
 
 const FKEY_MAP: Record<string, PanelType> = {
   F1: 'CHAT',
@@ -17,13 +18,26 @@ const FKEY_MAP: Record<string, PanelType> = {
 
 export default function App() {
   const [paletteOpen, setPaletteOpen] = useState(false)
-  const { navigate } = useTerminalStore()
+  const { navigate, setSidebarCollapsed, closeSplit } = useTerminalStore()
 
   const theme = useTerminalStore(s => s.theme)
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`)
+    const onTabletLayout = () => {
+      if (mq.matches) {
+        setSidebarCollapsed(true)
+        closeSplit()
+      }
+    }
+    onTabletLayout()
+    mq.addEventListener('change', onTabletLayout)
+    return () => mq.removeEventListener('change', onTabletLayout)
+  }, [setSidebarCollapsed, closeSplit])
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -49,31 +63,21 @@ export default function App() {
   }, [navigate, paletteOpen])
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: 'var(--bg)' }}>
-      {/* Left sidebar */}
+    <div className="app-shell">
       <Sidebar />
 
-      {/* Main area */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', minWidth: 0 }}>
-        {/* Top bar: command input */}
-        <div style={{
-          background: 'var(--bg-panel2)', borderBottom: '1px solid var(--border)',
-          display: 'flex', alignItems: 'stretch', flexShrink: 0, height: 38,
-        }}>
+      <div className="main-column">
+        <div className="command-line-bar">
           <CommandLine onOpenPalette={() => setPaletteOpen(true)} />
         </div>
 
-        {/* View area */}
         <Workspace />
 
-        {/* Status bar */}
         <StatusBar />
       </div>
 
-      {/* Ctrl+K palette */}
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
 
-      {/* First-visit pre-release notice */}
       <PreReleaseOverlay />
     </div>
   )

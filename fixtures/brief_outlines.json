@@ -1,0 +1,354 @@
+{
+  "contract breach": {
+    "case_type": "Complaint — Breach of Contract (Commercial Delivery)",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff Northwind Components, Inc. brings this action against Defendant Apex Manufacturing, LLC for breach of a Master Supply Agreement executed January 15, 2025. Defendant failed to deliver 12,000 precision valve assemblies by the contractual deadline of March 1, 2025, causing Plaintiff to incur substitute-vendor costs, lost production days, and penalty payments to downstream OEM customers. Plaintiff seeks compensatory damages exceeding $2.4 million, plus pre-judgment interest and attorneys' fees under Agreement Section 14.2."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "On January 15, 2025, the parties executed a Master Supply Agreement under which Defendant agreed to manufacture and deliver valve assemblies per attached Specifications Exhibit A. Section 4.2 expressly stated that 'time is of the essence' for all delivery obligations. Defendant acknowledged receipt of purchase order PO-8842 on February 1, 2025, with a firm delivery date of March 1, 2025. Defendant delivered only 2,100 units on March 18, 2025 — seventeen days late and 9,900 units short. Email correspondence (Ex. 6) shows Defendant's VP of Operations stating on February 22 that the line would 'catch up by mid-March,' without requesting a formal extension. Plaintiff secured substitute supply from Beta Industrial at a 34% premium, incurring $1.1 million in incremental costs, and paid $380,000 in OEM contractual penalties."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Under California law, a material breach occurs when a party's performance is so deficient that it defeats the essential purpose of the contract. Cal. Civ. Code § 1657 supplies a reasonable-time standard only where the contract is silent on timing; here, Section 4.2 makes time of the essence explicit. Smith v. ABC Corp., 2022 Cal.App.4th 1234. Consequential damages are recoverable where foreseeable at the time of contracting under Hadley v. Baxendale, 156 Eng. Rep. 145."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. Defendant materially breached the delivery obligation. The combination of late partial delivery and failure to cure within the contractual window constitutes substantial non-performance under Davis v. Tech Solutions, 2021 Cal.App.4th 890. B. Plaintiff's substitute-vendor costs and OEM penalties were foreseeable. Defendant knew Plaintiff supplied just-in-time components to automotive OEMs and that production stoppage would trigger downstream penalties — these damages were communicated during quarterly business reviews documented in Ex. 9. C. Defendant may not invoke an implied reasonable-time standard because the contract expressly designated time as of the essence."
+      },
+      {
+        "title": "V. PRAYER FOR RELIEF",
+        "content": "Plaintiff respectfully requests judgment against Defendant for direct damages of $1,480,000, consequential damages of $920,000, pre-judgment interest at the legal rate, costs of suit, and reasonable attorneys' fees pursuant to Agreement Section 14.2."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether Defendant's late and partial delivery constitutes material breach where the contract expressly states time is of the essence.",
+      "rule": "Material breach requires substantial non-performance; express time-is-essence clauses control over implied reasonable-time standards. Smith v. ABC Corp.; Cal. Civ. Code § 1657.",
+      "analysis": "Defendant delivered 17.5% of units 17 days late without securing a contractual extension. Plaintiff's substitute-vendor and penalty costs were foreseeable given the parties' supply-chain relationship.",
+      "conclusion": "Plaintiff is entitled to recover direct and foreseeable consequential damages for material breach."
+    },
+    "issue_statement": "Whether a supplier's late, partial delivery under a contract with an express time-is-of-the-essence clause constitutes material breach entitling the buyer to direct and consequential damages."
+  },
+  "employment discrimination": {
+    "case_type": "Complaint — Employment Discrimination and Retaliation (Title VII / FEHA)",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff Maria Gonzalez, a Senior Quality Assurance Manager with nine years of satisfactory performance, brings this action against Defendant BioPharm Solutions, Inc. for race and national-origin discrimination, hostile work environment, and retaliatory termination in violation of Title VII of the Civil Rights Act of 1964, 42 U.S.C. § 2000e et seq., and the California Fair Employment and Housing Act, Cal. Gov. Code § 12940 et seq. Plaintiff seeks reinstatement, back pay, front pay, compensatory and punitive damages, and injunctive relief."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "Plaintiff was hired in March 2016 and consistently received 'Exceeds Expectations' ratings through 2024. In September 2025, Plaintiff reported to HR that her direct supervisor made repeated comments linking her accent and national origin to perceived 'communication problems' in FDA audit preparation. HR opened investigation INV-2025-041 but took no corrective action. On November 3, 2025, Plaintiff filed a formal DFEH complaint. Defendant placed Plaintiff on a Performance Improvement Plan on November 18, 2025 — the first disciplinary action in her tenure — and terminated her employment on January 10, 2026, citing PIP failure. Defendant retained three less-qualified Caucasian managers in the same division and posted Plaintiff's role internally two weeks after termination."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Discrimination claims under McDonnell Douglas Corp. v. Green, 411 U.S. 792, require a prima facie case, after which the burden shifts to the employer to articulate a legitimate, non-discriminatory reason, and finally to the plaintiff to show pretext. Retaliation under Burlington N. & Santa Fe Ry. Co. v. White, 548 U.S. 53, protects employees who oppose unlawful practices. Temporal proximity between protected activity and adverse action supports an inference of causation."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. Plaintiff establishes a prima facie case: she is a member of a protected class, qualified for her position, suffered an adverse employment action, and similarly situated employees outside her class were treated more favorably. B. Defendant's stated reason — PIP failure — is pretextual. The PIP was initiated nineteen days after her DFEH filing, referenced subjective 'communication' concerns tied to national origin, and imposed standards not applied to non-minority peers. C. Retaliation is independently supported by the close temporal nexus between protected activity and termination, supplemented by Defendant's failure to investigate supervisor conduct."
+      },
+      {
+        "title": "V. PRAYER FOR RELIEF",
+        "content": "Plaintiff requests a jury trial, reinstatement or front pay, lost wages and benefits, compensatory damages for emotional distress, punitive damages, civil penalties, and an injunction requiring Defendant to implement compliant anti-discrimination training and reporting procedures."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether Defendant terminated Plaintiff because of her race and national origin and in retaliation for filing a DFEH complaint.",
+      "rule": "Under McDonnell Douglas, circumstantial evidence of discrimination requires showing pretext for the employer's proffered reason. Retaliation is established when adverse action follows protected activity closely in time.",
+      "analysis": "First discipline in nine years immediately followed DFEH filing; supervisor comments tied accent to competence; similarly situated non-minority employees retained.",
+      "conclusion": "Genuine disputes of material fact preclude summary judgment on discrimination and retaliation claims."
+    },
+    "issue_statement": "Whether an employer's first-ever discipline and termination of a long-tenured minority employee shortly after a DFEH filing constitutes actionable discrimination and retaliation."
+  },
+  "negligence": {
+    "case_type": "Complaint — Premises Liability / General Negligence",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff James Whitfield sues Defendant Harborview Retail Properties, LLC for negligence arising from a slip-and-fall incident at Harborview Shopping Center on December 12, 2025. Plaintiff alleges Defendant breached its duty to maintain common areas in a reasonably safe condition by failing to remediate a known water intrusion hazard near the west entrance, causing Plaintiff to suffer a fractured tibia, torn meniscus, and ongoing mobility impairment."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "Harborview Shopping Center is a commercial property owned and managed by Defendant. On December 12, 2025, at approximately 2:15 p.m., Plaintiff entered the west entrance during a rainstorm and stepped on a pooled water accumulation on the tile floor. Plaintiff's foot slid on the slick surface, causing him to fall and strike his right leg on a metal door frame. Security footage (Ex. 2) shows water tracking from a leaking canopy joint above the entrance — a condition visible for at least forty minutes before the fall. Maintenance logs (Ex. 5) document three prior complaints about the west entrance leak in November 2025, with repair marked 'pending vendor quote.' Plaintiff was transported by ambulance, underwent ORIF surgery, and has incurred $87,400 in medical expenses to date."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "A possessor of land owes invitees a duty to use reasonable care to keep the premises in a reasonably safe condition and to warn of hazards known or discoverable through reasonable inspection. Ortega v. Kmart Corp., 26 Cal.4th 1200. Negligence requires duty, breach, causation, and damages. Constructive notice may be established by showing the condition existed long enough that a reasonable inspection would have discovered it."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. Defendant owed Plaintiff a duty as a business invitee. B. Defendant breached that duty by failing to repair a known leak and failing to place warning signage or mats during rain events despite prior complaints. Forty minutes of visible pooling on security footage establishes constructive notice. C. The breach proximately caused Plaintiff's fall and injuries — medical records and biomechanical testimony link the fall mechanism to the diagnosed fractures. D. Plaintiff damages include past and future medical expenses, lost wages during a twelve-week recovery, and diminished earning capacity."
+      },
+      {
+        "title": "V. PRAYER FOR RELIEF",
+        "content": "Plaintiff requests compensatory damages for medical expenses, lost earnings, pain and suffering, and loss of earning capacity, plus costs of suit."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether Defendant breached its duty of reasonable care to maintain safe premises, causing Plaintiff's injuries.",
+      "rule": "Possessors of land must protect invitees from known or discoverable hazards through reasonable inspection and maintenance. Ortega v. Kmart.",
+      "analysis": "Maintenance logs show prior complaints; video shows forty-minute water accumulation; no warnings or interim remediation deployed.",
+      "conclusion": "Plaintiff's negligence claim presents triable issues of duty, breach, and causation."
+    },
+    "issue_statement": "Whether a commercial property owner is liable for invitee injuries caused by a known water intrusion hazard that remained unremedied despite prior tenant complaints."
+  },
+  "IP infringement": {
+    "case_type": "Complaint — Copyright and Trade Secret Misappropriation",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff NeuralPath Software, Inc. asserts claims against Defendant BrightCode Labs, LLC for copyright infringement under 17 U.S.C. § 501 and trade secret misappropriation under Cal. Civ. Code § 3426 et seq. Plaintiff alleges Defendant copied proprietary machine-learning training pipelines and source code after Plaintiff terminated a pilot integration agreement, then incorporated Plaintiff's code into Defendant's competing analytics product launched February 2026."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "In May 2025, the parties entered a Pilot Integration Agreement granting Defendant limited access to Plaintiff's API and documentation for evaluation purposes only. Section 7 prohibited reverse engineering, copying, and competitive use. Plaintiff's codebase (registered with the Copyright Office, Reg. No. TXu 2-XXX-XXX) includes proprietary feature-engineering modules documented in Ex. 3. Forensic analysis by Dr. Elena Park (Ex. 8) identifies 2,847 lines of Defendant's production code with structural similarity scores exceeding 94% to Plaintiff's modules, including unique variable naming conventions and non-standard error-handling patterns. Two former Plaintiff engineers joined Defendant in October 2025 and had access to the repository during the pilot."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Copyright infringement requires ownership of a valid copyright and copying of protected expression. Selle v. Gibb, 741 F.2d 896. Trade secret misappropriation under CUTSA requires identification of a trade secret, reasonable protective measures, and misappropriation through improper means. Google LLC v. Oracle America, Inc., 593 U.S. 1, addresses software copyright scope but does not immunize literal copying of original implementing code."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. Plaintiff holds valid copyright registrations covering the training pipeline code. B. Expert comparison demonstrates substantial similarity beyond functional necessity, including idiosyncratic naming and comment structures inconsistent with independent creation. C. Defendant had access through the pilot agreement and newly hired engineers subject to confidentiality obligations. D. Defendant's launch timeline — six weeks after pilot termination — supports inference of copying over independent development."
+      },
+      {
+        "title": "V. PRAYER FOR RELIEF",
+        "content": "Plaintiff seeks injunctive relief, disgorgement of Defendant's profits, statutory damages, actual damages, and attorneys' fees under 17 U.S.C. § 505."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether Defendant copied Plaintiff's copyrighted source code and misappropriated trade secrets after termination of a limited pilot agreement.",
+      "rule": "Copyright protects original expression in software; CUTSA protects information with independent economic value subject to reasonable secrecy measures.",
+      "analysis": "Forensic analysis shows 94%+ structural similarity in 2,847 lines; access through pilot and new hires; launch timeline inconsistent with clean-room development.",
+      "conclusion": "Plaintiff has stated viable copyright and trade secret claims warranting discovery."
+    },
+    "issue_statement": "Whether a former integration partner infringed copyright and misappropriated trade secrets by incorporating proprietary ML pipeline code into a competing product after pilot termination."
+  },
+  "securities fraud": {
+    "case_type": "Class Action Complaint — Securities Fraud (Section 10(b) / Rule 10b-5)",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Lead Plaintiff Ontario Teachers' Pension Plan, on behalf of all purchasers of Vertex Dynamics, Inc. common stock between August 1, 2025 and March 15, 2026, brings this action against Vertex and individual officers for violations of Section 10(b) of the Securities Exchange Act of 1934, 15 U.S.C. § 78j(b), and SEC Rule 10b-5. Plaintiffs allege Defendants made materially false and misleading statements regarding revenue recognition practices and customer renewal rates, artificially inflating Vertex's stock price."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "Vertex is a publicly traded SaaS company reporting ARR metrics as a primary growth indicator. On August 7, 2025, Defendants represented on the Q2 earnings call that 'renewal rates remain above 95% with no material churn in enterprise accounts.' On March 2, 2026, Vertex disclosed an SEC inquiry and restated Q3–Q4 revenue downward by $41 million, attributing errors to 'premature recognition of multi-year contract renewals.' Stock price fell 38% on March 3, 2026. Confidential witnesses (CW-1, CW-2) — former sales operations employees — allege CFO directed recognition of renewal revenue before contractual modification dates to meet analyst guidance, documented in internal Slack exports referenced in the complaint."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Under Basic Inc. v. Levinson, 485 U.S. 224, a Section 10(b) claim requires a materially false or misleading statement, scienter, connection to securities purchase, reliance, economic loss, and loss causation. Tellabs, Inc. v. Makor Issues & Rights, Ltd., 551 U.S. 308, requires strong inference of scienter from circumstantial evidence viewed holistically."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. Earnings call statements about renewal rates were false when made — internal data showed enterprise churn at 11% in Q3. B. Scienter is inferred from CFO's direct involvement in revenue timing adjustments, documented warnings from internal audit (Ex. 14), and stock sales by CEO totaling $12.4 million before restatement. C. Loss causation is established by the March 3 price drop following the restatement disclosure. D. Class-wide reliance is presumed under Basic for material misstatements on an efficient market."
+      },
+      {
+        "title": "V. PRAYER FOR RELIEF",
+        "content": "Plaintiffs seek certification as a class action, compensatory damages in an amount to be proven at trial, pre-judgment and post-judgment interest, and attorneys' fees."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether Defendants made materially false statements about renewal rates with scienter, causing class-wide economic loss.",
+      "rule": "Section 10(b) and Rule 10b-5 prohibit material misstatements in connection with securities purchases; scienter may be inferred from internal records and insider trading.",
+      "analysis": "Restatement confirms premature revenue recognition; internal audit warnings and insider sales support strong inference of scienter; 38% price drop links disclosure to loss.",
+      "conclusion": "The complaint satisfies Tellabs and states a plausible securities fraud claim."
+    },
+    "issue_statement": "Whether corporate officers committed securities fraud by misrepresenting SaaS renewal metrics while knowingly accelerating revenue recognition to meet guidance."
+  },
+  "civil rights": {
+    "case_type": "42 U.S.C. § 1983 — Excessive Force and Municipal Liability",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff DeShawn Carter brings this action under 42 U.S.C. § 1983 against City of Riverside, Officer Kevin Walsh, and Officer Maria Chen for violations of the Fourth and Fourteenth Amendments arising from a traffic stop on October 4, 2025, during which Plaintiff alleges he was subjected to excessive force, unlawful detention, and racially selective enforcement. Plaintiff seeks compensatory and punitive damages, declaratory relief, and an injunction requiring policy and training reforms."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "On October 4, 2025, at approximately 9:40 p.m., Officers Walsh and Chen stopped Plaintiff's vehicle on Magnolia Avenue for an allegedly inoperative brake light. Body-worn camera footage (Ex. 1) shows Officer Walsh ordering Plaintiff from the vehicle within ninety seconds of the stop, frisking him, and deploying a takedown maneuver when Plaintiff verbally questioned the basis for the stop. Plaintiff sustained a dislocated shoulder and facial lacerations requiring emergency treatment. Discovery reveals fourteen prior citizen complaints against Officer Walsh for similar conduct over three years, with only one sustained by internal affairs. Department policy requires de-escalation before force escalation for non-violent misdemeanor stops."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Excessive force claims are evaluated under the objective reasonableness standard of Graham v. Connor, 490 U.S. 386. Municipal liability under Monell v. Dep't of Soc. Servs., 436 U.S. 658, requires a policy, custom, or deliberate indifference that caused the constitutional violation. Qualified immunity is unavailable where officers violate clearly established law."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. Deploying a takedown on a compliant individual during a brake-light stop exceeds reasonable force under Graham. B. Officer Walsh is not entitled to qualified immunity — Ninth Circuit precedent establishes that force against non-threatening individuals during low-level stops violates clearly established rights. C. Monell liability attaches because the City failed to discipline Officer Walsh despite a pattern of complaints, constituting deliberate indifference to a known constitutional violation. D. Plaintiff's injuries, medical records, and lost work time support compensatory damages."
+      },
+      {
+        "title": "V. PRAYER FOR RELIEF",
+        "content": "Plaintiff requests a jury trial, compensatory and punitive damages, declaratory judgment that Defendants' conduct violated the Constitution, and injunctive relief requiring revised use-of-force training and complaint review protocols."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether officers used excessive force during a routine traffic stop and whether the City is liable for failing to address a pattern of misconduct.",
+      "rule": "Force must be objectively reasonable under Graham; municipalities are liable under Monell for deliberate indifference to known constitutional violations.",
+      "analysis": "Body camera shows non-violent encounter escalating to takedown within minutes; fourteen prior complaints create pattern evidence; policy violations support municipal liability.",
+      "conclusion": "Plaintiff's § 1983 claims survive summary judgment on excessive force and Monell theories."
+    },
+    "issue_statement": "Whether municipal police officers used excessive force during a non-violent traffic stop and whether the City is liable for deliberate indifference to a pattern of officer misconduct."
+  },
+  "motion to dismiss": {
+    "case_type": "Motion to Dismiss — Lack of Personal Jurisdiction (Fed. R. Civ. P. 12(b)(2))",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Defendant Pacific Alloy Systems, Inc., a Delaware corporation with its principal place of business in Portland, Oregon, moves to dismiss this action for lack of personal jurisdiction under Federal Rule of Civil Procedure 12(b)(2). Plaintiff's complaint alleges a single breach-of-contract claim arising from a shipment of industrial fasteners to a California warehouse. Defendant maintains no offices, employees, bank accounts, or property in California, and did not target California for the purpose of this isolated transaction."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "Pacific Alloy manufactures specialty fasteners in Oregon and sells nationally through distributors. In June 2025, Plaintiff — a California distributor — submitted a purchase order through Defendant's public website using its standard terms. Defendant shipped goods FOB Portland; Plaintiff arranged California delivery. The parties had no prior relationship, no California-directed marketing, and no choice-of-forum clause selecting California. Defendant's annual California revenue represents 4.2% of total sales across all fifty states."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Plaintiff bears the burden of demonstrating jurisdiction by a preponderance of evidence. Specific jurisdiction requires (1) purposeful availment or direction toward the forum, and (2) that the claims arise from or relate to Defendant's forum contacts. International Shoe Co. v. Washington, 326 U.S. 310; Bristol-Myers Squibb Co. v. Superior Court, 137 S. Ct. 1773. Isolated transactions without forum targeting generally do not establish specific jurisdiction. Walden v. Fiore, 571 U.S. 277."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. Defendant did not purposefully avail itself of California law — the purchase order was initiated by Plaintiff, delivery was arranged by Plaintiff, and Defendant did not solicit business specifically in California. B. The breach claim does not 'arise out of' Defendant's contacts because the alleged breach (non-conforming goods) occurred in Oregon manufacturing and quality control. C. Bristol-Myers Squibb bars jurisdiction based on a forum-unconnected claim simply because a California plaintiff suffered injury in the forum."
+      },
+      {
+        "title": "V. CONCLUSION",
+        "content": "The Court should dismiss for lack of personal jurisdiction or, alternatively, transfer to the District of Oregon under 28 U.S.C. § 1406."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether exercising specific personal jurisdiction over an out-of-state defendant comports with due process for an isolated commercial shipment.",
+      "rule": "Specific jurisdiction requires purposeful availment and claim-relatedness; isolated transactions without forum targeting are insufficient. Bristol-Myers Squibb; Walden.",
+      "analysis": "Plaintiff-initiated order, FOB shipping point, no California offices or targeted marketing — contacts are not purposefully directed at California.",
+      "conclusion": "Dismissal under Rule 12(b)(2) is warranted."
+    },
+    "issue_statement": "Whether a non-resident manufacturer is subject to specific personal jurisdiction in California based on a single FOB shipment initiated by a California buyer."
+  },
+  "summary judgment": {
+    "case_type": "Motion for Summary Judgment — Contract Breach (Time Is of the Essence)",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff Meridian Logistics, Inc. moves for partial summary judgment on liability in its breach-of-contract action against Defendant Coastal Freight Partners. The undisputed record establishes that Defendant missed the contractual delivery deadline by forty-five days on a time-is-of-the-essence shipment, causing Meridian to incur substitute-carrier costs during peak holiday season."
+      },
+      {
+        "title": "II. STATEMENT OF UNDISCUTED FACTS",
+        "content": "1. Parties executed Transportation Services Agreement dated September 1, 2025. 2. Section 3.1 states: 'All delivery dates are firm. Time is of the essence for every shipment under this Agreement.' 3. PO-7721 required delivery to Oakland port by November 15, 2025. 4. Defendant delivered on December 30, 2025. 5. Defendant's operations manager emailed on November 10: 'We may slip a week' — no formal extension was granted. 6. Meridian incurred $340,000 in substitute carrier premiums (Ex. 11)."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Summary judgment is appropriate when no genuine dispute exists as to any material fact and the movant is entitled to judgment as a matter of law. Fed. R. Civ. P. 56. Under Smith v. ABC Corp., 2022 Cal.App.4th 1234, an express time-is-of-the-essence clause eliminates the implied reasonable-time standard."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "Defendant cannot create a triable issue on materiality — a forty-five day delay on a peak-season port delivery with an express time-is-of-the-essence clause is material as a matter of law under Davis v. Tech Solutions. Defendant's informal 'slip a week' email does not modify the written contract under the parol evidence rule."
+      },
+      {
+        "title": "V. DAMAGES",
+        "content": "Plaintiff reserves damages for trial but establishes liability as a matter of law. Substitute-carrier premiums were foreseeable under Hadley v. Baxendale given Defendant's knowledge of port deadline constraints."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether Defendant materially breached a contract with an express time-is-of-the-essence clause.",
+      "rule": "Express timing clauses control; forty-five day delay on firm delivery date is material breach. Smith v. ABC Corp.",
+      "analysis": "Undisputed facts show written firm date, 45-day delay, no formal extension — no genuine dispute on liability.",
+      "conclusion": "Partial summary judgment on liability should be granted."
+    },
+    "issue_statement": "Whether summary judgment on liability is appropriate where Defendant missed a firm delivery date by forty-five days under an express time-is-of-the-essence clause."
+  },
+  "contract dispute": {
+    "case_type": "Complaint for Declaratory Relief — Indemnification Scope (NDA)",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff SecureData Corp. seeks declaratory relief regarding the scope of indemnification under Section 9 of the Mutual Non-Disclosure Agreement with Defendant OmniTech Solutions. A third-party patent holder asserted claims against SecureData alleging misappropriation of interface design patterns allegedly derived from OmniTech's disclosures during a failed acquisition discussion."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "During Q2 2025 acquisition talks, OmniTech shared UI architecture documentation under the parties' NDA. Talks terminated in August 2025. In January 2026, InterfacePatents LLC sent SecureData a demand letter alleging SecureData's dashboard product infringes U.S. Patent No. 10,XXX,XXX. OmniTech's Section 9 indemnification requires each party to indemnify the other for 'any and all losses, damages, and expenses, including consequential damages and attorneys' fees, arising from unauthorized disclosure or use of Confidential Information.' OmniTech refuses to indemnify, arguing the patent claim is unrelated to its disclosures."
+      },
+      {
+        "title": "III. GOVERNING LAW",
+        "content": "The Agreement is governed by California law. Indemnification clauses are construed according to their plain language but ambiguities are resolved contra proferentem against the drafter. Cal. Civ. Code § 1668 prohibits exculpation for willful misconduct but does not automatically void broad indemnity language for ordinary breach."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "A. The patent claim 'arises from' OmniTech's disclosures if SecureData's design traces to NDA-covered materials — a factual question for discovery, not a basis to deny indemnity outright. B. The unlimited consequential damages language exceeds market standard and should be construed narrowly to direct damages proximately caused by breach. C. SecureData is entitled to a declaration allocating defense obligations pending resolution of the underlying IP dispute."
+      },
+      {
+        "title": "V. RELIEF REQUESTED",
+        "content": "Plaintiff requests a declaration that OmniTech has a duty to defend and indemnify SecureData for claims proximately arising from OmniTech's Confidential Information, with indemnity capped at direct damages unless willful misconduct is proven."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether an unlimited NDA indemnification clause covers third-party IP claims arising from disclosed confidential materials.",
+      "rule": "Indemnity clauses are enforced per plain language but ambiguities construed against drafter; Cal. Civ. Code § 1668 limits exculpation for willful acts.",
+      "analysis": "Third-party patent claim may trace to NDA-covered UI docs; unlimited consequential language is ambiguous and overbroad.",
+      "conclusion": "Declaratory relief is appropriate to define defense and indemnity obligations."
+    },
+    "issue_statement": "Whether an NDA indemnification clause obligates a disclosing party to defend third-party IP claims arising from its confidential materials."
+  },
+  "employment": {
+    "case_type": "Complaint — Wrongful Termination in Violation of Public Policy",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Plaintiff Robert Chen, a licensed civil engineer and ten-year employee of Defendant Westgate Construction, Inc., brings this action for wrongful termination in violation of public policy after reporting structural safety violations at the Harbor Bridge retrofit project to Cal/OSHA. Plaintiff seeks reinstatement, back pay, emotional distress damages, and punitive damages."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "On February 14, 2026, Plaintiff documented inadequate rebar spacing in Pier Column 7-B, contrary to Caltrans Standard Specifications Section 52-1.2 and the approved structural drawings. Plaintiff reported the deficiency to his project manager and, on February 18, filed Cal/OSHA complaint WH-2026-4412 when management directed pour to proceed. Plaintiff was suspended on February 20 for 'failure to follow chain of command' and terminated on March 1, 2026. Cal/OSHA issued a serious violation citation on March 15, 2026, confirming the structural deficiency."
+      },
+      {
+        "title": "III. CLAIMS",
+        "content": "Plaintiff asserts: (1) wrongful termination in violation of public policy protecting workplace safety reporting; (2) retaliation under Labor Code § 6310; and (3) emotional distress from reputational harm in a specialized engineering community."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "California recognizes a tort claim for discharge in violation of fundamental public policy. Gould v. Maryland Sound Indus., 18 Cal.App.4th 1248. Reporting structural safety violations implicates a public policy embodied in building codes and Cal/OSHA protections. Temporal proximity — termination eleven days after Cal/OSHA filing — supports retaliatory motive. The Cal/OSHA citation corroborates that Plaintiff's report was substantiated, undermining Defendant's pretextual 'chain of command' rationale."
+      },
+      {
+        "title": "V. CONCLUSION",
+        "content": "Plaintiff seeks reinstatement or front pay, lost wages and benefits, compensatory damages, and punitive damages to deter future retaliation against safety whistleblowers."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether Plaintiff was terminated for reporting structural safety violations in violation of public policy.",
+      "rule": "California recognizes wrongful discharge claims for terminations violating fundamental public policies, including workplace safety. Gould; Lab. Code § 6310.",
+      "analysis": "Substantiated Cal/OSHA citation, eleven-day temporal proximity, and pretextual discipline support retaliation inference.",
+      "conclusion": "Plaintiff states a viable wrongful termination claim."
+    },
+    "issue_statement": "Whether an employer unlawfully terminated an engineer for reporting structural safety violations to Cal/OSHA."
+  },
+  "default": {
+    "case_type": "General Motion — Template Scaffold",
+    "sections": [
+      {
+        "title": "I. INTRODUCTION",
+        "content": "Introduce the parties, procedural posture, and precise relief requested. State the core theory of the case in two to three sentences that orient the reader to the dispute and the moving party's position."
+      },
+      {
+        "title": "II. STATEMENT OF FACTS",
+        "content": "Present operative facts in chronological order, citing record evidence. Distinguish undisputed facts from contested ones. Include only facts necessary to support the legal arguments that follow."
+      },
+      {
+        "title": "III. LEGAL STANDARD",
+        "content": "Identify the governing standard of review, burden of proof, and elements of each claim or defense at issue. Cite controlling authority from the relevant jurisdiction."
+      },
+      {
+        "title": "IV. ARGUMENT",
+        "content": "Organize arguments by descending strength. Lead with the strongest claim or ground. Use subheadings for each legal issue. Apply the rule to the facts explicitly — do not assume the reader will connect them."
+      },
+      {
+        "title": "V. CONCLUSION",
+        "content": "State precisely the relief requested, including any alternative grounds. Confirm that the moving party has met its burden under the applicable standard."
+      }
+    ],
+    "argument_structure": {
+      "issue": "Whether the requested relief is warranted under applicable law and the facts of record.",
+      "rule": "Under controlling authority, the moving party must demonstrate each element of the claim or defense by a preponderance of the evidence (or the applicable standard).",
+      "analysis": "Apply the governing rule to the specific facts presented, addressing counter-arguments and distinguishing adverse authority.",
+      "conclusion": "The Court should grant the requested relief because the legal standard is satisfied on the undisputed or properly supported facts."
+    },
+    "issue_statement": "Whether, under governing law, the facts establish entitlement to the relief requested."
+  }
+}

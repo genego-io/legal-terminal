@@ -2,17 +2,13 @@ import { useState, useEffect } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
+import { CITATION_EXAMPLES } from '../fixtureMeta'
 import type { CitationResult } from '../mcp/types'
 
 interface Props { id: string; query?: string }
 type Mode = 'validate' | 'normalize' | 'integrity'
 
-const EXAMPLES = [
-  '2022 Cal.App.4th 1234',
-  'Smith v. ABC Corp., 2022 Cal.App.4th 1234',
-  '156 Eng. Rep. 145',
-  '2021 Cal.4th 567',
-]
+const EXAMPLES = CITATION_EXAMPLES
 
 export function CitePanel({ id, query: initialQuery = '' }: Props) {
   const [citation, setCitation] = useState(initialQuery)
@@ -66,9 +62,8 @@ export function CitePanel({ id, query: initialQuery = '' }: Props) {
         ))}
       </div>
 
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* Result pane */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+      <div className="panel-split">
+        <div className="panel-split-detail info-pane" style={{ padding: '20px 24px' }}>
           {loading && <LoadingDots />}
 
           {!latest && !loading && (
@@ -148,7 +143,7 @@ export function CitePanel({ id, query: initialQuery = '' }: Props) {
 
         {/* History sidebar */}
         {history.length > 1 && (
-          <div style={{ width: 240, borderLeft: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
+          <div className="panel-split-list panel-split-list--history">
             <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border)', fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
               History
             </div>

@@ -35,12 +35,14 @@ export interface ContractClause {
 
 export interface Contract {
   id: string
+  short_label?: string
   title: string
   type: string
   risk_level: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW'
   clauses: ContractClause[]
   missing_clauses: string[]
   parties: Record<string, string>
+  party_roles?: { buyer: string; seller: string; mutual: string }
   governing_law: string
   term: string
   liability_cap: string | null
@@ -56,6 +58,7 @@ export interface AnalysisJob {
   clause_count: number | null
   flags: number | null
   error?: string
+  result_summary?: string
 }
 
 export interface AuditEntry {
@@ -128,3 +131,50 @@ export interface IntegrationStatus {
   pacer: { enabled: boolean; environment: string; fee_warning: string }
   server_config: { transport: string; port: number; categories_enabled: string[] }
 }
+
+export interface NegotiationGuideEntry {
+  clauses: {
+    key: string
+    label: string
+    recommended_position: 'accept' | 'negotiate' | 'reject'
+    rationale: string
+    fallback_text: string
+  }[]
+  missing_clauses: string[]
+  notice: string
+}
+
+export type NegotiationGuidesMap = Record<
+  string,
+  Partial<Record<'buyer' | 'seller' | 'mutual', NegotiationGuideEntry>>
+>
+
+export type ClauseAlternativesMap = Record<string, string[]>
+
+export interface DocumentProfile {
+  contract_id: string | null
+  payment_terms: string | null
+  document_type?: string
+  page_count?: number | null
+  summary?: string
+  snippet?: string | null
+  privilege: {
+    risk_override?: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW'
+    indicators: string[]
+  }
+  queue_fail?: boolean
+}
+
+export interface PanelMeta {
+  search_examples: string[]
+  brief_case_types: string[]
+  citation_examples: string[]
+  statute_quick_links: { label: string; id: string }[]
+  ai_providers: { id: string; label: string; zdr: boolean; training: boolean; hipaa: boolean }[]
+  privilege_risk_labels: Record<string, string>
+  privilege_demo_files: string[]
+}
+
+export type DocumentProfilesMap = Record<string, DocumentProfile>
+
+export type BriefOutlinesMap = Record<string, Omit<BriefOutline, 'case_type'> & { case_type: string }>

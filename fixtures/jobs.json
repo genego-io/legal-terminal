@@ -6,8 +6,9 @@
     "queued_at": "2026-07-07T02:03:11Z",
     "completed_at": "2026-07-07T02:03:44Z",
     "risk_level": "HIGH",
-    "clause_count": 12,
-    "flags": 3
+    "clause_count": 5,
+    "flags": 3,
+    "result_summary": "Mapped to client_proposed_nda — CRITICAL indemnification, HIGH confidentiality scope (marked-materials only). Recommend reject or negotiate indemnity cap before execution."
   },
   {
     "id": "job-002",
@@ -15,9 +16,10 @@
     "status": "complete",
     "queued_at": "2026-07-07T02:05:00Z",
     "completed_at": "2026-07-07T02:05:28Z",
-    "risk_level": "MEDIUM",
-    "clause_count": 9,
-    "flags": 1
+    "risk_level": "HIGH",
+    "clause_count": 5,
+    "flags": 4,
+    "result_summary": "Mapped to vendor_saas_agreement_v2 — one-sided indemnification, 3-month liability cap, asymmetric termination. Missing SLA and audit rights."
   },
   {
     "id": "job-003",
@@ -45,6 +47,28 @@
     "status": "error",
     "queued_at": "2026-07-07T02:01:00Z",
     "completed_at": "2026-07-07T02:01:03Z",
+    "risk_level": null,
+    "clause_count": null,
+    "flags": null,
+    "error": "File parse error: unsupported encryption format"
+  },
+  {
+    "id": "job-006",
+    "file": "litigation_memo.docx",
+    "status": "complete",
+    "queued_at": "2026-07-07T01:55:00Z",
+    "completed_at": "2026-07-07T01:55:45Z",
+    "risk_level": "CRITICAL",
+    "clause_count": 0,
+    "flags": 4,
+    "result_summary": "Not a contract — privilege analysis only. CRITICAL: attorney-client communication, work product strategy, settlement range analysis. Do not route to cloud AI."
+  },
+  {
+    "id": "job-007",
+    "file": "fail_me.docx",
+    "status": "error",
+    "queued_at": "2026-07-07T01:58:00Z",
+    "completed_at": "2026-07-07T01:58:02Z",
     "risk_level": null,
     "clause_count": null,
     "flags": null,

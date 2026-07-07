@@ -138,7 +138,7 @@ export function HomePanel() {
       </div>
 
       {/* Quick-action grid */}
-      <div style={{ padding: '20px 28px', display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
+      <div className="home-grid">
         {GROUPS.map(group => (
           <div key={group.title} className="card">
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>

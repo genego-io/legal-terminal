@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import type { KeyboardEvent } from 'react'
 import { useTerminalStore } from '../store/terminalStore'
 import type { ViewType } from '../store/terminalStore'
+import { useViewport } from '../hooks/useViewport'
 
 export const MNEMONICS: { cmd: string; panel: ViewType; desc: string; tool: string }[] = [
   { cmd: 'CHAT', panel: 'CHAT', desc: 'Paralegal assistant',        tool: 'research_legal_issue' },
@@ -37,6 +38,7 @@ export function CommandLine({ onOpenPalette }: Props) {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const { navigate, pushCommand } = useTerminalStore()
+  const { isTablet } = useViewport()
 
   const suggestions = value
     ? MNEMONICS.filter(m =>
@@ -109,7 +111,7 @@ export function CommandLine({ onOpenPalette }: Props) {
           onKeyDown={onKey}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           onFocus={() => value && setShowSuggestions(true)}
-          placeholder="PREC breach of contract  ·  CITE 2022 Cal.App.4th 1234  ·  Tab to complete"
+          placeholder={isTablet ? 'PREC breach · CITE citation · Tab to complete' : 'PREC breach of contract  ·  CITE 2022 Cal.App.4th 1234  ·  Tab to complete'}
           spellCheck={false}
           autoComplete="off"
         />
@@ -123,8 +125,17 @@ export function CommandLine({ onOpenPalette }: Props) {
               display: 'flex', alignItems: 'center', gap: 4,
             }}
             title="Open command palette (Ctrl+K)"
+            className="cmd-kbd-hint"
           >
-            <span>Ctrl</span><span style={{ opacity: 0.5 }}>+</span><span>K</span>
+            {isTablet ? (
+              <span>⌘K</span>
+            ) : (
+              <>
+                <span className="cmd-kbd-text">Ctrl</span>
+                <span style={{ opacity: 0.5 }}>+</span>
+                <span className="cmd-kbd-text">K</span>
+              </>
+            )}
           </button>
         )}
       </div>

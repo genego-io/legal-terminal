@@ -8,7 +8,11 @@
     "enacted": "1872",
     "last_amended": "1983",
     "history": "Enacted in 1872 as part of the original California Civil Code; amended in 1983 for a minor language clarification. Codifies the common-law reasonable-time principle for contract performance.",
-    "topics": ["reasonable time", "contract performance", "default timing"]
+    "topics": [
+      "reasonable time",
+      "contract performance",
+      "default timing"
+    ]
   },
   {
     "id": "Cal.Com.Code.2106",
@@ -19,18 +23,27 @@
     "enacted": "1963",
     "last_amended": "2006",
     "history": "Part of California's adoption of the Uniform Commercial Code, Division 2 (Sales).",
-    "topics": ["sale of goods", "conforming performance", "UCC"]
+    "topics": [
+      "sale of goods",
+      "conforming performance",
+      "UCC"
+    ]
   },
   {
     "id": "18.USC.1030",
     "title": "Computer Fraud and Abuse Act",
     "jurisdiction": "Federal",
     "citation": "18 U.S.C. § 1030",
-    "text": "Whoever knowingly accesses a computer without authorization or exceeds authorized access, and thereby obtains information contained in a financial record of a financial institution, or of a card issuer as defined in section 1602(n) of title 15, or contained in a file of a consumer reporting agency on a consumer, as such terms are defined in the Fair Credit Reporting Act (15 U.S.C. 1681 et seq.) shall be punished as provided in subsection (c).",
+    "text": "Whoever knowingly and with intent to defraud accesses a protected computer without authorization, or exceeds authorized access, and by means of such conduct furthers an intended fraud and obtains anything of value, shall be punished as provided in subsection (c) of this section. For purposes of this section, a protected computer includes computers used in or affecting interstate or foreign commerce or communication, including computers located outside the United States that are used in a manner that affects interstate or foreign commerce or communication of the United States.",
     "enacted": "1986",
     "last_amended": "2008",
     "history": "Originally enacted as the Counterfeit Access Device and Computer Fraud and Abuse Act of 1984; substantially amended in 1986, 1994, 1996, 2001, and 2008.",
-    "topics": ["computer fraud", "unauthorized access", "cybersecurity", "criminal liability"]
+    "topics": [
+      "computer fraud",
+      "unauthorized access",
+      "cybersecurity",
+      "criminal liability"
+    ]
   },
   {
     "id": "GDPR.Art.28",
@@ -41,6 +54,89 @@
     "enacted": "2016",
     "last_amended": "2018",
     "history": "Part of Regulation (EU) 2016/679 (GDPR), effective 25 May 2018.",
-    "topics": ["data processing", "processor obligations", "GDPR", "data protection"]
+    "topics": [
+      "data processing",
+      "processor obligations",
+      "GDPR",
+      "data protection"
+    ]
+  },
+  {
+    "id": "29.USC.621",
+    "title": "ADEA — Congressional Findings and Policy",
+    "jurisdiction": "Federal",
+    "citation": "29 U.S.C. § 621",
+    "text": "The Congress hereby finds and declares that in the face of rising productivity and affluence, older workers find themselves disadvantaged in their efforts to retain employment, and that arbitrary age limits are often unrelated to ability to perform. It is therefore the purpose of this chapter to promote employment of older persons based on their ability rather than age; to prohibit arbitrary age discrimination in employment; to help employers and workers find ways of meeting problems arising from the impact of age on employment.",
+    "enacted": "1967",
+    "last_amended": "1990",
+    "history": "Age Discrimination in Employment Act of 1967.",
+    "topics": [
+      "employment",
+      "age discrimination",
+      "ADEA",
+      "congressional findings"
+    ]
+  },
+  {
+    "id": "29.USC.623",
+    "title": "ADEA — Prohibition of Age Discrimination",
+    "jurisdiction": "Federal",
+    "citation": "29 U.S.C. § 623",
+    "text": "It shall be unlawful for an employer to fail or refuse to hire or to discharge any individual or otherwise discriminate against any individual with respect to his compensation, terms, conditions, or privileges of employment, because of such individual's age. It shall be unlawful for an employer to limit, segregate, or classify his employees in any way which would deprive or tend to deprive any individual of employment opportunities or otherwise adversely affect his status as an employee, because of such individual's age. It shall be unlawful for an employment agency to fail or refuse to refer any individual for employment or otherwise discriminate against any individual because of such individual's age.",
+    "enacted": "1967",
+    "last_amended": "1990",
+    "history": "Core operative provision of the Age Discrimination in Employment Act. OWBPA amendments in 1990 added requirements for valid waivers of ADEA claims in severance agreements.",
+    "topics": [
+      "employment",
+      "age discrimination",
+      "ADEA",
+      "severance waiver",
+      "OWBPA"
+    ]
+  },
+  {
+    "id": "Cal.Civ.Code.1668",
+    "title": "Unlawful Contracts",
+    "jurisdiction": "CA",
+    "citation": "Cal. Civ. Code § 1668",
+    "text": "All contracts which have for their object, directly or indirectly, to exempt anyone from responsibility for his own fraud, or willful injury to the person or property of another, or violation of law, whether willful or negligent, are against the policy of the law.",
+    "enacted": "1872",
+    "last_amended": "1982",
+    "history": "California Civil Code provision on unenforceable exculpatory clauses.",
+    "topics": [
+      "contract",
+      "liability waiver",
+      "public policy"
+    ]
+  },
+  {
+    "id": "CCPA.1798.100",
+    "title": "CCPA — Consumer Right to Know",
+    "jurisdiction": "CA",
+    "citation": "Cal. Civ. Code § 1798.100",
+    "text": "A consumer shall have the right to request that a business that collects personal information about the consumer disclose the categories and specific pieces of personal information the business has collected.",
+    "enacted": "2018",
+    "last_amended": "2023",
+    "history": "California Consumer Privacy Act as amended by CPRA.",
+    "topics": [
+      "privacy",
+      "CCPA",
+      "data rights"
+    ]
+  },
+  {
+    "id": "UCC.2-714",
+    "title": "UCC Buyer Damages for Non-Delivery",
+    "jurisdiction": "Federal",
+    "citation": "U.C.C. § 2-714",
+    "text": "Where the buyer has accepted goods and given notification of breach, he may recover damages for any non-conformity of tender. The measure of damages for non-delivery or repudiation is the difference between the market price at the time when the buyer learned of the breach and the contract price together with any incidental and consequential damages under Section 2-715, less expenses saved in consequence of the seller's breach.",
+    "enacted": "1952",
+    "last_amended": "2003",
+    "history": "Uniform Commercial Code Article 2 remedy provision.",
+    "topics": [
+      "UCC",
+      "sale of goods",
+      "buyer remedies"
+    ]
   }
 ]

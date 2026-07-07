@@ -4,8 +4,7 @@ import { FileUploadZone } from '../components/FileUploadZone'
 import type { UploadedFile } from '../components/FileUploadZone'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
-
-const MOCK_FILES = ['vendor_nda_2026.docx', 'saas_msa_draft.docx', 'dpa_addendum_eu.pdf', 'hipaa_baa_template.docx']
+import { MOCK_DOCUMENT_FILES } from '../fixtureMeta'
 
 export function DocaPanel({ id }: { id: string }) {
   const { pushActivity } = useTerminalStore()
@@ -89,7 +88,7 @@ export function DocaPanel({ id }: { id: string }) {
         {/* ── Example files ── */}
         <div className="section-label" style={{ marginTop: 8, marginBottom: 6 }}>Example files</div>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 8 }}>
-          {MOCK_FILES.map(f => (
+          {MOCK_DOCUMENT_FILES.map(f => (
             <button key={f} onClick={() => { setFile(f); analyze(f) }} style={{
               background: file === f ? 'var(--accent-faint)' : 'var(--bg-panel2)',
               border: '1px solid ' + (file === f ? 'var(--accent-dim)' : 'var(--border)'),

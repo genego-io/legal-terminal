@@ -151,6 +151,7 @@ export const useTerminalStore = create<TerminalStore>((set, get) => ({
   },
 
   pinSplit(type) {
+    if (typeof window !== 'undefined' && window.innerWidth <= 1024) return
     set({ splitView: { type } })
   },
 

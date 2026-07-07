@@ -43,20 +43,18 @@ export function Workspace() {
 
   if (!splitView) {
     return (
-      <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+      <div className="workspace-area">
         {renderView(view)}
       </div>
     )
   }
 
   return (
-    <div style={{ flex: 1, overflow: 'hidden', display: 'flex' }}>
-      {/* Primary pane */}
-      <div style={{ flex: 1, overflow: 'hidden', borderRight: '2px solid var(--border-bright)', display: 'flex', flexDirection: 'column' }}>
+    <div className="workspace-split">
+      <div className="workspace-split-pane">
         {renderView(view)}
       </div>
-      {/* Split pane */}
-      <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+      <div className="workspace-split-pane" style={{ position: 'relative' }}>
         <button
           onClick={closeSplit}
           style={{

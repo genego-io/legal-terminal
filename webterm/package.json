@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node ../scripts/sync-fixtures.mjs && tsc -b && vite build",
+    "sync-fixtures": "node ../scripts/sync-fixtures.mjs",
     "start": "serve -s dist -l tcp://0.0.0.0:${PORT:-8080}",
     "lint": "oxlint",
     "preview": "vite preview",

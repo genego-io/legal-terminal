@@ -32,9 +32,25 @@ class TestSearchPrecedents:
         # top result should have a high relevance score (boosted by topic match)
         assert results[0].relevance_score >= 0.7
 
-    async def test_unmatched_query_still_returns_results(self, client: MockClient) -> None:
-        results = await client.search_precedents("xyzzy_nomatchwhatsoever")
-        assert len(results) > 0
+    async def test_zero_result_query_returns_empty(self, client: MockClient) -> None:
+        results = await client.search_precedents("no results expected")
+        assert results == []
+
+
+# ── generate_negotiation_guide ───────────────────────────────────────────────
+
+
+class TestGenerateNegotiationGuide:
+    async def test_buyer_seller_differ(self, client: MockClient) -> None:
+        buyer = await client.generate_negotiation_guide("client_proposed_nda", "buyer")
+        seller = await client.generate_negotiation_guide("client_proposed_nda", "seller")
+        buyer_ind = next(c for c in buyer["clauses"] if c["key"] == "indemnification")
+        seller_ind = next(c for c in seller["clauses"] if c["key"] == "indemnification")
+        assert buyer_ind["recommended_position"] != seller_ind["recommended_position"]
+
+    async def test_privilege_by_file(self, client: MockClient) -> None:
+        r = await client.check_privilege_risk("litigation_memo.docx", "openai")
+        assert r.risk == "CRITICAL"
 
 
 # ── validate_citation ────────────────────────────────────────────────────────

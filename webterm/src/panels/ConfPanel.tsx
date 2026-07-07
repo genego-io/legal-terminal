@@ -78,7 +78,7 @@ export function ConfPanel({ id }: { id: string }) {
   return (
     <PanelChrome id={id} mnemonic="CONF" title="Privacy Settings" subtitle="confidential mode · local inference · ABA Rule 1.6" panelType="CONF">
       <div style={{ flex: 1, overflowY: 'auto', padding: '20px' }}>
-        <div style={{ maxWidth: 780, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div className="conf-content-column">
 
           {/* ── Master toggle ───────────────────────────────── */}
           <div style={{
@@ -147,7 +147,7 @@ export function ConfPanel({ id }: { id: string }) {
               <Server size={13} style={{ color: 'var(--accent)' }} />
               <div className="section-label" style={{ margin: 0 }}>Local model configuration (Ollama)</div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 10 }}>
+            <div className="conf-config-grid">
               <div>
                 <div style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.07em' }}>Ollama endpoint</div>
                 <input

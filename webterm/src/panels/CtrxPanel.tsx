@@ -1,17 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { PanelChrome, RiskBadge, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
+import { CONTRACT_PICKER } from '../fixtureMeta'
 import type { Contract, ContractClause } from '../mcp/types'
 
 interface Props { id: string; contractId?: string }
 type View = 'analyze' | 'compare' | 'negotiate'
-
-const CONTRACTS = [
-  { id: 'standard_nda_template',          label: 'Standard NDA' },
-  { id: 'client_proposed_nda',            label: 'Client NDA (Proposed)' },
-  { id: 'master_services_agreement_tech', label: 'Tech MSA' },
-]
 
 function selBtn(active: boolean): React.CSSProperties {
   return {
@@ -28,6 +23,7 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
   const [contractId, setContractId] = useState(initial ?? 'client_proposed_nda')
   const [compareId, setCompareId] = useState('standard_nda_template')
   const [contract, setContract] = useState<Contract | null>(null)
+  const [contractError, setContractError] = useState<string | null>(null)
   const [selectedClause, setSelectedClause] = useState<ContractClause | null>(null)
   const [alternatives, setAlternatives] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
@@ -38,11 +34,18 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
 
   async function loadContract(cid = contractId) {
     setLoading(true)
+    setContractError(null)
     const c = await client.analyzeContract(cid)
-    setContract(c)
-    if (c?.clauses.length) setSelectedClause(c.clauses[0])
+    if (!c) {
+      setContract(null)
+      setSelectedClause(null)
+      setContractError(`Contract "${cid}" not found in the library.`)
+    } else {
+      setContract(c)
+      if (c.clauses.length) setSelectedClause(c.clauses[0])
+    }
     setLoading(false)
-    pushActivity(`CTRX analyze "${cid}"`)
+    if (c) pushActivity(`CTRX analyze "${cid}"`)
   }
 
   async function loadAlts(clause: ContractClause) {
@@ -50,22 +53,28 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
     setAlternatives(alts)
   }
 
-  async function loadNegotiation() {
+  const loadNegotiation = useCallback(async () => {
     setLoading(true)
     const guide = await client.generateNegotiationGuide(contractId, negotiationRole)
-    setNegotiation(guide); setLoading(false)
+    setNegotiation(guide)
+    setLoading(false)
     pushActivity(`CTRX negotiate "${contractId}" as ${negotiationRole}`)
-  }
+  }, [contractId, negotiationRole, pushActivity])
 
   async function loadCompare() {
     setLoading(true)
     const { diffs: d } = await client.compareContracts(contractId, compareId)
-    setDiffs(d); setLoading(false)
+    setDiffs(d)
+    setLoading(false)
     pushActivity(`CTRX compare "${contractId}" vs "${compareId}"`)
   }
 
   useEffect(() => { loadContract() }, [])
   useEffect(() => { if (selectedClause) loadAlts(selectedClause) }, [selectedClause])
+
+  useEffect(() => {
+    if (view === 'negotiate' && negotiation) loadNegotiation()
+  }, [negotiationRole])
 
   const riskOrder = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW']
   const sortedClauses = contract?.clauses.slice().sort((a, b) => riskOrder.indexOf(a.risk) - riskOrder.indexOf(b.risk)) ?? []
@@ -76,9 +85,8 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
 
   return (
     <PanelChrome id={id} mnemonic="CTRX" title="Contract Workbench" subtitle="analyze · compare · negotiate" panelType="CTRX">
-      {/* Contract selector */}
-      <div style={{ display: 'flex', gap: 6, padding: '8px 14px', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
-        {CONTRACTS.map(c => (
+      <div style={{ display: 'flex', gap: 6, padding: '8px 14px', borderBottom: '1px solid var(--border)', flexShrink: 0, flexWrap: 'wrap' }}>
+        {CONTRACT_PICKER.map(c => (
           <button key={c.id} onClick={() => { setContractId(c.id); loadContract(c.id) }}
             style={selBtn(contractId === c.id)}>
             {c.label}
@@ -86,7 +94,6 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
         ))}
       </div>
 
-      {/* View tabs */}
       <div className="tab-bar">
         {(['analyze', 'compare', 'negotiate'] as View[]).map(v => (
           <button key={v} onClick={() => setView(v)} className={`tab-btn ${view === v ? 'active' : ''}`}>
@@ -97,11 +104,13 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
 
       {loading && <LoadingDots />}
 
-      {/* ANALYZE */}
+      {contractError && !loading && (
+        <div style={{ padding: '20px 24px', color: 'var(--risk-critical)', fontSize: 12 }}>{contractError}</div>
+      )}
+
       {view === 'analyze' && !loading && contract && (
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-          {/* Clause list */}
-          <div style={{ width: 260, borderRight: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
+        <div className="panel-split">
+          <div className="panel-split-list panel-split-list--narrow">
             <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 8, alignItems: 'center' }}>
               <span style={{ fontSize: 12, color: 'var(--text-dim)', fontWeight: 500, flex: 1 }}>{contract.title}</span>
               <RiskBadge risk={contract.risk_level} />
@@ -128,8 +137,7 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
             )}
           </div>
 
-          {/* Clause detail */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+          <div className="panel-split-detail info-pane" style={{ padding: '20px 24px' }}>
             {selectedClause ? (
               <>
                 <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 14 }}>
@@ -162,19 +170,18 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
         </div>
       )}
 
-      {/* COMPARE */}
       {view === 'compare' && !loading && (
-        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+        <div className="panel-split-detail info-pane" style={{ padding: '20px 24px' }}>
           <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap', alignItems: 'center' }}>
             <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>Base:</span>
             <select value={contractId} onChange={e => setContractId(e.target.value)}
               style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)', color: 'var(--text)', fontFamily: 'inherit', fontSize: 12, padding: '5px 10px' }}>
-              {CONTRACTS.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+              {CONTRACT_PICKER.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
             </select>
             <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>vs.</span>
             <select value={compareId} onChange={e => setCompareId(e.target.value)}
               style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)', color: 'var(--text)', fontFamily: 'inherit', fontSize: 12, padding: '5px 10px' }}>
-              {CONTRACTS.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
+              {CONTRACT_PICKER.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
             </select>
             <button onClick={loadCompare} className="btn-primary">Compare</button>
           </div>
@@ -188,9 +195,8 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
         </div>
       )}
 
-      {/* NEGOTIATE */}
       {view === 'negotiate' && !loading && (
-        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+        <div className="panel-split-detail info-pane" style={{ padding: '20px 24px' }}>
           <div style={{ display: 'flex', gap: 8, marginBottom: 16, alignItems: 'center', flexWrap: 'wrap' }}>
             <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>Party role:</span>
             {(['buyer', 'seller', 'mutual'] as const).map(r => (
@@ -201,6 +207,10 @@ export function CtrxPanel({ id, contractId: initial }: Props) {
           {!negotiation && <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>Select a party role and press Generate guide.</div>}
           {negotiation && (
             <>
+              <div style={{ marginBottom: 14, fontSize: 12, color: 'var(--text-dim)' }}>
+                Guide for <strong style={{ color: 'var(--accent)' }}>{negotiation.party_role}</strong> perspective
+                {' · '}{CONTRACT_PICKER.find(c => c.id === contractId)?.label ?? contractId}
+              </div>
               {negotiation.clauses.map(cl => (
                 <div key={cl.key} style={{ borderBottom: '1px solid var(--border)', padding: '10px 0' }}>
                   <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 5 }}>

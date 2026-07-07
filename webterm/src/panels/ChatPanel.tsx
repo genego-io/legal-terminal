@@ -115,11 +115,18 @@ async function respond(input: string, push: ChatStore['push']): Promise<void> {
     return
   }
 
-  // Privilege
+  // Privilege — route to MCP with document-aware assessment
   if (/\b(privilege|confidential|work.?product|chatgpt|claude|gemini|ai (tool|provider))\b/.test(q)) {
+    const fileMatch = input.match(/[\w.-]+\.(docx|pdf|txt)/i)
+    const file = fileMatch?.[0] ?? 'litigation_memo.docx'
+    const provider = /claude|anthropic/i.test(q) ? 'anthropic'
+      : /azure/i.test(q) ? 'azure_openai'
+      : /ollama|local/i.test(q) ? 'ollama'
+      : 'openai'
+    const result = await client.checkPrivilegeRisk(file, provider)
     push({
       role: 'assistant',
-      text: 'Before sending client material to an outside AI provider, we should run a privilege risk check. The Privilege Check module compares provider terms (training use, retention, confidentiality) side-by-side. As a rule: never paste client-identifying facts into consumer AI tools \u2014 use enterprise agreements with zero-retention terms.',
+      text: `Privilege assessment for "${file}" via ${provider}: ${result.risk} risk. ${result.recommendation}`,
     })
     return
   }
@@ -302,7 +309,7 @@ export function ChatPanel({ id }: { id: string }) {
     >
       {/* Conversation */}
       <div ref={scrollRef} style={{ flex: 1, overflowY: 'auto', padding: '20px 0' }}>
-        <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 24px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+        <div className="chat-content-column">
 
           {/* Empty state */}
           {messages.length === 0 && (
@@ -321,7 +328,7 @@ export function ChatPanel({ id }: { id: string }) {
                 I can research case law, validate citations, review contracts,<br />
                 assess privilege risk, and draft brief outlines.
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, textAlign: 'left' }}>
+              <div className="chat-suggestions-grid">
                 {SUGGESTIONS.map(s => (
                   <button key={s.label} onClick={() => send(s.prompt)}
                     style={{ ...cardStyle, display: 'flex', gap: 10, alignItems: 'flex-start', padding: '12px 14px' }}>

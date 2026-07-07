@@ -2,16 +2,12 @@ import { useState, useEffect } from 'react'
 import { PanelChrome, RelevanceBar, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
+import { SEARCH_EXAMPLES } from '../fixtureMeta'
 import type { Case } from '../mcp/types'
 
 interface Props { id: string; query?: string }
 
-const EXAMPLES = [
-  'breach of contract delivery',
-  'attorney-client privilege waiver',
-  'indemnification limitation of liability',
-  'time is of the essence',
-]
+const EXAMPLES = SEARCH_EXAMPLES
 
 export function PrecPanel({ id, query: initialQuery = '' }: Props) {
   const [query, setQuery] = useState(initialQuery)
@@ -35,7 +31,7 @@ export function PrecPanel({ id, query: initialQuery = '' }: Props) {
   return (
     <PanelChrome id={id} mnemonic="PREC" title="Precedent Search" subtitle="search_precedents · search_case_law" panelType="PREC">
       {/* Search bar */}
-      <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 8, flexShrink: 0 }}>
+      <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 8, flexShrink: 0 }} className="search-bar-row">
         <input
           value={query}
           onChange={e => setQuery(e.target.value)}
@@ -49,11 +45,16 @@ export function PrecPanel({ id, query: initialQuery = '' }: Props) {
       </div>
 
       {/* Body */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* Results list */}
-        <div style={{ width: 320, borderRight: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
+      <div className="panel-split">
+        <div className="panel-split-list">
           {loading && <LoadingDots />}
-          {!loading && results.length === 0 && (
+          {!loading && results.length === 0 && query.trim() && (
+            <div className="empty-state">
+              <div className="empty-state-title">No matches</div>
+              <div className="empty-state-desc">No precedents matched &ldquo;{query}&rdquo; in the local library. Try broader terms or connect live MCP.</div>
+            </div>
+          )}
+          {!loading && results.length === 0 && !query.trim() && (
             <div className="empty-state">
               <div className="empty-state-title">Search precedents</div>
               <div className="empty-state-desc">Enter keywords to find relevant cases from the local library.</div>
@@ -95,7 +96,7 @@ export function PrecPanel({ id, query: initialQuery = '' }: Props) {
         </div>
 
         {/* Detail pane */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+        <div className="panel-split-detail info-pane" style={{ padding: '20px 24px' }}>
           {selected ? (
             <>
               <h3 style={{ marginBottom: 4, fontSize: 15 }}>{selected.name}</h3>

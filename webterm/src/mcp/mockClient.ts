@@ -1,18 +1,49 @@
 import type { LegalMcpClient } from './client'
 import type {
   Case, Statute, Contract, AnalysisJob, AuditEntry, Workflow,
-  CitationResult, PrivilegeResult, BriefOutline, NegotiationGuide, IntegrationStatus
+  CitationResult, PrivilegeResult, BriefOutline, NegotiationGuide, IntegrationStatus,
 } from './types'
-import { CASES, STATUTES, CONTRACTS, JOBS, AUDIT_LOG, WORKFLOWS } from '../fixtures'
+import {
+  CASES, STATUTES, CONTRACTS, JOBS, AUDIT_LOG, WORKFLOWS,
+  NEGOTIATION_GUIDES, CLAUSE_ALTERNATIVES, DOCUMENT_PROFILES, BRIEF_OUTLINES,
+} from '../fixtures'
 
 const cases: Case[] = CASES
 const statutes: Statute[] = STATUTES
 const contracts: Contract[] = CONTRACTS
 let jobs: AnalysisJob[] = JSON.parse(JSON.stringify(JOBS)) as AnalysisJob[]
-const auditLog: AuditEntry[] = AUDIT_LOG
+const seedAudit: AuditEntry[] = AUDIT_LOG
+let sessionAudit: AuditEntry[] = []
 const workflows: Workflow[] = WORKFLOWS
 
+const ZERO_RESULT_QUERIES = [
+  'xyzzy_nomatchwhatsoever',
+  'quantum entanglement liability',
+  'no results expected',
+]
+
 const delay = (ms = 400) => new Promise(r => setTimeout(r, ms + Math.random() * 200))
+
+let jobIdCounter = jobs.length + 1
+let auditCounter = seedAudit.length + 1
+
+function basename(path: string): string {
+  return path.split(/[/\\]/).pop() ?? path
+}
+
+function logAudit(tool: string, category: string, input: Record<string, unknown>, success = true, duration_ms = 50) {
+  sessionAudit.unshift({
+    id: `a-${String(++auditCounter).padStart(3, '0')}`,
+    timestamp: new Date().toISOString(),
+    tool,
+    user: 'attorney',
+    category,
+    input,
+    success,
+    duration_ms,
+  })
+  if (sessionAudit.length > 50) sessionAudit = sessionAudit.slice(0, 50)
+}
 
 function rankByQuery(items: Case[], query: string): Case[] {
   const q = query.toLowerCase()
@@ -26,41 +57,65 @@ function rankByQuery(items: Case[], query: string): Case[] {
     .sort((a, b) => b.relevance_score - a.relevance_score)
 }
 
-let jobIdCounter = 6
+function docProfile(file: string) {
+  return DOCUMENT_PROFILES[basename(file)]
+}
 
 export class MockClient implements LegalMcpClient {
   async searchPrecedents(query: string): Promise<Case[]> {
     await delay()
-    return rankByQuery(cases, query)
+    const q = query.toLowerCase().trim()
+    if (ZERO_RESULT_QUERIES.some(z => q.includes(z))) {
+      logAudit('search_precedents', 'search', { query }, true, 88)
+      return []
+    }
+    const results = rankByQuery(cases, query)
+    logAudit('search_precedents', 'search', { query }, true, 88)
+    return results
   }
 
   async searchCaseLaw(query: string): Promise<Case[]> {
     await delay()
-    return rankByQuery(cases, query)
+    const q = query.toLowerCase().trim()
+    if (ZERO_RESULT_QUERIES.some(z => q.includes(z))) return []
+    const appellate = cases.filter(c =>
+      /appeal|supreme|circuit|chancery|exchequer/i.test(c.court)
+    )
+    logAudit('search_case_law', 'search', { query }, true, 95)
+    return rankByQuery(appellate, query)
   }
 
   async extractStatute(id: string): Promise<Statute | null> {
     await delay()
-    return statutes.find(s => s.id === id || s.citation.includes(id)) ?? null
+    const s = statutes.find(s => s.id === id || s.citation.includes(id)) ?? null
+    logAudit('extract_statute', 'research', { statute_id: id }, !!s, 120)
+    return s
   }
 
   async researchLegalIssue(issue: string): Promise<{ cases: Case[]; statutes: Statute[]; summary: string }> {
     await delay(600)
     const foundCases = rankByQuery(cases, issue).slice(0, 3)
-    const foundStatutes = statutes.filter(s => s.topics.some(t => issue.toLowerCase().includes(t.split(' ')[0])))
+    const foundStatutes = statutes.filter(s =>
+      s.topics.some(t => issue.toLowerCase().includes(t.split(' ')[0])) ||
+      issue.toLowerCase().split(/\s+/).some(w => w.length > 4 && s.text.toLowerCase().includes(w))
+    )
+    logAudit('research_legal_issue', 'search', { issue }, true, 620)
     return {
       cases: foundCases,
       statutes: foundStatutes,
-      summary: `Research across local precedents and statutes identified ${foundCases.length} relevant case(s) and ${foundStatutes.length} statute(s) for the issue: "${issue}". Local results returned; CourtListener/PACER integration disabled by default.`,
+      summary: foundCases.length || foundStatutes.length
+        ? `Research identified ${foundCases.length} case(s) and ${foundStatutes.length} statute(s) for: "${issue}". Local results returned; CourtListener/PACER integration disabled by default.`
+        : `No local matches for "${issue}". Try broader terms or connect live MCP for CourtListener search.`,
     }
   }
 
   async validateCitation(citation: string): Promise<CitationResult> {
     await delay(200)
     const matched = cases.find(c => c.citation === citation.trim())
-    const reporters = ['Cal.App.4th', 'Cal.4th', 'F.3d', 'F. Supp. 3d', 'U.S.', 'Eng. Rep.']
+    const reporters = ['Cal.App.4th', 'Cal.App.5th', 'Cal.4th', 'Cal.5th', 'F.3d', 'F. Supp. 3d', 'U.S.', 'Eng. Rep.', 'Del. Ch.']
     const reporter = reporters.find(r => citation.includes(r)) ?? ''
     const valid = !!reporter && !!citation.match(/\d{4}/)
+    logAudit('validate_citation', 'validation', { citation }, true, 14)
     return {
       citation,
       valid,
@@ -88,7 +143,9 @@ export class MockClient implements LegalMcpClient {
 
   async analyzeContract(contractId: string): Promise<Contract | null> {
     await delay()
-    return contracts.find(c => c.id === contractId) ?? null
+    const c = contracts.find(c => c.id === contractId) ?? null
+    logAudit('analyze_clauses', 'contract', { contract_id: contractId }, !!c, 310)
+    return c
   }
 
   async listContracts(): Promise<Contract[]> {
@@ -100,55 +157,77 @@ export class MockClient implements LegalMcpClient {
     await delay(500)
     const base = contracts.find(c => c.id === a) ?? contracts[0]
     const compare = contracts.find(c => c.id === b) ?? contracts[1]
-    const diffs = compare.clauses
-      .filter(cc => {
-        const bc = base.clauses.find(x => x.key === cc.key)
-        return !bc || bc.text !== cc.text
-      })
-      .map(cc => ({
-        key: cc.key,
-        change: `Risk changed to ${cc.risk}: ${cc.risk_note}`,
-      }))
+    const allKeys = new Set([...base.clauses.map(c => c.key), ...compare.clauses.map(c => c.key)])
+    const diffs: { key: string; change: string }[] = []
+
+    for (const key of allKeys) {
+      const bc = base.clauses.find(c => c.key === key)
+      const cc = compare.clauses.find(c => c.key === key)
+      if (!bc && cc) {
+        diffs.push({ key, change: `Added in compare contract (${cc.risk}): "${cc.text.slice(0, 100)}…"` })
+      } else if (bc && !cc) {
+        diffs.push({ key, change: `Removed in compare contract — was (${bc.risk}): "${bc.text.slice(0, 100)}…"` })
+      } else if (bc && cc) {
+        if (bc.text !== cc.text) {
+          diffs.push({ key, change: `Text changed — base (${bc.risk}): "${bc.text.slice(0, 60)}…" → compare (${cc.risk}): "${cc.text.slice(0, 60)}…"` })
+        } else if (bc.risk !== cc.risk) {
+          diffs.push({ key, change: `Same text but risk changed: ${bc.risk} → ${cc.risk}. ${cc.risk_note}` })
+        }
+      }
+    }
+
+    logAudit('compare_contracts', 'contract', { contract_id_1: a, contract_id_2: b }, true, 412)
     return { base, compare, diffs }
   }
 
   async suggestAlternatives(_clauseText: string, clauseType: string): Promise<string[]> {
     await delay(400)
-    const alts: Record<string, string[]> = {
-      indemnification: [
-        'Recipient\'s aggregate liability for indemnification claims shall not exceed the greater of fees paid or $500,000.',
-        'Each party shall indemnify the other only for direct damages caused by its own gross negligence or willful misconduct.',
-        'Indemnification obligations shall be capped at the liability limit set forth in Section 8.',
-      ],
-      confidentiality_scope: [
-        'Recipient shall hold in confidence all information disclosed by Disclosing Party, whether or not marked Confidential, that a reasonable person would deem confidential.',
-        'Recipient shall hold in confidence all written, oral, and electronic information disclosed by Disclosing Party, including information disclosed in meetings and designated as confidential within five (5) business days.',
-      ],
-      term_duration: [
-        'Confidentiality obligations shall survive for five (5) years following termination.',
-        'Confidentiality obligations shall survive in perpetuity for trade secrets and for three (3) years for all other Confidential Information.',
-      ],
-    }
-    return alts[clauseType] ?? [
-      `Alternative 1 for ${clauseType}: Balanced market-standard language.`,
-      `Alternative 2 for ${clauseType}: Pro-disclosing-party language.`,
-      `Alternative 3 for ${clauseType}: Neutral mutual language.`,
-    ]
+    const alts = CLAUSE_ALTERNATIVES[clauseType] ?? CLAUSE_ALTERNATIVES['confidentiality_scope']
+    logAudit('suggest_clause_alternatives', 'contract', { clause_type: clauseType }, true, 195)
+    return alts.slice(0, 3)
   }
 
   async generateNegotiationGuide(contractId: string, partyRole: string): Promise<NegotiationGuide> {
     await delay(500)
+    const role = (['buyer', 'seller', 'mutual'].includes(partyRole) ? partyRole : 'buyer') as 'buyer' | 'seller' | 'mutual'
     const contract = contracts.find(c => c.id === contractId) ?? contracts[1]
-    return {
-      contract_id: contractId,
-      party_role: partyRole,
-      clauses: contract.clauses.map(cl => ({
+    const guideData = NEGOTIATION_GUIDES[contractId]?.[role]
+
+    if (guideData) {
+      logAudit('generate_negotiation_guide', 'contract', { contract_id: contractId, party_role: role }, true, 241)
+      return {
+        contract_id: contractId,
+        party_role: role,
+        clauses: guideData.clauses,
+        missing_clauses: guideData.missing_clauses,
+        notice: guideData.notice,
+      }
+    }
+
+    // Fallback: role-aware derivation
+    const invert = role === 'seller'
+    const clauses = contract.clauses.map(cl => {
+      let pos: 'accept' | 'negotiate' | 'reject' =
+        cl.risk === 'CRITICAL' ? 'reject' : cl.risk === 'HIGH' ? 'negotiate' : 'accept'
+      if (invert) {
+        if (pos === 'reject') pos = 'accept'
+        else if (pos === 'accept' && cl.risk === 'HIGH') pos = 'negotiate'
+      }
+      if (role === 'mutual' && pos === 'reject') pos = 'negotiate'
+      return {
         key: cl.key,
         label: cl.label,
-        recommended_position: cl.risk === 'CRITICAL' ? 'reject' : cl.risk === 'HIGH' ? 'negotiate' : 'accept',
+        recommended_position: pos,
         rationale: cl.risk_note,
-        fallback_text: `Negotiate: "${cl.text.substring(0, 80)}…" — propose capped liability or narrower scope.`,
-      })),
+        fallback_text: `As ${role}, propose balanced revision to ${cl.label} aligned with market standards.`,
+      }
+    })
+
+    logAudit('generate_negotiation_guide', 'contract', { contract_id: contractId, party_role: role }, true, 241)
+    return {
+      contract_id: contractId,
+      party_role: role,
+      clauses,
       missing_clauses: contract.missing_clauses,
       notice: 'This guide is a scaffold for attorney review, not legal advice. ABA Rule 1.6 applies.',
     }
@@ -156,18 +235,29 @@ export class MockClient implements LegalMcpClient {
 
   async analyzeDocument(filePath: string): Promise<{ metadata: Record<string, string | null>; risk_level: string; clauses: Contract['clauses'] }> {
     await delay(700)
-    const c = contracts[Math.floor(Math.random() * contracts.length)]
+    const file = basename(filePath)
+    const profile = docProfile(file)
+    const contract = profile?.contract_id
+      ? contracts.find(c => c.id === profile.contract_id)
+      : contracts.find(c => c.id === 'client_proposed_nda')
+
+    const c = contract ?? contracts[0]
+    logAudit('analyze_document', 'analysis', { file }, true, 680)
     return {
       metadata: {
-        file: filePath,
+        file,
+        document_type: profile?.document_type ?? c.type,
+        summary: profile?.summary ?? null,
+        snippet: profile?.snippet ?? null,
+        page_count: profile?.page_count != null ? String(profile.page_count) : null,
         parties: Object.values(c.parties).join(' / '),
         governing_law: c.governing_law,
         term: c.term,
         liability_cap: c.liability_cap,
-        payment_terms: 'Net 30',
+        payment_terms: profile?.payment_terms ?? 'Net 30',
       },
-      risk_level: c.risk_level,
-      clauses: c.clauses,
+      risk_level: profile?.contract_id ? c.risk_level : (profile?.privilege?.risk_override ?? c.risk_level),
+      clauses: profile?.contract_id ? c.clauses : [],
     }
   }
 
@@ -178,8 +268,9 @@ export class MockClient implements LegalMcpClient {
 
   async queueDocumentAnalysis(file: string): Promise<AnalysisJob> {
     await delay(200)
+    const profile = docProfile(file)
     const job: AnalysisJob = {
-      id: `job-00${jobIdCounter++}`,
+      id: `job-${String(jobIdCounter++).padStart(3, '0')}`,
       file,
       status: 'queued',
       queued_at: new Date().toISOString(),
@@ -189,61 +280,96 @@ export class MockClient implements LegalMcpClient {
       flags: null,
     }
     jobs = [job, ...jobs]
+    logAudit('queue_document_analysis', 'analysis', { file }, true, 42)
+
+    if (profile?.queue_fail || file === 'fail_me.docx') {
+      setTimeout(() => {
+        const j = jobs.find(x => x.id === job.id)
+        if (j) {
+          j.status = 'error'
+          j.completed_at = new Date().toISOString()
+          j.error = 'File parse error: unsupported encryption format'
+          logAudit('queue_document_analysis', 'analysis', { file, job_id: job.id }, false, 3200)
+        }
+      }, 2000)
+      return job
+    }
+
     setTimeout(() => {
       const j = jobs.find(x => x.id === job.id)
-      if (j) { j.status = 'processing' }
+      if (j) j.status = 'processing'
       setTimeout(() => {
         const j2 = jobs.find(x => x.id === job.id)
         if (j2) {
+          const contract = profile?.contract_id
+            ? contracts.find(c => c.id === profile.contract_id)
+            : contracts[Math.floor(Math.random() * contracts.length)]
           j2.status = 'complete'
           j2.completed_at = new Date().toISOString()
-          j2.risk_level = ['LOW', 'MEDIUM', 'HIGH'][Math.floor(Math.random() * 3)]
-          j2.clause_count = 5 + Math.floor(Math.random() * 10)
-          j2.flags = Math.floor(Math.random() * 4)
+          j2.risk_level = contract?.risk_level ?? 'MEDIUM'
+          j2.clause_count = contract?.clauses.length ?? 5
+          j2.flags = contract?.clauses.filter(cl => cl.risk === 'HIGH' || cl.risk === 'CRITICAL').length ?? 0
+          j2.result_summary = `Analysis complete — ${j2.clause_count} clauses, ${j2.flags} flagged`
+          logAudit('get_analysis_result', 'analysis', { job_id: job.id }, true, 18)
         }
       }, 4000)
     }, 1500)
     return job
   }
 
-  async checkPrivilegeRisk(_file: string, provider: string): Promise<PrivilegeResult> {
+  async checkPrivilegeRisk(file: string, provider: string): Promise<PrivilegeResult> {
     await delay(400)
+    const profile = docProfile(file)
     const riskMap: Record<string, 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW'> = {
       openai: 'HIGH', anthropic: 'HIGH', openrouter: 'HIGH',
-      azure_openai: 'MEDIUM', vertex_ai: 'MEDIUM',
-      ollama: 'LOW',
+      azure_openai: 'MEDIUM', vertex_ai: 'MEDIUM', ollama: 'LOW',
     }
-    const risk = riskMap[provider.toLowerCase()] ?? 'HIGH'
+    let risk = riskMap[provider.toLowerCase()] ?? 'HIGH'
+    if (profile?.privilege.risk_override === 'CRITICAL') risk = 'CRITICAL'
+    else if (profile?.privilege.risk_override && risk !== 'CRITICAL') {
+      const order = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'] as const
+      if (order.indexOf(profile.privilege.risk_override) > order.indexOf(risk)) {
+        risk = profile.privilege.risk_override
+      }
+    }
+
+    const indicators = profile?.privilege.indicators ?? [
+      'Attorney-client communication detected',
+      'Work product markers present',
+      'Litigation strategy referenced',
+    ]
+
+    logAudit('check_privilege_risk', 'privilege', { file: basename(file), provider }, true, 54)
     return {
       risk,
       label: `${risk} — ${provider}`,
       provider,
-      indicators: ['Attorney-client communication detected', 'Work product markers present', 'Litigation strategy referenced'],
+      indicators,
       recommendation: risk === 'LOW'
         ? 'Proceed with caution. Local inference — no data transmitted externally.'
-        : `Do not route to ${provider} without attorney authorization. Use a local model (ollama) or enterprise-contracted cloud with zero data retention.`,
+        : risk === 'CRITICAL'
+          ? `Do NOT route "${basename(file)}" to ${provider}. Use local Ollama with Confidential Mode enabled.`
+          : `Do not route to ${provider} without attorney authorization. Use enterprise zero-retention terms or local inference.`,
       notice: 'Risk assessment per United States v. Heppner (S.D.N.Y. Feb. 2026) and ABA Model Rule 1.6.',
     }
   }
 
   async generateBriefOutline(caseType: string, facts: string): Promise<BriefOutline> {
     await delay(600)
+    const key = Object.keys(BRIEF_OUTLINES)
+      .sort((a, b) => b.length - a.length)
+      .find(k => caseType.toLowerCase().includes(k)) ?? 'default'
+    const template = BRIEF_OUTLINES[key]
+    logAudit('generate_brief_outline', 'brief', { case_type: caseType }, true, 280)
     return {
-      case_type: caseType,
-      sections: [
-        { title: 'I. INTRODUCTION', content: 'Introduce the parties and the nature of the dispute.' },
-        { title: 'II. STATEMENT OF FACTS', content: facts || 'Set forth the operative facts in chronological order.' },
-        { title: 'III. LEGAL STANDARD', content: 'Identify the governing standard of review and applicable burden of proof.' },
-        { title: 'IV. ARGUMENT', content: 'Organize arguments by descending strength. Lead with your best issue.' },
-        { title: 'V. CONCLUSION', content: 'State precisely the relief requested.' },
-      ],
-      argument_structure: {
-        issue: `Whether ${caseType.toLowerCase()} warrants the relief requested under applicable law.`,
-        rule: 'Under controlling authority, a party must demonstrate [element 1], [element 2], and [element 3].',
-        analysis: 'Applying the rule to the facts: [analysis of element 1]…',
-        conclusion: 'Therefore, Plaintiff is entitled to [relief].',
-      },
-      issue_statement: `Whether, under [governing law], a party who [key fact] is entitled to [relief] when [legal hook].`,
+      case_type: template.case_type,
+      sections: template.sections.map(s =>
+        s.title.includes('FACTS') && facts
+          ? { ...s, content: facts }
+          : s
+      ),
+      argument_structure: template.argument_structure,
+      issue_statement: template.issue_statement,
     }
   }
 
@@ -254,7 +380,7 @@ export class MockClient implements LegalMcpClient {
 
   async getAuditLog(): Promise<AuditEntry[]> {
     await delay(100)
-    return auditLog
+    return [...sessionAudit, ...seedAudit]
   }
 
   async getIntegrationStatus(): Promise<IntegrationStatus> {

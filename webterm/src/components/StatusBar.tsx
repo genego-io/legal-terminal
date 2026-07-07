@@ -23,15 +23,7 @@ export function StatusBar() {
   const lastActivity = recentActivity[0]
 
   return (
-    <div style={{
-      display: 'flex', alignItems: 'center', gap: 10,
-      background: confidentialMode ? 'var(--confidential-faint)' : 'var(--bg-panel2)',
-      borderTop: `1px solid ${confidentialMode ? 'var(--confidential-border)' : 'var(--border)'}`,
-      padding: '3px 14px', fontSize: 10, color: 'var(--text-muted)',
-      flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace",
-      transition: 'background 0.2s, border-color 0.2s',
-    }}>
-      {/* Confidential mode badge — only when active */}
+    <div className={`status-bar${confidentialMode ? ' confidential' : ''}`}>
       {confidentialMode && (
         <>
           <button
@@ -41,7 +33,6 @@ export function StatusBar() {
               background: 'var(--confidential-faint)', border: '1px solid var(--confidential-border)',
               color: 'var(--confidential)', fontSize: 10, padding: '1px 7px', cursor: 'pointer',
               fontFamily: "'IBM Plex Mono', monospace", letterSpacing: '0.04em',
-              animation: 'none',
             }}
             title="Confidential mode active — click to open settings"
           >
@@ -51,30 +42,29 @@ export function StatusBar() {
           {SEP}
         </>
       )}
-      {/* Runtime mode toggle */}
       <ClientModeToggle />
       {SEP}
-      <span style={{ opacity: 0.5 }}>○ CourtListener</span>
-      {SEP}
-      <span style={{ color: 'var(--risk-medium)', opacity: 0.6 }}>○ PACER</span>
-      {SEP}
-      {/* Current view */}
-      <span style={{ color: 'var(--text-dim)' }}>
+      <span className="status-bar-integrations status-bar-hide-tablet" style={{ opacity: 0.5 }}>○ CourtListener</span>
+      <span className="status-bar-hide-tablet">{SEP}</span>
+      <span className="status-bar-integrations status-bar-hide-tablet" style={{ color: 'var(--risk-medium)', opacity: 0.6 }}>○ PACER</span>
+      <span className="status-bar-hide-tablet">{SEP}</span>
+      <span style={{ color: 'var(--text-dim)', flexShrink: 0 }}>
         {view.type}{splitView ? ` / ${splitView.type}` : ''}
       </span>
       {SEP}
-      {/* Last activity */}
       {lastActivity && (
         <>
-          <span style={{ color: 'var(--text-muted)', maxWidth: 300, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          <span className="status-bar-activity" style={{
+            color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          }}>
             {lastActivity.text}
           </span>
           {SEP}
         </>
       )}
-      <span style={{ flex: 1 }} />
-      <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>Legal Terminal</span>
-      {SEP}
+      <span style={{ flex: 1, minWidth: 8 }} />
+      <span className="status-bar-brand" style={{ fontSize: 10, color: 'var(--text-muted)', flexShrink: 0 }}>Legal Terminal</span>
+      <span className="status-bar-brand">{SEP}</span>
       <Clock />
     </div>
   )

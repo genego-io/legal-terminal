@@ -6,12 +6,18 @@
     "court": "California Court of Appeal",
     "jurisdiction": "CA",
     "year": 2022,
-    "topics": ["contract breach", "delivery timing", "time is of the essence"],
+    "topics": [
+      "contract breach",
+      "delivery timing",
+      "time is of the essence"
+    ],
     "holding": "Time is of the essence clauses must be explicitly stated and cannot be implied from the circumstances alone.",
     "summary": "The court held that where a commercial contract does not expressly state that time is of the essence, a reasonable-time standard governs delivery obligations.",
     "disposition": "Judgment for plaintiff affirmed in part.",
     "relevance_score": 0.97,
-    "cites": ["johnson-v-xyz-industries-2020"]
+    "cites": [
+      "johnson-v-xyz-industries-2020"
+    ]
   },
   {
     "id": "johnson-v-xyz-industries-2020",
@@ -20,7 +26,11 @@
     "court": "California Supreme Court",
     "jurisdiction": "CA",
     "year": 2020,
-    "topics": ["contract breach", "delivery terms", "reasonable time"],
+    "topics": [
+      "contract breach",
+      "delivery terms",
+      "reasonable time"
+    ],
     "holding": "Commercial contracts are presumed to include reasonable delivery terms informed by industry standards.",
     "summary": "The California Supreme Court clarified that industry standards are relevant, though not dispositive, when determining a reasonable time for performance.",
     "disposition": "Reversed and remanded.",
@@ -34,12 +44,18 @@
     "court": "California Court of Appeal",
     "jurisdiction": "CA",
     "year": 2021,
-    "topics": ["material breach", "damages", "substantial non-performance"],
+    "topics": [
+      "material breach",
+      "damages",
+      "substantial non-performance"
+    ],
     "holding": "A material breach requires substantial non-performance; minor delays are generally not material.",
     "summary": "The court defined the threshold for material breach in commercial delivery disputes and addressed the calculation of foreseeable damages.",
     "disposition": "Affirmed.",
     "relevance_score": 0.85,
-    "cites": ["johnson-v-xyz-industries-2020"]
+    "cites": [
+      "johnson-v-xyz-industries-2020"
+    ]
   },
   {
     "id": "hadley-v-baxendale-1854",
@@ -48,7 +64,11 @@
     "court": "Court of Exchequer",
     "jurisdiction": "UK",
     "year": 1854,
-    "topics": ["consequential damages", "foreseeability", "contract breach"],
+    "topics": [
+      "consequential damages",
+      "foreseeability",
+      "contract breach"
+    ],
     "holding": "Consequential damages are recoverable only where they were reasonably foreseeable at the time of contracting.",
     "summary": "The foundational rule on the foreseeability of contract damages, still routinely cited in United States commercial litigation.",
     "disposition": "New trial ordered.",
@@ -62,11 +82,261 @@
     "court": "Delaware Court of Chancery",
     "jurisdiction": "DE",
     "year": 2023,
-    "topics": ["fiduciary duty", "merger agreement", "earnout dispute"],
+    "topics": [
+      "fiduciary duty",
+      "merger agreement",
+      "earnout dispute"
+    ],
     "holding": "A board's failure to disclose material synergies in an earnout schedule constitutes a breach of fiduciary duty to minority shareholders.",
     "summary": "The court awarded equitable relief after finding management withheld forecasted synergies during vote on acquisition earnout terms.",
     "disposition": "Relief granted in part.",
     "relevance_score": 0.72,
+    "cites": []
+  },
+  {
+    "id": "martinez-v-pacific-2022",
+    "name": "Martinez v. Pacific Staffing LLC",
+    "citation": "2022 Cal.App.5th 441",
+    "court": "California Court of Appeal",
+    "jurisdiction": "CA",
+    "year": 2022,
+    "topics": [
+      "employment",
+      "non-compete",
+      "restrictive covenant"
+    ],
+    "holding": "Overbroad non-compete covenants in California employment agreements are void as a matter of law.",
+    "summary": "The court invalidated a 24-month industry-wide non-compete in an executive employment agreement.",
+    "disposition": "Reversed in part.",
+    "relevance_score": 0.88,
+    "cites": []
+  },
+  {
+    "id": "oracle-v-google-2021",
+    "name": "Google LLC v. Oracle America Inc.",
+    "citation": "593 U.S. 1",
+    "court": "United States Supreme Court",
+    "jurisdiction": "Federal",
+    "year": 2021,
+    "topics": [
+      "intellectual property",
+      "software",
+      "fair use",
+      "copyright"
+    ],
+    "holding": "Google copying of the Java API declaring code for Android was fair use as a matter of law.",
+    "summary": "Landmark software copyright fair use decision affecting API licensing in technology contracts.",
+    "disposition": "Affirmed.",
+    "relevance_score": 0.82,
+    "cites": []
+  },
+  {
+    "id": "williams-v-broker-2020",
+    "name": "Williams v. National Brokerage Co.",
+    "citation": "2020 F.3d 892",
+    "court": "Ninth Circuit Court of Appeals",
+    "jurisdiction": "Federal",
+    "year": 2020,
+    "topics": [
+      "real estate",
+      "broker commission",
+      "contract interpretation"
+    ],
+    "holding": "Ambiguous commission triggers in brokerage agreements are construed against the drafter.",
+    "summary": "Commission dispute resolved by applying contra proferentem to listing agreement language.",
+    "disposition": "Affirmed.",
+    "relevance_score": 0.76,
+    "cites": []
+  },
+  {
+    "id": "chen-v-dataflow-2024",
+    "name": "Chen v. DataFlow Analytics Inc.",
+    "citation": "2024 Cal.App.4th 210",
+    "court": "California Court of Appeal",
+    "jurisdiction": "CA",
+    "year": 2024,
+    "topics": [
+      "data privacy",
+      "SaaS",
+      "limitation of liability"
+    ],
+    "holding": "SaaS providers cannot disclaim liability for gross negligence in consumer-facing terms, but may cap direct damages in B2B agreements.",
+    "summary": "Clarifies enforceability of liability caps in enterprise SaaS MSAs.",
+    "disposition": "Affirmed.",
+    "relevance_score": 0.79,
+    "cites": [
+      "smith-v-abc-corp-2022"
+    ]
+  },
+  {
+    "id": "adams-v-employer-2019",
+    "name": "Adams v. TechEmployer Inc.",
+    "citation": "2019 Cal.App.4th 778",
+    "court": "California Court of Appeal",
+    "jurisdiction": "CA",
+    "year": 2019,
+    "topics": [
+      "employment",
+      "severance",
+      "ADEA",
+      "release"
+    ],
+    "holding": "Severance releases under OWBPA require specific group termination disclosures when applicable.",
+    "summary": "Employer failed OWBPA group termination requirements; ADEA waiver invalid.",
+    "disposition": "Reversed.",
+    "relevance_score": 0.81,
+    "cites": []
+  },
+  {
+    "id": "upjohn-v-united-states-1981",
+    "name": "Upjohn Co. v. United States",
+    "citation": "449 U.S. 383",
+    "court": "United States Supreme Court",
+    "jurisdiction": "Federal",
+    "year": 1981,
+    "topics": [
+      "attorney-client privilege",
+      "corporate counsel",
+      "privilege waiver",
+      "internal investigation"
+    ],
+    "holding": "Attorney-client privilege applies to communications between corporate counsel and employees of all levels when made for the purpose of obtaining legal advice, and disclosure to government investigators waives the privilege.",
+    "summary": "Upjohn manufactured pharmaceuticals and initiated an internal investigation after discovering questionable payments abroad. Corporate counsel interviewed mid-level employees and prepared a report. When the IRS subpoenaed the interview materials, Upjohn asserted privilege. The Supreme Court held that privilege extends to communications between company lawyers and employees regardless of management level, provided the communications concern legal advice within the employee's duties. The Court also reaffirmed that voluntary disclosure to third parties — including government agencies — constitutes waiver unless the disclosure is subject to a common-interest or protective arrangement. This decision remains the foundation for corporate privilege analysis in internal investigations and is routinely cited in privilege logs and clawback disputes.",
+    "disposition": "Reversed and remanded.",
+    "relevance_score": 0.94,
+    "cites": []
+  },
+  {
+    "id": "in-re-sealed-case-2023",
+    "name": "In re Sealed Case (D.C. Cir. 2023)",
+    "citation": "2023 F.3d 1142",
+    "court": "D.C. Circuit Court of Appeals",
+    "jurisdiction": "Federal",
+    "year": 2023,
+    "topics": [
+      "attorney-client privilege",
+      "privilege waiver",
+      "cybersecurity incident",
+      "disclosure to regulators"
+    ],
+    "holding": "Disclosure of privileged forensic reports to the SEC during a cybersecurity investigation waived privilege as to the disclosed materials and substantially related communications.",
+    "summary": "Following a ransomware incident, a public company shared privileged forensic investigation reports with the SEC as part of a cooperative disclosure strategy. The D.C. Circuit held that selective disclosure to a government regulator waived attorney-client privilege and work-product protection for the disclosed materials and for communications substantially related to the subject matter of the disclosure. The court rejected the company's argument that a common-interest doctrine applied, noting that no joint defense agreement existed with the regulator. The decision has significant implications for incident-response privilege strategy and is frequently discussed in CHAT and PRIV panel demonstrations of cloud-AI routing risk for litigation memos.",
+    "disposition": "Affirmed.",
+    "relevance_score": 0.89,
+    "cites": ["upjohn-v-united-states-1981"]
+  },
+  {
+    "id": "bristol-myers-squibb-2017",
+    "name": "Bristol-Myers Squibb Co. v. Superior Court",
+    "citation": "137 S. Ct. 1773",
+    "court": "United States Supreme Court",
+    "jurisdiction": "Federal",
+    "year": 2017,
+    "topics": [
+      "personal jurisdiction",
+      "minimum contacts",
+      "specific jurisdiction",
+      "mass tort"
+    ],
+    "holding": "Specific personal jurisdiction requires that a defendant's forum contacts give rise to the plaintiff's claims; mere injury in the forum is insufficient for out-of-state defendants.",
+    "summary": "Plaintiffs from multiple states sued Bristol-Myers Squibb in California state court over injuries allegedly caused by the drug Plavix. Most plaintiffs were not California residents and had not purchased or consumed the drug in California. The Supreme Court held that California courts lacked specific personal jurisdiction over BMS as to non-resident plaintiffs because the claims did not arise from BMS's California contacts. The decision tightened the relatedness prong of specific jurisdiction analysis and is the leading authority for motions to dismiss under Rule 12(b)(2) in multi-state commercial litigation.",
+    "disposition": "Reversed.",
+    "relevance_score": 0.92,
+    "cites": []
+  },
+  {
+    "id": "hochster-v-de-la-tour-1853",
+    "name": "Hochster v. De La Tour",
+    "citation": "2 El. & Bl. 678",
+    "court": "Court of Queen's Bench",
+    "jurisdiction": "UK",
+    "year": 1853,
+    "topics": [
+      "anticipatory breach",
+      "contract breach",
+      "repudiation",
+      "damages"
+    ],
+    "holding": "A party may sue for breach before the performance date when the other party repudiates the contract by unmistakably indicating it will not perform.",
+    "summary": "De La Tour hired Hochster as a courier for a foreign tour beginning June 1. On May 11, De La Tour wrote that he no longer required Hochster's services. Hochster sued before June 1 for anticipatory breach. The court held that a party who repudiates before the performance date enables the non-breaching party to treat the contract as broken and sue immediately, rather than waiting for the performance date to pass. The foundational anticipatory breach doctrine remains central to commercial contract disputes involving supply-chain cancellations, M&A termination notices, and SaaS contract repudiations.",
+    "disposition": "Judgment for plaintiff.",
+    "relevance_score": 0.86,
+    "cites": []
+  },
+  {
+    "id": "sanderson-v-chevron-2021",
+    "name": "Sanderson v. Chevron U.S.A. Inc.",
+    "citation": "2021 Cal.App.5th 892",
+    "court": "California Court of Appeal",
+    "jurisdiction": "CA",
+    "year": 2021,
+    "topics": [
+      "employment discrimination",
+      "retaliation",
+      "FEHA",
+      "hostile work environment"
+    ],
+    "holding": "Temporal proximity between protected activity and adverse action, combined with pretextual performance criticism, supports an inference of retaliatory motive under FEHA.",
+    "summary": "Sanderson, a refinery safety inspector, reported environmental compliance concerns to Cal/EPA and was terminated six weeks later for alleged 'communication deficiencies.' The Court of Appeal reversed summary judgment, holding that the close temporal nexus between the regulatory report and termination, combined with inconsistent performance documentation, created a triable issue on retaliatory motive. The decision illustrates how California courts evaluate pretext in FEHA retaliation cases and is commonly cited alongside employment discrimination brief outlines.",
+    "disposition": "Reversed.",
+    "relevance_score": 0.87,
+    "cites": []
+  },
+  {
+    "id": "matrixx-initiatives-2011",
+    "name": "Matrixx Initiatives, Inc. v. Siracusano",
+    "citation": "563 U.S. 27",
+    "court": "United States Supreme Court",
+    "jurisdiction": "Federal",
+    "year": 2011,
+    "topics": [
+      "securities fraud",
+      "materiality",
+      "Rule 10b-5",
+      "pharmaceutical disclosures"
+    ],
+    "holding": "A reasonable investor may consider reports of adverse drug events material even when the company publicly disagrees with the significance of those reports.",
+    "summary": "Shareholders sued Matrixx Initiatives alleging the company failed to disclose adverse event reports linked to its Zicam product. Matrixx argued the reports were immaterial because it publicly stated it lacked evidence of a causal link. The Supreme Court held that materiality under Basic v. Levinson does not require statistical significance or confirmed causation — a reasonable investor may consider credible adverse reports material even when management disputes their significance. The decision is a key securities fraud authority for pleading material misstatement and omission claims.",
+    "disposition": "Reversed and remanded.",
+    "relevance_score": 0.84,
+    "cites": []
+  },
+  {
+    "id": "graham-v-connor-1989",
+    "name": "Graham v. Connor",
+    "citation": "490 U.S. 386",
+    "court": "United States Supreme Court",
+    "jurisdiction": "Federal",
+    "year": 1989,
+    "topics": [
+      "civil rights",
+      "excessive force",
+      "Fourth Amendment",
+      "Section 1983"
+    ],
+    "holding": "Claims of excessive force in the context of arrest or investigatory stop are analyzed under the Fourth Amendment objective reasonableness standard, not substantive due process.",
+    "summary": "Graham, a diabetic experiencing a hypoglycemic episode, was forcibly detained by police after leaving a convenience store quickly. He sued for excessive force under § 1983. The Supreme Court held that the Fourth Amendment's reasonableness standard applies to all claims of excessive force during seizure, evaluated from the perspective of a reasonable officer on the scene rather than with hindsight. The decision provides the framework for civil rights excessive force analysis and is paired with Monell municipal liability claims in brief outline demonstrations.",
+    "disposition": "Reversed and remanded.",
+    "relevance_score": 0.90,
+    "cites": []
+  },
+  {
+    "id": "taylor-v-rancho-2020",
+    "name": "Taylor v. Rancho Mesa LLC",
+    "citation": "2020 Cal.App.4th 1102",
+    "court": "California Court of Appeal",
+    "jurisdiction": "CA",
+    "year": 2020,
+    "topics": [
+      "negligence",
+      "premises liability",
+      "constructive notice",
+      "slip and fall"
+    ],
+    "holding": "Constructive notice of a dangerous condition may be established by evidence that the condition existed for a sufficient period that a reasonable inspection would have discovered it.",
+    "summary": "Taylor slipped on a wet floor in a grocery store produce section and sued for premises liability. The store argued it had no actual notice of the spill. The Court of Appeal held that surveillance footage showing the spill existed for twelve minutes before the fall, combined with the store's failure to demonstrate a regular inspection schedule, was sufficient to create a triable issue on constructive notice. The decision is representative of California premises liability standards used in negligence brief outlines.",
+    "disposition": "Reversed summary judgment.",
+    "relevance_score": 0.83,
     "cites": []
   }
 ]

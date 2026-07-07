@@ -2,14 +2,10 @@ import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
+import { STATUTE_QUICK_LINKS } from '../fixtureMeta'
 import type { Statute } from '../mcp/types'
 
-const QUICK = [
-  { label: 'Cal. Civ. Code § 1657', id: 'Cal.Civ.Code.1657' },
-  { label: 'Cal. Com. Code § 2106', id: 'Cal.Com.Code.2106' },
-  { label: '18 U.S.C. § 1030',      id: '18.USC.1030' },
-  { label: 'GDPR Art. 28',          id: 'GDPR.Art.28' },
-]
+const QUICK = STATUTE_QUICK_LINKS
 
 interface Props { id: string; statuteId?: string }
 

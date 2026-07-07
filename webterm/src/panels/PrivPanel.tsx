@@ -2,31 +2,14 @@ import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
+import { MOCK_DOCUMENT_FILES, AI_PROVIDERS, PRIVILEGE_RISK_LABELS, PRIVILEGE_DEMO_FILES } from '../fixtureMeta'
 import type { PrivilegeResult } from '../mcp/types'
 
-const PROVIDERS = [
-  { id: 'ollama',         label: 'Ollama (local)',      zdr: true,  training: false, hipaa: false },
-  { id: 'azure_openai',   label: 'Azure OpenAI',        zdr: true,  training: false, hipaa: true  },
-  { id: 'vertex_ai',      label: 'Google Vertex AI',    zdr: true,  training: false, hipaa: true  },
-  { id: 'openai',         label: 'OpenAI API',          zdr: false, training: false, hipaa: false },
-  { id: 'anthropic',      label: 'Anthropic API',       zdr: false, training: false, hipaa: false },
-  { id: 'openrouter',     label: 'OpenRouter',          zdr: false, training: true,  hipaa: false },
-  { id: 'unknown',        label: 'Unknown provider',    zdr: false, training: true,  hipaa: false },
-]
+const PROVIDERS = AI_PROVIDERS
 
-const MOCK_FILES = [
-  'vendor_nda_2026.docx',
-  'litigation_memo.docx',
-  'client_strategy.pdf',
-  'deposition_notes.docx',
-]
+const MOCK_FILES = MOCK_DOCUMENT_FILES.filter(f => PRIVILEGE_DEMO_FILES.includes(f))
 
-const RISK_LABELS: Record<string, string> = {
-  CRITICAL: 'Critical — do not route under any circumstances',
-  HIGH:     'High — attorney authorization required before routing',
-  MEDIUM:   'Medium — review provider data retention terms',
-  LOW:      'Low — local inference, no data leaves your machine',
-}
+const RISK_LABELS = PRIVILEGE_RISK_LABELS
 
 const RISK_COLOR: Record<string, string> = {
   CRITICAL: 'var(--risk-critical)', HIGH: 'var(--risk-high)',

@@ -29,9 +29,8 @@ export function WkflPanel({ id }: { id: string }) {
     <PanelChrome id={id} mnemonic="WKFL" title="Workflow Launcher" subtitle="legal-mcp SKILL.md playbooks" panelType="WKFL">
       {loading && <LoadingDots />}
       {!loading && (
-        <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-          {/* Workflow list */}
-          <div style={{ width: 240, borderRight: '1px solid var(--border)', overflowY: 'auto', flexShrink: 0 }}>
+        <div className="panel-split">
+          <div className="panel-split-list panel-split-list--history">
             {workflows.map(w => (
               <button key={w.id} onClick={() => setSelected(w)} style={{
                 display: 'flex', gap: 10, alignItems: 'flex-start',
@@ -53,7 +52,7 @@ export function WkflPanel({ id }: { id: string }) {
           </div>
 
           {/* Detail */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '20px 24px' }} className="info-pane">
+          <div className="panel-split-detail info-pane" style={{ padding: '20px 24px' }}>
             {selected ? (
               <>
                 <h3 style={{ marginBottom: 5, fontSize: 15 }}>{selected.title}</h3>

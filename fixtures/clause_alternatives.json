@@ -1,0 +1,112 @@
+{
+  "confidentiality_scope": [
+    "Recipient shall hold in confidence all information disclosed by Disclosing Party, whether or not marked Confidential, that a reasonable person would deem confidential given the nature of the information and circumstances of disclosure.",
+    "Each party shall protect the other's Confidential Information using the same degree of care it uses for its own confidential information, but no less than reasonable care.",
+    "Confidential Information includes all written, oral, and electronic information disclosed in connection with the Purpose, except information that is publicly available through no fault of the receiving party."
+  ],
+  "term_duration": [
+    "Confidentiality obligations shall survive for five (5) years following termination of this Agreement.",
+    "Confidentiality obligations shall survive for three (3) years following termination, except trade secrets which survive indefinitely.",
+    "The term of this Agreement is two (2) years; confidentiality obligations survive for the longer of five (5) years or until information enters the public domain."
+  ],
+  "return_of_materials": [
+    "Upon termination, Recipient shall return or destroy all Confidential Materials within thirty (30) days and certify destruction in writing.",
+    "Each party shall, upon written request, return or destroy the other party's Confidential Materials within fifteen (15) business days.",
+    "Recipient may retain one archival copy solely for compliance purposes, subject to ongoing confidentiality obligations."
+  ],
+  "governing_law": [
+    "This Agreement shall be governed by the laws of the State of Delaware, without regard to conflicts of law principles.",
+    "This Agreement shall be governed by the laws of the State of California, excluding its conflict-of-laws rules.",
+    "This Agreement shall be governed by the laws of the State of New York; parties consent to exclusive jurisdiction in New York County courts."
+  ],
+  "remedies": [
+    "Disclosing Party may seek injunctive relief without posting bond for actual or threatened breach of confidentiality obligations.",
+    "The parties acknowledge that breach may cause irreparable harm; either party may seek equitable relief in addition to monetary damages.",
+    "Remedies are cumulative; failure to exercise a remedy shall not constitute a waiver of future enforcement."
+  ],
+  "indemnification": [
+    "Each party shall indemnify the other only for direct damages caused by its gross negligence or willful misconduct, capped at $500,000 aggregate.",
+    "Recipient's indemnification obligation is limited to direct damages arising from unauthorized disclosure caused by Recipient's breach, capped at fees paid in the prior twelve (12) months.",
+    "Indemnification excludes consequential damages and applies only to third-party claims, with prompt notice and control of defense cooperation."
+  ],
+  "scope_of_services": [
+    "Provider shall perform services described in each Statement of Work executed by both parties, incorporating mutually agreed milestones and acceptance criteria.",
+    "Services include implementation, configuration, and support as specified in Exhibit A; out-of-scope work requires a change order signed by both parties.",
+    "Provider shall assign qualified personnel and maintain service levels set forth in the applicable SOW; Client shall provide timely access and approvals."
+  ],
+  "intellectual_property": [
+    "Client owns all deliverables created specifically for Client under paid SOWs; Provider retains Background IP and grants Client a perpetual license to embedded Background IP in deliverables.",
+    "Work product is works-made-for-hire; to the extent not assignable by law, Provider assigns all rights upon payment of applicable fees.",
+    "Provider retains platform IP; Client receives a non-exclusive license during the term. Custom integrations developed for Client are owned by Client upon full payment."
+  ],
+  "data_security": [
+    "Provider shall maintain SOC 2 Type II controls, encrypt data in transit and at rest, and notify Client within twenty-four (24) hours of a confirmed security incident.",
+    "Provider shall implement administrative, technical, and physical safeguards consistent with industry standards and applicable data protection laws.",
+    "Provider shall not use Client data to train models or improve services without Client's prior written consent; subprocessors require equivalent obligations."
+  ],
+  "limitation_of_liability": [
+    "Each party's aggregate liability shall not exceed the greater of fees paid in twelve (12) months or $1,000,000, excluding gross negligence, willful misconduct, and IP infringement.",
+    "Neither party shall be liable for indirect, incidental, or consequential damages; direct damages capped at fees paid in the six (6) months preceding the claim.",
+    "Liability cap does not apply to breaches of confidentiality, data security obligations, or either party's indemnification obligations for third-party IP claims."
+  ],
+  "dispute_resolution": [
+    "Parties shall escalate disputes to executives for good-faith negotiation; unresolved disputes submitted to JAMS arbitration in San Francisco under expedited procedures.",
+    "Disputes shall be resolved by litigation in state or federal courts of competent jurisdiction in the county of the defendant's principal place of business.",
+    "Parties agree to mediate in good faith before arbitration; prevailing party entitled to reasonable attorneys' fees for IP and confidentiality claims."
+  ],
+  "termination": [
+    "Either party may terminate for uncured material breach on thirty (30) days written notice, or for convenience on ninety (90) days notice with pro-rata fee refund.",
+    "Client may terminate for convenience on sixty (60) days notice; Provider may terminate only for non-payment exceeding thirty (30) days.",
+    "Upon termination, Provider shall provide data export in standard format within thirty (30) days and certify deletion of Client data."
+  ],
+  "severance_payment": [
+    "Employer shall pay nine (9) months base salary plus pro-rata target bonus, subject to signed release and compliance with restrictive covenants.",
+    "Severance equals six (6) months salary payable in installments aligned with payroll schedule, less applicable withholdings.",
+    "Severance conditioned on Employee's return of company property and non-revocation of ADEA release during the seven (7) day period."
+  ],
+  "non_compete": [
+    "Employee agrees not to solicit Employer's customers or employees for twelve (12) months within the territory where Employee worked.",
+    "Non-compete limited to direct competition with Employer's core product line for six (6) months in counties where Employee had material contact.",
+    "Restrictive covenants enforceable only to the extent permitted by applicable law; if overbroad, courts may blue-pencil to minimum necessary scope."
+  ],
+  "ip_assignment": [
+    "Employee assigns inventions made during employment relating to Employer's business, excluding inventions listed on Prior Inventions Schedule.",
+    "Assignment covers work product created using Employer resources or relating to Employer's Confidential Information during employment.",
+    "Employee shall assist in securing IP rights at Employer's expense during and after employment for assigned inventions."
+  ],
+  "release_of_claims": [
+    "Employee releases all claims through Separation Date under federal and state law, excluding workers' compensation and vested benefits.",
+    "Release includes ADEA waiver with twenty-one (21) day consideration period and seven (7) day revocation for employees age 40+.",
+    "Employee does not release claims arising after signing or rights that cannot be waived as a matter of law."
+  ],
+  "purchase_price": [
+    "Purchase price adjusted to $12,600,000 with seller credit of $150,000 for deferred maintenance items identified in inspection report.",
+    "Price remains $12,750,000 with buyer assuming responsibility for roof repairs capped at $75,000 via escrow holdback.",
+    "Final price subject to proration of taxes, rent, and CAM charges as of closing date per standard closing statement."
+  ],
+  "due_diligence": [
+    "Inspection period extended ten (10) days for completion of Phase I ESA and structural engineer report at buyer's expense.",
+    "Buyer may terminate during inspection period for any reason with return of earnest money; seller to provide access and existing reports.",
+    "Due diligence items limited to environmental, title, and survey; buyer waives further inspection rights after expiration."
+  ],
+  "as_is_condition": [
+    "Property sold as-is except for seller's representations regarding title, authority, and known latent defects listed in Schedule B.",
+    "Buyer accepts property condition based on inspections; seller makes no warranties regarding habitability or fitness for particular purpose.",
+    "As-is sale with seller responsible for remediation of pre-closing environmental violations identified in Phase I ESA."
+  ],
+  "confidentiality": [
+    "Employee shall maintain confidentiality of Employer's trade secrets, customer lists, and proprietary business information indefinitely, except as required by law or with Employer's written consent.",
+    "Employee agrees not to disclose or use Confidential Information for any purpose other than performing employment duties, during employment and for three (3) years following separation.",
+    "Confidentiality obligations survive termination without temporal limit as to information qualifying as trade secrets under Cal. Civ. Code § 3426; other confidential information protected for five (5) years post-separation."
+  ],
+  "service_levels": [
+    "Provider shall maintain 99.9% monthly uptime for production Services, excluding scheduled maintenance windows of up to four (4) hours per month with 72-hour advance notice. Service credits equal 5% of monthly fees for each 0.1% below target.",
+    "Provider guarantees API response times at p95 ≤ 500ms and assigns a dedicated support engineer for Severity 1 incidents with one-hour response and four-hour workaround targets.",
+    "SLA credits capped at 25% of monthly fees; chronic failures (three consecutive months below target) entitle Client to terminate without penalty and receive pro-rata refund of prepaid fees."
+  ],
+  "audit_rights": [
+    "Client may audit Provider's SOC 2 Type II controls and data processing practices once annually on thirty (30) days notice, at Client's expense, with findings remediated within sixty (60) days.",
+    "Provider shall make available audit reports from independent third-party assessors upon request under NDA; on-site audits limited to once per year unless a security incident triggers extraordinary audit rights.",
+    "Audit scope includes subprocessors handling Client personal data; Provider shall notify Client of new subprocessors thirty (30) days before engagement and allow objection on reasonable grounds."
+  ]
+}

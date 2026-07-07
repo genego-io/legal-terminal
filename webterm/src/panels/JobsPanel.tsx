@@ -86,9 +86,8 @@ export function JobsPanel({ id }: { id: string }) {
         </span>
       </div>
 
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
-        {/* Table */}
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+      <div className="panel-split">
+        <div className="panel-split-detail table-scroll">
           <table className="data-table">
             <thead>
               <tr>
@@ -133,7 +132,7 @@ export function JobsPanel({ id }: { id: string }) {
 
         {/* Detail side */}
         {selected && (
-          <div style={{ width: 220, borderLeft: '1px solid var(--border)', padding: '16px 14px', overflowY: 'auto', flexShrink: 0 }}>
+          <div className="panel-split-list panel-split-list--history" style={{ padding: '16px 14px' }}>
             <div style={{ color: 'var(--text-heading)', fontWeight: 600, fontSize: 12, marginBottom: 14 }}>Job detail</div>
             {[
               ['ID', selected.id],
