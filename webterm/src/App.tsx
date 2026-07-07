@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Sidebar } from './components/Sidebar'
 import { CommandLine } from './components/CommandLine'
 import { CommandPalette } from './components/CommandPalette'
+import { PreReleaseOverlay } from './components/PreReleaseOverlay'
 import { StatusBar } from './components/StatusBar'
 import { Workspace } from './components/Workspace'
 import { useTerminalStore } from './store/terminalStore'
@@ -71,6 +72,9 @@ export default function App() {
 
       {/* Ctrl+K palette */}
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
+
+      {/* First-visit pre-release notice */}
+      <PreReleaseOverlay />
     </div>
   )
 }

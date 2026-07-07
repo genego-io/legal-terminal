@@ -183,7 +183,7 @@ export function Sidebar() {
 
         {!collapsed && (
           <div style={{ padding: '6px 12px 8px', fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
-            v0.1.0-pre.1
+            v0.2.0-pre.1
           </div>
         )}
       </div>
