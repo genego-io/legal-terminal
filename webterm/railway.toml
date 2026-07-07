@@ -1,0 +1,12 @@
+# Railway service config — set Root Directory to `webterm` in the Railway dashboard.
+# https://docs.railway.com/guides/monorepo
+
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5

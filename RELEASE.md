@@ -78,13 +78,16 @@ See [FEATURES.md](./FEATURES.md) for a detailed breakdown of terminal-native cap
 ## Quick start
 
 ```bash
-# Web terminal
+# Web terminal (local)
 cd webterm && npm install && npm run dev
 # → http://localhost:5173
 
-# Web terminal (live — requires legal-mcp on :8000)
-echo "VITE_MCP_URL=http://localhost:8000" > webterm/.env.local
-npm run dev
+# Web terminal (production preview)
+cd webterm && npm run build && npm start
+# → http://localhost:8080
+
+# Deploy to Railway — see docs/DEPLOY.md
+# Root Directory: webterm · mock mode demo out of the box
 
 # TUI (mock)
 cd tui && pip install -e . && legal-term

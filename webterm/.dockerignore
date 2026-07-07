@@ -1,0 +1,9 @@
+node_modules
+dist
+.vite
+.env
+.env.local
+*.log
+coverage
+src/**/*.test.ts
+src/**/*.test.tsx

@@ -117,7 +117,17 @@ npm install
 npm run dev          # http://localhost:5173
 ```
 
-Keyboard shortcuts: `F2`–`F10` open panels. Type mnemonics in the command bar (e.g. `PREC breach of contract`, `CITE 2022 Cal.App.4th 1234`).
+Keyboard shortcuts: `F1`–`F10` open modules. Type mnemonics in the command bar (e.g. `PREC breach of contract`, `CITE 2022 Cal.App.4th 1234`).
+
+### Deploy to Railway
+
+See [docs/DEPLOY.md](./docs/DEPLOY.md) for full instructions. Quick version:
+
+1. Railway → **New Project** → deploy from this GitHub repo
+2. Set service **Root Directory** to `webterm`
+3. Generate a public domain under **Networking**
+
+Runs in mock mode by default — no backend required for the live demo.
 
 ### TUI
 
