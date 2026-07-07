@@ -3,6 +3,7 @@ import { useTerminalStore } from './terminalStore'
 
 function reset() {
   useTerminalStore.getState().resetPanels()
+  useTerminalStore.getState().setTheme('light')
   useTerminalStore.setState({ commandHistory: [], selectedCase: null, selectedContract: null, recentActivity: [] })
 }
 
@@ -116,5 +117,25 @@ describe('resetPanels', () => {
     useTerminalStore.getState().pinSplit('CITE')
     useTerminalStore.getState().resetPanels()
     expect(useTerminalStore.getState().splitView).toBeNull()
+  })
+})
+
+describe('theme', () => {
+  it('defaults to light', () => {
+    expect(useTerminalStore.getState().theme).toBe('light')
+  })
+
+  it('setTheme updates store and document attribute', () => {
+    useTerminalStore.getState().setTheme('dark')
+    expect(useTerminalStore.getState().theme).toBe('dark')
+    expect(document.documentElement.getAttribute('data-theme')).toBe('dark')
+  })
+
+  it('toggleTheme switches between light and dark', () => {
+    useTerminalStore.getState().setTheme('light')
+    useTerminalStore.getState().toggleTheme()
+    expect(useTerminalStore.getState().theme).toBe('dark')
+    useTerminalStore.getState().toggleTheme()
+    expect(useTerminalStore.getState().theme).toBe('light')
   })
 })

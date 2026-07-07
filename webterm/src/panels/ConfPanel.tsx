@@ -82,17 +82,17 @@ export function ConfPanel({ id }: { id: string }) {
 
           {/* ── Master toggle ───────────────────────────────── */}
           <div style={{
-            background: confidentialMode ? 'rgba(200,160,60,0.08)' : 'var(--bg-panel2)',
-            border: `1px solid ${confidentialMode ? 'rgba(200,160,60,0.4)' : 'var(--border)'}`,
+            background: confidentialMode ? 'var(--confidential-faint)' : 'var(--bg-panel2)',
+            border: `1px solid ${confidentialMode ? 'var(--confidential-border)' : 'var(--border)'}`,
             padding: '18px 20px',
             display: 'flex', alignItems: 'center', gap: 16,
             transition: 'all 0.2s',
           }}>
             <div style={{
-              width: 44, height: 44, border: `1px solid ${confidentialMode ? 'rgba(200,160,60,0.5)' : 'var(--border-bright)'}`,
+              width: 44, height: 44, border: `1px solid ${confidentialMode ? 'var(--confidential-border)' : 'var(--border-bright)'}`,
               display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-              color: confidentialMode ? '#c8a03c' : 'var(--text-muted)',
-              background: confidentialMode ? 'rgba(200,160,60,0.08)' : 'transparent',
+              color: confidentialMode ? 'var(--confidential)' : 'var(--text-muted)',
+              background: confidentialMode ? 'var(--confidential-faint)' : 'transparent',
               transition: 'all 0.2s',
             }}>
               {confidentialMode ? <Lock size={20} /> : <Unlock size={20} />}
@@ -101,7 +101,7 @@ export function ConfPanel({ id }: { id: string }) {
               <div style={{
                 fontFamily: "'Playfair Display', Georgia, serif",
                 fontSize: 16, fontWeight: 700,
-                color: confidentialMode ? '#c8a03c' : 'var(--text-heading)',
+                color: confidentialMode ? 'var(--confidential)' : 'var(--text-heading)',
                 marginBottom: 4,
               }}>
                 Confidential Mode
@@ -116,9 +116,9 @@ export function ConfPanel({ id }: { id: string }) {
               onClick={toggleConfidentialMode}
               style={{
                 padding: '8px 18px', fontSize: 12, fontWeight: 600, cursor: 'pointer',
-                background: confidentialMode ? 'rgba(200,160,60,0.15)' : 'var(--accent-faint)',
-                border: `1px solid ${confidentialMode ? 'rgba(200,160,60,0.5)' : 'var(--accent-dim)'}`,
-                color: confidentialMode ? '#c8a03c' : 'var(--accent)',
+                background: confidentialMode ? 'var(--confidential-strong)' : 'var(--accent-faint)',
+                border: `1px solid ${confidentialMode ? 'var(--confidential-border)' : 'var(--accent-dim)'}`,
+                color: confidentialMode ? 'var(--confidential)' : 'var(--accent)',
                 fontFamily: 'inherit', transition: 'all 0.15s',
               }}
             >
@@ -132,7 +132,7 @@ export function ConfPanel({ id }: { id: string }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {CONF_RULES.map((rule, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 12, color: 'var(--text-dim)', lineHeight: 1.5 }}>
-                  <span style={{ color: confidentialMode ? '#c8a03c' : 'var(--text-muted)', marginTop: 2, flexShrink: 0 }}>
+                  <span style={{ color: confidentialMode ? 'var(--confidential)' : 'var(--text-muted)', marginTop: 2, flexShrink: 0 }}>
                     <Shield size={12} />
                   </span>
                   {rule}
@@ -200,7 +200,7 @@ export function ConfPanel({ id }: { id: string }) {
                     transition: 'opacity 0.2s',
                   }}>
                     <td style={{ fontWeight: 500, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      {p.isLocal && <Lock size={11} style={{ color: '#c8a03c' }} />}
+                      {p.isLocal && <Lock size={11} style={{ color: 'var(--confidential)' }} />}
                       {p.label}
                     </td>
                     <td>

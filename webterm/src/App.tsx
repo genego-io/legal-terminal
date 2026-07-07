@@ -18,6 +18,12 @@ export default function App() {
   const [paletteOpen, setPaletteOpen] = useState(false)
   const { navigate } = useTerminalStore()
 
+  const theme = useTerminalStore(s => s.theme)
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
+
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       // F-keys

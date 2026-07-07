@@ -88,8 +88,8 @@ export function DktwPanel({ id }: { id: string }) {
         <div style={{
           margin: '16px 20px 0',
           padding: '10px 14px',
-          background: 'rgba(200,160,60,0.07)',
-          border: '1px solid rgba(200,160,60,0.25)',
+          background: 'var(--confidential-faint)',
+          border: '1px solid var(--confidential-border)',
           display: 'flex', alignItems: 'center', gap: 10,
         }}>
           <Clock size={13} style={{ color: 'var(--risk-medium)', flexShrink: 0 }} />
@@ -103,7 +103,7 @@ export function DktwPanel({ id }: { id: string }) {
             disabled={interested}
             style={{
               flexShrink: 0, fontSize: 10, padding: '3px 10px',
-              background: interested ? 'rgba(200,160,60,0.15)' : 'transparent',
+              background: interested ? 'var(--confidential-strong)' : 'transparent',
               border: `1px solid ${interested ? 'var(--risk-medium)' : 'var(--border-bright)'}`,
               color: interested ? 'var(--risk-medium)' : 'var(--text-muted)', cursor: interested ? 'default' : 'pointer',
             }}

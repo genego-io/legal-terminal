@@ -51,7 +51,7 @@ export function ClientModeToggle() {
         title={isLive ? `Live — ${liveUrl}. Click to switch back to mock.` : 'Mock mode. Click to connect to live server.'}
         style={{
           display: 'inline-flex', alignItems: 'center', gap: 5,
-          background: isLive ? 'rgba(111,163,112,0.12)' : 'transparent',
+          background: isLive ? 'var(--live-bg)' : 'transparent',
           border: '1px solid ' + (isLive ? 'var(--risk-low)' : 'var(--border-bright)'),
           color: isLive ? 'var(--risk-low)' : 'var(--text-muted)',
           fontSize: 10, padding: '1px 7px', cursor: 'pointer',
@@ -70,7 +70,7 @@ export function ClientModeToggle() {
           position: 'absolute', bottom: '100%', left: 0, marginBottom: 6,
           background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)',
           padding: 12, width: 300, zIndex: 200,
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          boxShadow: '0 8px 32px var(--shadow-lg)',
         }}>
           <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 8 }}>
             Connect to live server

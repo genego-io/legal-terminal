@@ -25,8 +25,8 @@ export function StatusBar() {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: 10,
-      background: confidentialMode ? 'rgba(200,160,60,0.06)' : 'var(--bg-panel2)',
-      borderTop: `1px solid ${confidentialMode ? 'rgba(200,160,60,0.3)' : 'var(--border)'}`,
+      background: confidentialMode ? 'var(--confidential-faint)' : 'var(--bg-panel2)',
+      borderTop: `1px solid ${confidentialMode ? 'var(--confidential-border)' : 'var(--border)'}`,
       padding: '3px 14px', fontSize: 10, color: 'var(--text-muted)',
       flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace",
       transition: 'background 0.2s, border-color 0.2s',
@@ -38,8 +38,8 @@ export function StatusBar() {
             onClick={() => navigate('CONF')}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 5,
-              background: 'rgba(200,160,60,0.15)', border: '1px solid rgba(200,160,60,0.5)',
-              color: '#c8a03c', fontSize: 10, padding: '1px 7px', cursor: 'pointer',
+              background: 'var(--confidential-faint)', border: '1px solid var(--confidential-border)',
+              color: 'var(--confidential)', fontSize: 10, padding: '1px 7px', cursor: 'pointer',
               fontFamily: "'IBM Plex Mono', monospace", letterSpacing: '0.04em',
               animation: 'none',
             }}

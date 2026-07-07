@@ -95,7 +95,7 @@ export function CitePanel({ id, query: initialQuery = '' }: Props) {
                 {/* Verdict row */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
                   <span style={{
-                    background: result.valid ? 'rgba(111,163,112,0.12)' : 'rgba(194,91,91,0.12)',
+                    background: result.valid ? 'var(--valid-bg)' : 'var(--invalid-bg)',
                     color: result.valid ? 'var(--risk-low)' : 'var(--risk-critical)',
                     border: '1px solid ' + (result.valid ? 'var(--risk-low)' : 'var(--risk-critical)'),
                     fontWeight: 700, padding: '3px 12px', fontSize: 12, letterSpacing: '0.04em',

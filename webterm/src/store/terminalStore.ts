@@ -11,6 +11,32 @@ export type PanelType =
 
 export type ViewType = PanelType | 'HOME'
 
+export type Theme = 'light' | 'dark'
+
+const THEME_KEY = 'legal-term-theme'
+
+function getInitialTheme(): Theme {
+  try {
+    return localStorage.getItem(THEME_KEY) === 'dark' ? 'dark' : 'light'
+  } catch {
+    return 'light'
+  }
+}
+
+export function applyTheme(theme: Theme) {
+  if (typeof document !== 'undefined') {
+    document.documentElement.setAttribute('data-theme', theme)
+  }
+  try {
+    localStorage.setItem(THEME_KEY, theme)
+  } catch {
+    /* storage unavailable */
+  }
+}
+
+const initialTheme = getInitialTheme()
+applyTheme(initialTheme)
+
 export interface ViewState {
   type: ViewType
   query?: string
@@ -42,6 +68,11 @@ interface TerminalStore {
   toggleConfidentialMode(): void
   setLocalModelUrl(url: string): void
   setLocalModel(m: string): void
+
+  // Theme
+  theme: Theme
+  setTheme(theme: Theme): void
+  toggleTheme(): void
 
   // Context
   commandHistory: string[]
@@ -95,6 +126,15 @@ export const useTerminalStore = create<TerminalStore>((set, get) => ({
   },
   setLocalModelUrl(url) { set({ localModelUrl: url }) },
   setLocalModel(m) { set({ localModel: m }) },
+
+  theme: initialTheme,
+  setTheme(theme) {
+    applyTheme(theme)
+    set({ theme })
+  },
+  toggleTheme() {
+    get().setTheme(get().theme === 'light' ? 'dark' : 'light')
+  },
 
   commandHistory: [],
   selectedCase: null,

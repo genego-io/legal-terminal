@@ -1,8 +1,60 @@
 @import "tailwindcss";
 
-/* Professional dark theme — graphite/slate palette */
+/* Theme tokens — light is default (:root); dark via [data-theme="dark"] */
 @layer base {
-  :root {
+  :root,
+  [data-theme="light"] {
+    /* Backgrounds — warm paper / parchment */
+    --bg:          #f4f2ed;
+    --bg-panel:    #ffffff;
+    --bg-panel2:   #eceae4;
+    --bg-hover:    #e4e1d9;
+    --bg-selected: #dce8f4;
+
+    /* Borders */
+    --border:        #d4d0c8;
+    --border-bright: #c4bfb5;
+
+    /* Text */
+    --text:         #2c3139;
+    --text-dim:     #5a6270;
+    --text-muted:   #8a919c;
+    --text-heading: #1a1f28;
+
+    /* Accent — steel blue (deeper for light bg contrast) */
+    --accent:       #3d6fa0;
+    --accent-dim:   #2d5580;
+    --accent-faint: #e4eef8;
+
+    /* Risk */
+    --risk-critical: #b54545;
+    --risk-high:     #b87333;
+    --risk-medium:   #9a8a30;
+    --risk-low:      #4d8a55;
+
+    /* Status */
+    --status-ok:   #4d8a55;
+    --status-warn: #9a8a30;
+    --status-err:  #b54545;
+    --status-info: #3d6fa0;
+
+    /* Surfaces & effects */
+    --overlay:            rgba(26, 31, 40, 0.45);
+    --shadow:             rgba(26, 31, 40, 0.10);
+    --shadow-lg:          rgba(26, 31, 40, 0.16);
+    --confidential:       #9a7320;
+    --confidential-faint: rgba(154, 115, 32, 0.10);
+    --confidential-border:rgba(154, 115, 32, 0.35);
+    --confidential-strong: rgba(154, 115, 32, 0.15);
+    --chip-complete-bg:   rgba(77, 138, 85, 0.10);
+    --chip-processing-bg: rgba(154, 138, 48, 0.10);
+    --chip-error-bg:      rgba(181, 69, 69, 0.10);
+    --live-bg:            rgba(77, 138, 85, 0.10);
+    --valid-bg:           rgba(77, 138, 85, 0.10);
+    --invalid-bg:         rgba(181, 69, 69, 0.10);
+  }
+
+  [data-theme="dark"] {
     /* Backgrounds */
     --bg:          #0e1114;
     --bg-panel:    #131720;
@@ -20,12 +72,12 @@
     --text-muted:   #4d5563;
     --text-heading: #e8eaf0;
 
-    /* Accent — single steel blue */
+    /* Accent */
     --accent:       #5b8dbe;
     --accent-dim:   #3d6490;
     --accent-faint: #1c2f45;
 
-    /* Risk — desaturated, used as dots/borders only */
+    /* Risk */
     --risk-critical: #c25b5b;
     --risk-high:     #c2854f;
     --risk-medium:   #b3a44f;
@@ -36,6 +88,21 @@
     --status-warn: #b3a44f;
     --status-err:  #c25b5b;
     --status-info: #5b8dbe;
+
+    /* Surfaces & effects */
+    --overlay:            rgba(10, 13, 16, 0.70);
+    --shadow:             rgba(0, 0, 0, 0.25);
+    --shadow-lg:          rgba(0, 0, 0, 0.45);
+    --confidential:       #c8a03c;
+    --confidential-faint: rgba(200, 160, 60, 0.08);
+    --confidential-border:rgba(200, 160, 60, 0.35);
+    --confidential-strong: rgba(200, 160, 60, 0.15);
+    --chip-complete-bg:   rgba(111, 163, 112, 0.08);
+    --chip-processing-bg: rgba(179, 164, 79, 0.08);
+    --chip-error-bg:      rgba(194, 91, 91, 0.08);
+    --live-bg:            rgba(111, 163, 112, 0.12);
+    --valid-bg:           rgba(111, 163, 112, 0.12);
+    --invalid-bg:         rgba(194, 91, 91, 0.12);
   }
 
   * { box-sizing: border-box; }
@@ -65,9 +132,9 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 1px 5px;
-    border: 1px solid rgba(200,160,60,0.4);
-    color: rgba(200,160,60,0.8);
-    background: rgba(200,160,60,0.07);
+    border: 1px solid var(--confidential-border);
+    color: var(--confidential);
+    background: var(--confidential-faint);
     flex-shrink: 0;
   }
 
@@ -474,10 +541,10 @@
     letter-spacing: 0.04em;
     border-radius: 2px;
   }
-  .status-chip.complete  { color: var(--risk-low);      border-color: var(--risk-low);      background: rgba(111,163,112,0.08); }
-  .status-chip.processing{ color: var(--risk-medium);   border-color: var(--risk-medium);   background: rgba(179,164,79,0.08); }
+  .status-chip.complete  { color: var(--risk-low);      border-color: var(--risk-low);      background: var(--chip-complete-bg); }
+  .status-chip.processing{ color: var(--risk-medium);   border-color: var(--risk-medium);   background: var(--chip-processing-bg); }
   .status-chip.queued    { color: var(--text-muted);    border-color: var(--border-bright); background: transparent; }
-  .status-chip.error     { color: var(--risk-critical); border-color: var(--risk-critical); background: rgba(194,91,91,0.08); }
+  .status-chip.error     { color: var(--risk-critical); border-color: var(--risk-critical); background: var(--chip-error-bg); }
 
   /* ── Empty state ── */
   .empty-state {

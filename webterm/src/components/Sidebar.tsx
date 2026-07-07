@@ -4,7 +4,7 @@ import {
   PenTool, Scale,
   ClockIcon, GitBranch, ScrollText, Activity,
   ChevronLeft, ChevronRight, Home,
-  Radar, Lock, Unlock,
+  Radar, Lock, Unlock, Sun, Moon,
 } from 'lucide-react'
 import { useTerminalStore } from '../store/terminalStore'
 import type { ViewType } from '../store/terminalStore'
@@ -63,7 +63,7 @@ const GROUPS: Group[] = [
 ]
 
 export function Sidebar() {
-  const { view, navigate, sidebarCollapsed, setSidebarCollapsed, confidentialMode, toggleConfidentialMode } = useTerminalStore()
+  const { view, navigate, sidebarCollapsed, setSidebarCollapsed, confidentialMode, toggleConfidentialMode, theme, toggleTheme } = useTerminalStore()
   const collapsed = sidebarCollapsed
 
   return (
@@ -125,25 +125,41 @@ export function Sidebar() {
         ))}
       </div>
 
-      {/* Bottom: Confidential Mode toggle + Settings + version */}
+      {/* Bottom: theme + confidential mode + version */}
       <div style={{
-        borderTop: `1px solid ${confidentialMode ? 'rgba(200,160,60,0.35)' : 'var(--border)'}`,
+        borderTop: `1px solid ${confidentialMode ? 'var(--confidential-border)' : 'var(--border)'}`,
         transition: 'border-color 0.2s',
       }}>
+        <button
+          onClick={toggleTheme}
+          className="sidebar-item"
+          style={{ justifyContent: collapsed ? 'center' : undefined }}
+          title={collapsed ? (theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode') : undefined}
+        >
+          <span className="sidebar-icon">
+            {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
+          </span>
+          {!collapsed && (
+            <span style={{ flex: 1, fontSize: 12 }}>
+              {theme === 'light' ? 'Dark mode' : 'Light mode'}
+            </span>
+          )}
+        </button>
+
         {/* Confidential mode toggle — always visible */}
         <button
           onClick={toggleConfidentialMode}
           className={`sidebar-item${view.type === 'CONF' ? ' active' : ''}`}
           style={{
             justifyContent: collapsed ? 'center' : undefined,
-            color: confidentialMode ? '#c8a03c' : 'var(--text-muted)',
-            background: confidentialMode ? 'rgba(200,160,60,0.07)' : 'transparent',
+            color: confidentialMode ? 'var(--confidential)' : 'var(--text-muted)',
+            background: confidentialMode ? 'var(--confidential-faint)' : 'transparent',
           }}
           title={collapsed
             ? confidentialMode ? 'Confidential mode ON — click to disable' : 'Confidential mode OFF — click to enable'
             : undefined}
         >
-          <span className="sidebar-icon" style={{ color: confidentialMode ? '#c8a03c' : 'var(--text-muted)' }}>
+          <span className="sidebar-icon" style={{ color: confidentialMode ? 'var(--confidential)' : 'var(--text-muted)' }}>
             {confidentialMode ? <Lock size={14} /> : <Unlock size={14} />}
           </span>
           {!collapsed && (

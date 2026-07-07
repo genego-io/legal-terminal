@@ -31,7 +31,7 @@ export function CommandPalette({ open, onClose }: Props) {
     <div
       style={{
         position: 'fixed', inset: 0, zIndex: 1000,
-        background: 'rgba(10,13,16,0.7)',
+        background: 'var(--overlay)',
         display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
         paddingTop: '15vh',
       }}
@@ -42,7 +42,7 @@ export function CommandPalette({ open, onClose }: Props) {
           width: 560, maxHeight: '60vh',
           background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)',
           display: 'flex', flexDirection: 'column', overflow: 'hidden',
-          boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+          boxShadow: '0 24px 64px var(--shadow-lg)',
         }}
         onKeyDown={e => { if (e.key === 'Escape') onClose() }}
       >
