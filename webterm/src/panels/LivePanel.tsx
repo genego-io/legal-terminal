@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import type { IntegrationStatus } from '../mcp/types'
 
 export function LivePanel({ id }: { id: string }) {

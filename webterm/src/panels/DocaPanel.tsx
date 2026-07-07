@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PanelChrome, RiskBadge, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 
 const MOCK_FILES = ['vendor_nda_2026.docx', 'saas_msa_draft.docx', 'dpa_addendum_eu.pdf', 'hipaa_baa_template.docx']
 

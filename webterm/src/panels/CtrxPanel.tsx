@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { PanelChrome, RiskBadge, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import type { Contract, ContractClause } from '../mcp/types'
 
 interface Props { id: string; contractId?: string }

@@ -6,7 +6,7 @@ from textual.containers import Horizontal, VerticalScroll
 from textual.widget import Widget
 from textual.widgets import Button, DataTable, Input, Static
 
-from ..client import Case, client
+from ..client import Case, get_client as _get_client
 
 
 class PrecWidget(Widget):
@@ -34,7 +34,7 @@ class PrecWidget(Widget):
         self.run_worker(self._search("contract breach"), exclusive=True, name="prec-init")
 
     async def _search(self, query: str) -> None:
-        cases = await client.search_precedents(query)
+        cases = await _get_client().search_precedents(query)
         table = self.query_one("#prec-table", DataTable)
         table.clear()
         self._cases = {}

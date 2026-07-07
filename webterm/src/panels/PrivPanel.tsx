@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import type { PrivilegeResult } from '../mcp/types'
 
 const PROVIDERS = ['openai', 'anthropic', 'azure_openai', 'vertex_ai', 'openrouter', 'ollama', 'unknown']

@@ -7,7 +7,7 @@ from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Input, RichLog, Static
 
-from ..client import client
+from ..client import get_client as _get_client
 
 
 class AudtWidget(Widget):
@@ -26,7 +26,7 @@ class AudtWidget(Widget):
         self.run_worker(self._load(), exclusive=True, name="audt-load")
 
     async def _load(self) -> None:
-        self._entries = await client.get_audit_log()
+        self._entries = await _get_client().get_audit_log()
         self._render(self._entries)
 
     def _render(self, entries: list) -> None:

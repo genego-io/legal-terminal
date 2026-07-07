@@ -5,7 +5,7 @@ from textual.app import ComposeResult
 from textual.widget import Widget
 from textual.widgets import Button, Input, RadioButton, RadioSet, Static
 
-from ..client import CitationResult, client
+from ..client import CitationResult, get_client as _get_client
 
 
 class CiteWidget(Widget):
@@ -35,11 +35,11 @@ class CiteWidget(Widget):
         mode_set = self.query_one("#cite-mode", RadioSet)
         idx = mode_set.pressed_index
         if idx == 1:
-            result = await client.normalize_citation(citation)
+            result = await _get_client().normalize_citation(citation)
         elif idx == 2:
-            result = await client.verify_citation_integrity(citation)
+            result = await _get_client().verify_citation_integrity(citation)
         else:
-            result = await client.validate_citation(citation)
+            result = await _get_client().validate_citation(citation)
         self._show(result)
 
     def _show(self, r: CitationResult) -> None:

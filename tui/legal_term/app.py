@@ -1,11 +1,13 @@
 """Legal Terminal — Bloomberg-style TUI over legal-mcp."""
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.widgets import Input, Label, Static, TabbedContent, TabPane
 
+from .client import LegalMcpClient, MockClient, set_client
 from .widgets.prec import PrecWidget
 from .widgets.cite import CiteWidget
 from .widgets.ctrx import CtrxWidget
@@ -57,6 +59,12 @@ class LegalTermApp(App):
 
     CSS_PATH = str(CSS_PATH)
 
+    def __init__(self, client: LegalMcpClient | None = None, **kwargs) -> None:  # type: ignore[override]
+        super().__init__(**kwargs)
+        self._mcp_client: LegalMcpClient = client or MockClient()
+        self._live_mode = not isinstance(self._mcp_client, MockClient)
+        set_client(self._mcp_client)  # propagate to all widgets via get_client()
+
     BINDINGS = [
         Binding("f1", "open('tab-help')", "Help"),
         Binding("f2", "open('tab-prec')", "PREC"),
@@ -79,7 +87,7 @@ class LegalTermApp(App):
             "  [#252b38]│[/]  "
             "[#b3a44f]○ PACER off[/]"
             "  [#252b38]│[/]  "
-            "[#4d5563]mock mode[/]",
+            + ("[#c25b5b]live mode[/]" if self._live_mode else "[#4d5563]mock mode[/]"),
             id="app-header",
         )
 

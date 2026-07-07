@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { PanelChrome } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import type { AnalysisJob } from '../mcp/types'
 
 const STATUS_COLOR: Record<string, string> = {

@@ -335,5 +335,23 @@ class MockClient:
         return list(self._audit)
 
 
-# default singleton
-client: LegalMcpClient = MockClient()
+# ─────────────────────────── runtime client selector ────────────────────────
+
+_active: LegalMcpClient = MockClient()
+
+
+def get_client() -> LegalMcpClient:
+    """Return the currently active client (mock or live)."""
+    return _active
+
+
+def set_client(c: LegalMcpClient) -> None:
+    """Replace the active client (called by LegalTermApp before first mount)."""
+    global _active
+    _active = c
+
+
+# Legacy module-level alias — widgets do `from ..client import client`.
+# This is a reference to the proxy function; widgets should call client() instead.
+# For backward-compat, keep the old `client` name pointing at the default mock.
+client: LegalMcpClient = _active

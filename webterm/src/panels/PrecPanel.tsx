@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { PanelChrome, RelevanceBar, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
 import type { Case } from '../mcp/types'
 

@@ -6,7 +6,7 @@ from textual.containers import Horizontal, VerticalScroll
 from textual.widget import Widget
 from textual.widgets import ListItem, ListView, Static
 
-from ..client import Workflow, client
+from ..client import Workflow, get_client as _get_client
 
 
 class WkflWidget(Widget):
@@ -32,7 +32,7 @@ class WkflWidget(Widget):
         self.run_worker(self._load(), exclusive=True, name="wkfl-load")
 
     async def _load(self) -> None:
-        workflows = await client.get_workflows()
+        workflows = await _get_client().get_workflows()
         self._workflows = {w.id: w for w in workflows}
         lv = self.query_one("#wkfl-list", ListView)
         for w in workflows:

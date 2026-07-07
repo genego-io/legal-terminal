@@ -8,7 +8,7 @@ from textual.containers import Horizontal
 from textual.widget import Widget
 from textual.widgets import Button, DataTable, Input, Static
 
-from ..client import client
+from ..client import get_client as _get_client
 
 STATUS_STYLE = {
     "complete":   "[#6fa370]complete[/]",
@@ -60,7 +60,7 @@ class JobsWidget(Widget):
         self.run_worker(self._refresh(), exclusive=False, name="jobs-auto")
 
     async def _refresh(self) -> None:
-        jobs = await client.get_analysis_jobs()
+        jobs = await _get_client().get_analysis_jobs()
         table = self.query_one("#jobs-table", DataTable)
         table.clear()
         for j in jobs:
@@ -86,7 +86,7 @@ class JobsWidget(Widget):
         if event.button.id == "jobs-queue-btn":
             fname = self.query_one("#jobs-file", Input).value.strip()
             if fname:
-                self.run_worker(client.queue_document_analysis(fname), exclusive=False, name="jobs-queue")
+                self.run_worker(_get_client().queue_document_analysis(fname), exclusive=False, name="jobs-queue")
                 self.query_one("#jobs-file", Input).value = ""
         elif event.button.id == "jobs-refresh-btn":
             self.run_worker(self._refresh(), exclusive=True, name="jobs-refresh")

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import type { Statute } from '../mcp/types'
 
 const QUICK = [

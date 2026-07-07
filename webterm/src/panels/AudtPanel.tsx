@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PanelChrome } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import type { AuditEntry } from '../mcp/types'
 
 const CATEGORY_COLOR: Record<string, string> = {

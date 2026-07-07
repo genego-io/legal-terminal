@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import type { BriefOutline } from '../mcp/types'
 
 const CASE_TYPES = ['contract breach', 'employment discrimination', 'negligence', 'IP infringement', 'securities fraud', 'civil rights']

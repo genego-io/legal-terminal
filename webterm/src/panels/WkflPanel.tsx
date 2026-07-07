@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PanelChrome, LoadingDots } from '../components/PanelChrome'
-import { client } from '../mcp/mockClient'
+import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
 import type { PanelType } from '../store/terminalStore'
 import type { Workflow } from '../mcp/types'

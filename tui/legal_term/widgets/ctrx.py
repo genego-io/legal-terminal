@@ -6,7 +6,7 @@ from textual.containers import Horizontal, VerticalScroll
 from textual.widget import Widget
 from textual.widgets import Button, DataTable, Select, Static
 
-from ..client import Contract, client
+from ..client import Contract, get_client as _get_client
 
 RISK_STYLE = {
     "CRITICAL": "[#c25b5b]CRITICAL[/]",
@@ -54,7 +54,7 @@ class CtrxWidget(Widget):
             self.run_worker(self._load(cid), exclusive=True, name="ctrx-load")
 
     async def _load(self, contract_id: str) -> None:
-        contract = await client.analyze_contract(contract_id)
+        contract = await _get_client().analyze_contract(contract_id)
         if not contract:
             return
         self._contract = contract
