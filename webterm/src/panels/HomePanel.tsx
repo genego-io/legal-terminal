@@ -1,6 +1,9 @@
 import { useTerminalStore } from '../store/terminalStore'
 import type { PanelType } from '../store/terminalStore'
-import { Search, FileText, ShieldAlert, ClockIcon, Scale } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { Search, FileText, ShieldAlert, ClockIcon, Scale, Database, ScrollText, Activity } from 'lucide-react'
+import { SurfaceCard, SectionHeader, MetricTile, StatusPill } from '../components/ProductSurface'
+import { CASES, CONTRACTS, JOBS, AUDIT_LOG } from '../fixtureMeta'
 
 interface QuickAction {
   cmd: string
@@ -11,7 +14,7 @@ interface QuickAction {
 
 interface GroupDef {
   title: string
-  icon: React.ReactNode
+  icon: ReactNode
   accent: string
   actions: QuickAction[]
 }
@@ -19,48 +22,48 @@ interface GroupDef {
 const GROUPS: GroupDef[] = [
   {
     title: 'Research',
-    icon: <Search size={13} />,
+    icon: <Search size={14} />,
     accent: 'var(--accent)',
     actions: [
       { cmd: 'PREC breach of contract',         label: 'Breach of contract precedents', panel: 'PREC', opts: { query: 'breach of contract' } },
       { cmd: 'PREC attorney-client privilege',  label: 'Attorney-client privilege',     panel: 'PREC', opts: { query: 'attorney-client privilege' } },
       { cmd: 'CITE 2022 Cal.App.4th 1234',      label: 'Validate a citation',           panel: 'CITE', opts: { query: '2022 Cal.App.4th 1234' } },
-      { cmd: 'STAT Cal.Civ.Code.1657',          label: 'Cal. Civ. Code § 1657',         panel: 'STAT', opts: { query: 'Cal.Civ.Code.1657' } },
+      { cmd: 'STAT Cal.Civ.Code.1657',          label: 'Cal. Civ. Code 1657',            panel: 'STAT', opts: { query: 'Cal.Civ.Code.1657' } },
     ],
   },
   {
     title: 'Contracts',
-    icon: <FileText size={13} />,
+    icon: <FileText size={14} />,
     accent: 'var(--risk-medium)',
     actions: [
-      { cmd: 'CTRX client_proposed_nda',         label: 'Analyze client NDA',         panel: 'CTRX', opts: { contractId: 'client_proposed_nda' } },
-      { cmd: 'CTRX master_services_agreement_tech', label: 'Analyze Tech MSA',         panel: 'CTRX', opts: { contractId: 'master_services_agreement_tech' } },
-      { cmd: 'PRIV litigation_memo openai',       label: 'Check privilege: litigation memo', panel: 'PRIV' },
-      { cmd: 'DOCA vendor_nda_2026.docx',         label: 'Analyze document',           panel: 'DOCA' },
+      { cmd: 'CTRX client_proposed_nda',         label: 'Analyze client NDA',              panel: 'CTRX', opts: { contractId: 'client_proposed_nda' } },
+      { cmd: 'CTRX master_services_agreement_tech', label: 'Analyze Tech MSA',             panel: 'CTRX', opts: { contractId: 'master_services_agreement_tech' } },
+      { cmd: 'PRIV litigation_memo openai',      label: 'Check privilege: litigation memo', panel: 'PRIV' },
+      { cmd: 'DOCA vendor_nda_2026.docx',        label: 'Analyze document',                panel: 'DOCA' },
     ],
   },
   {
     title: 'Privilege & Risk',
-    icon: <ShieldAlert size={13} />,
+    icon: <ShieldAlert size={14} />,
     accent: 'var(--risk-high)',
     actions: [
-      { cmd: 'PRIV litigation_memo ollama',       label: 'Check privilege: local model', panel: 'PRIV' },
-      { cmd: 'PRIV client_strategy azure_openai', label: 'Check privilege: Azure OpenAI', panel: 'PRIV' },
-      { cmd: 'BRF contract dispute',              label: 'Brief outline: contract dispute', panel: 'BRF', opts: { query: 'contract dispute' } },
-      { cmd: 'BRF employment law',                label: 'Brief outline: employment law',  panel: 'BRF', opts: { query: 'employment law' } },
+      { cmd: 'PRIV litigation_memo ollama',       label: 'Check privilege: local model',     panel: 'PRIV' },
+      { cmd: 'PRIV client_strategy azure_openai', label: 'Check privilege: Azure OpenAI',    panel: 'PRIV' },
+      { cmd: 'BRF contract dispute',              label: 'Brief outline: contract dispute',  panel: 'BRF', opts: { query: 'contract dispute' } },
+      { cmd: 'BRF employment law',                label: 'Brief outline: employment law',    panel: 'BRF', opts: { query: 'employment law' } },
     ],
   },
   {
     title: 'Operations',
-    icon: <ClockIcon size={13} />,
+    icon: <ClockIcon size={14} />,
     accent: 'var(--text-dim)',
     actions: [
-      { cmd: 'JOBS', label: 'View analysis queue',    panel: 'JOBS' },
-      { cmd: 'WKFL', label: 'Browse playbooks',       panel: 'WKFL' },
-      { cmd: 'AUTM', label: 'Automations',            panel: 'AUTM' },
-      { cmd: 'TRIG', label: 'Triggers & inbox',       panel: 'TRIG' },
-      { cmd: 'AUDT', label: 'Review audit log',       panel: 'AUDT' },
-      { cmd: 'LIVE', label: 'Check integrations',     panel: 'LIVE' },
+      { cmd: 'JOBS', label: 'View analysis queue', panel: 'JOBS' },
+      { cmd: 'WKFL', label: 'Browse playbooks',    panel: 'WKFL' },
+      { cmd: 'AUTM', label: 'Automations',         panel: 'AUTM' },
+      { cmd: 'TRIG', label: 'Triggers & inbox',    panel: 'TRIG' },
+      { cmd: 'AUDT', label: 'Review audit log',    panel: 'AUDT' },
+      { cmd: 'LIVE', label: 'Check integrations',  panel: 'LIVE' },
     ],
   },
 ]
@@ -82,69 +85,68 @@ export function HomePanel() {
   }
 
   return (
-    <div style={{ height: '100%', overflowY: 'auto', background: 'var(--bg)' }}>
-      {/* Hero strip */}
-      <div style={{
-        background: 'var(--bg-panel)', borderBottom: '1px solid var(--border)',
-        padding: '20px 28px',
-        display: 'flex', alignItems: 'flex-start', gap: 20, flexWrap: 'wrap',
-      }}>
-        <div style={{ flex: 1, minWidth: 240 }}>
-          <div style={{ color: 'var(--text-heading)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 20, marginBottom: 6, letterSpacing: '0.01em' }}>
-            Legal Terminal
-          </div>
-          <div style={{ color: 'var(--text-dim)', fontSize: 12, lineHeight: 1.7, maxWidth: 480 }}>
-            Bloomberg-style interface over <code style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace" }}>legal-mcp</code>.
-            Use the sidebar to navigate modules, type a mnemonic command below, or press an F-key.
-          </div>
-          <button
-            onClick={() => navigate('CHAT')}
-            style={{
-              marginTop: 12, display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'var(--accent-faint)', border: '1px solid var(--accent-dim)',
-              color: 'var(--accent)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600,
-              padding: '7px 14px', cursor: 'pointer',
-            }}
-            title="Open the Paralegal chat (F1)"
-          >
-            <Scale size={14} />
-            Ask the Paralegal
-            <span className="fkey-hint" style={{ marginLeft: 4 }}>F1</span>
-          </button>
+    <div className="home-page">
+      <div className="home-hero">
+        <div className="home-hero-copy">
+          <SectionHeader
+            eyebrow="Legal Terminal"
+            title="Matter workbench for high-volume legal teams"
+            description={(
+              <>
+                A keyboard-first practice workspace for legal research, contract review, privilege assessment,
+                document analysis, and operational audit trails.
+              </>
+            )}
+            meta={(
+              <>
+                <StatusPill tone={isLive ? 'success' : 'default'}>{isLive ? 'Live MCP' : 'Mock fixtures'}</StatusPill>
+                <StatusPill tone="accent">Command driven</StatusPill>
+              </>
+            )}
+            actions={(
+              <button
+                onClick={() => navigate('CHAT')}
+                className="btn-primary home-primary-action"
+                title="Open the Paralegal chat (F1)"
+              >
+                <Scale size={14} />
+                Ask the Paralegal
+                <span className="home-action-key">F1</span>
+              </button>
+            )}
+          />
         </div>
-        {/* Connection status */}
-        <div style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border)', padding: '10px 16px', fontSize: 11, minWidth: 200 }}>
-          <div className="section-label" style={{ marginBottom: 8 }}>Backend</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
-            <span style={{ color: isLive ? 'var(--status-ok)' : 'var(--text-muted)' }}>●</span>
-            <span style={{ color: 'var(--text-dim)' }}>
-              {isLive ? `Live — ${import.meta.env.VITE_MCP_URL}` : 'Mock fixtures'}
-            </span>
+
+        <SurfaceCard className="home-system-card" padding="md">
+          <div className="section-label">Runtime</div>
+          <div className="home-status-row">
+            <span className={`home-status-dot${isLive ? ' on' : ''}`} />
+            <span>{isLive ? import.meta.env.VITE_MCP_URL : 'Offline demo mode'}</span>
           </div>
           {!isLive && (
-            <div style={{ color: 'var(--text-muted)', fontSize: 10, lineHeight: 1.5 }}>
-              Set <code style={{ fontFamily: "'IBM Plex Mono', monospace" }}>VITE_MCP_URL</code> in <code style={{ fontFamily: "'IBM Plex Mono', monospace" }}>.env.local</code> to connect live.
+            <div className="home-status-note">
+              Set <code>VITE_MCP_URL</code> in <code>.env.local</code> to connect a live MCP server.
             </div>
           )}
-          <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
-            {[
-              { label: 'CourtListener', on: false },
-              { label: 'PACER', on: false },
-            ].map(s => (
-              <span key={s.label} style={{ fontSize: 10, color: 'var(--text-muted)' }}>
-                <span style={{ opacity: 0.4 }}>○</span> {s.label}
-              </span>
-            ))}
+          <div className="home-status-list">
+            <span><span className="home-mini-dot" /> CourtListener</span>
+            <span><span className="home-mini-dot warn" /> PACER</span>
           </div>
-        </div>
+        </SurfaceCard>
       </div>
 
-      {/* Quick-action grid */}
+      <div className="home-metrics-grid">
+        <MetricTile label="Authority Library" value={CASES.length} detail="local case fixtures" tone="accent" />
+        <MetricTile label="Contract Files" value={CONTRACTS.length} detail="sample agreements" />
+        <MetricTile label="Analysis Queue" value={JOBS.length} detail="background jobs" tone="warning" />
+        <MetricTile label="Audit Trail" value={AUDIT_LOG.length} detail="tool invocations" tone="success" />
+      </div>
+
       <div className="home-grid">
         {GROUPS.map(group => (
-          <div key={group.title} className="card">
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-              <span style={{ color: group.accent }}>{group.icon}</span>
+          <SurfaceCard key={group.title} className="home-action-card" padding="md">
+            <div className="home-card-header">
+              <span className="home-card-icon" style={{ color: group.accent }}>{group.icon}</span>
               <span className="card-title">{group.title}</span>
             </div>
             {group.actions.map(action => (
@@ -153,20 +155,24 @@ export function HomePanel() {
                 <span>{action.label}</span>
               </button>
             ))}
-          </div>
+          </SurfaceCard>
         ))}
       </div>
 
-      {/* Recent activity */}
-      <div style={{ padding: '0 28px 28px' }}>
-        <div className="card">
-          <div className="card-title" style={{ marginBottom: 4 }}>Recent activity</div>
+      <div className="home-recent">
+        <SurfaceCard padding="md">
+          <SectionHeader
+            eyebrow="Session"
+            title="Recent activity"
+            meta={<StatusPill>{recentActivity.length} events</StatusPill>}
+          />
           {recentActivity.length === 0 ? (
-            <div style={{ color: 'var(--text-muted)', fontSize: 12, padding: '8px 0' }}>
-              No activity yet. Open a module above to get started.
+            <div className="home-activity-empty">
+              <Activity size={16} />
+              <span>No activity yet. Open a module above to get started.</span>
             </div>
           ) : (
-            <table className="data-table" style={{ marginTop: 4 }}>
+            <table className="data-table" style={{ marginTop: 12 }}>
               <thead>
                 <tr>
                   <th>Command</th>
@@ -185,7 +191,12 @@ export function HomePanel() {
               </tbody>
             </table>
           )}
-        </div>
+        </SurfaceCard>
+      </div>
+
+      <div className="home-footer-strip">
+        <span><Database size={13} /> Local evidence-first workspace</span>
+        <span><ScrollText size={13} /> Audit-aware workflows</span>
       </div>
     </div>
   )

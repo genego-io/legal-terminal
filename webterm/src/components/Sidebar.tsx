@@ -108,7 +108,13 @@ export function Sidebar() {
       <aside className={asideClass}>
         <div className="sidebar-logo">
           {!collapsed && (
-            <span className="sidebar-brand">Legal Terminal</span>
+            <div className="sidebar-brand-wrap">
+              <span className="sidebar-brand-mark">LT</span>
+              <span style={{ minWidth: 0 }}>
+                <span className="sidebar-brand">Legal Terminal</span>
+                <span className="sidebar-brand-subtitle">Practice OS</span>
+              </span>
+            </div>
           )}
           <button
             type="button"

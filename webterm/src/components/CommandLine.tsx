@@ -70,26 +70,14 @@ export function CommandLine({ onOpenPalette }: Props) {
   }
 
   return (
-    <div style={{ position: 'relative', flex: 1 }}>
+    <div className="command-line-root">
       {showSuggestions && suggestions.length > 0 && (
-        <div style={{
-          position: 'absolute', bottom: '100%', left: 0, right: 0,
-          background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)',
-          borderBottom: 'none', zIndex: 100, maxHeight: 260, overflowY: 'auto',
-        }}>
+        <div className="command-suggestions">
           {suggestions.map(s => (
             <button
               key={s.cmd}
               onClick={() => execute(s.cmd)}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 12,
-                width: '100%', padding: '6px 14px',
-                background: 'transparent', border: 'none', cursor: 'pointer',
-                textAlign: 'left', color: 'var(--text)', fontFamily: 'inherit', fontSize: 12,
-                borderBottom: '1px solid var(--border)',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = 'var(--bg-hover)')}
-              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              className="command-suggestion"
             >
               <span className="mnemonic-badge">{s.cmd}</span>
               <span style={{ flex: 1, color: 'var(--text-dim)' }}>{s.desc}</span>
@@ -99,12 +87,7 @@ export function CommandLine({ onOpenPalette }: Props) {
         </div>
       )}
 
-      <div style={{
-        display: 'flex', alignItems: 'center', gap: 8,
-        background: 'transparent',
-        padding: '6px 14px',
-        height: '100%',
-      }}>
+      <div className="command-row">
         {isCompact && sidebarCollapsed && (
           <button
             type="button"
@@ -131,12 +114,6 @@ export function CommandLine({ onOpenPalette }: Props) {
         {onOpenPalette && (
           <button
             onClick={onOpenPalette}
-            style={{
-              background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)',
-              color: 'var(--text-muted)', fontSize: 10, padding: '2px 7px',
-              cursor: 'pointer', fontFamily: 'inherit', flexShrink: 0,
-              display: 'flex', alignItems: 'center', gap: 4,
-            }}
             title="Open command palette (Ctrl+K)"
             className="cmd-kbd-hint"
           >

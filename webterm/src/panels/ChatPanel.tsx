@@ -208,9 +208,10 @@ function BriefCard({ outline }: { outline: BriefOutline }) {
 
 const cardStyle: React.CSSProperties = {
   display: 'block', width: '100%', textAlign: 'left',
-  background: 'var(--bg-panel2)', border: '1px solid var(--border)',
+  background: 'var(--surface-raised)', border: '1px solid var(--border)',
+  borderRadius: 'var(--radius-md)',
   padding: '10px 12px', cursor: 'pointer', fontFamily: 'inherit',
-  color: 'var(--text)', transition: 'border-color 0.15s',
+  color: 'var(--text)', transition: 'border-color 0.15s, box-shadow 0.15s',
 }
 
 function renderAttachment(a: Attachment, i: number) {
@@ -315,6 +316,7 @@ export function ChatPanel({ id }: { id: string }) {
             <div key={m.id} style={{ alignSelf: 'flex-end', maxWidth: '75%' }}>
               <div style={{
                 background: 'var(--accent-faint)', border: '1px solid var(--accent-dim)',
+                borderRadius: 'var(--radius-md)',
                 padding: '9px 14px', fontSize: 13, color: 'var(--text-heading)', lineHeight: 1.6,
                 whiteSpace: 'pre-wrap',
               }}>
@@ -365,7 +367,8 @@ export function ChatPanel({ id }: { id: string }) {
       <div style={{ borderTop: '1px solid var(--border)', padding: '12px 24px', flexShrink: 0 }}>
         <div style={{
           maxWidth: 760, margin: '0 auto', display: 'flex', gap: 8, alignItems: 'flex-end',
-          background: 'var(--bg-panel2)', border: '1px solid var(--border-bright)', padding: '8px 8px 8px 14px',
+          background: 'var(--surface-raised)', border: '1px solid var(--border-bright)', borderRadius: 'var(--radius-md)',
+          boxShadow: 'var(--shadow-card)', padding: '8px 8px 8px 14px',
         }}>
           <textarea
             ref={inputRef}
@@ -391,6 +394,7 @@ export function ChatPanel({ id }: { id: string }) {
               border: '1px solid ' + (input.trim() && !thinking ? 'var(--accent)' : 'var(--border)'),
               color: input.trim() && !thinking ? 'var(--bg)' : 'var(--text-muted)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
+              borderRadius: 'var(--radius-sm)',
               transition: 'all 0.15s',
             }}
             title="Send (Enter)"

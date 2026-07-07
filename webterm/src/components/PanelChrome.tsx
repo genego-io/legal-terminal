@@ -13,13 +13,13 @@ interface Props {
   panelType?: PanelType
 }
 
-export function PanelChrome({ mnemonic, title, subtitle, children, actions, panelType }: Props) {
+export function PanelChrome({ id, mnemonic, title, subtitle, children, actions, panelType }: Props) {
   const { pinSplit, splitView, closeSplit } = useTerminalStore()
   const { isTablet } = useViewport()
   const isSplit = splitView?.type === panelType
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg-panel)', overflow: 'hidden' }}>
+    <div id={id} className="module-shell">
       <div className="module-header">
         <span className="mnemonic-badge">{mnemonic}</span>
         <span className="module-title">{title}</span>
@@ -85,4 +85,3 @@ export function EmptyState({ msg }: { msg: string }) {
     <div style={{ padding: 16, color: 'var(--text-muted)', fontSize: 12 }}>{msg}</div>
   )
 }
-

@@ -63,7 +63,8 @@ export function FileUploadZone({ onFiles, allowFolder, accept, className, style:
       onDrop={onDrop}
       style={{
         border: `1px dashed ${dragOver ? 'var(--accent)' : 'var(--border-bright)'}`,
-        background: dragOver ? 'var(--accent-faint)' : 'transparent',
+        background: dragOver ? 'var(--accent-faint)' : 'var(--surface-muted)',
+        borderRadius: 'var(--radius-md)',
         padding: '12px 14px',
         transition: 'all 0.15s',
         display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
