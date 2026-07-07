@@ -2,6 +2,8 @@ import { useTerminalStore } from '../store/terminalStore'
 import type { ViewState } from '../store/terminalStore'
 import { HomePanel } from '../panels/HomePanel'
 import { ChatPanel } from '../panels/ChatPanel'
+import { DktwPanel } from '../panels/DktwPanel'
+import { ConfPanel } from '../panels/ConfPanel'
 import { PrecPanel } from '../panels/PrecPanel'
 import { StatPanel } from '../panels/StatPanel'
 import { CitePanel } from '../panels/CitePanel'
@@ -30,6 +32,8 @@ function renderView(v: ViewState) {
     case 'LIVE': return <LivePanel id={id} />
     case 'WKFL': return <WkflPanel id={id} />
     case 'AUDT': return <AudtPanel id={id} />
+    case 'WTCH': return <DktwPanel id={id} />
+    case 'CONF': return <ConfPanel id={id} />
     default: return <HomePanel />
   }
 }

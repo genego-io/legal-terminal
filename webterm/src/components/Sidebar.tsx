@@ -4,6 +4,7 @@ import {
   PenTool, Scale,
   ClockIcon, GitBranch, ScrollText, Activity,
   ChevronLeft, ChevronRight, Home,
+  Radar, Lock, Unlock,
 } from 'lucide-react'
 import { useTerminalStore } from '../store/terminalStore'
 import type { ViewType } from '../store/terminalStore'
@@ -56,12 +57,13 @@ const GROUPS: Group[] = [
       { type: 'WKFL', label: 'Workflows',       icon: <GitBranch size={14} />,   fkey: 'F6' },
       { type: 'AUDT', label: 'Audit Log',        icon: <ScrollText size={14} />, fkey: 'F7' },
       { type: 'LIVE', label: 'Integrations',     icon: <Activity size={14} />,   fkey: 'F10' },
+      { type: 'WTCH', label: 'Docket Watch',     icon: <Radar size={14} /> },
     ],
   },
 ]
 
 export function Sidebar() {
-  const { view, navigate, sidebarCollapsed, setSidebarCollapsed } = useTerminalStore()
+  const { view, navigate, sidebarCollapsed, setSidebarCollapsed, confidentialMode, toggleConfidentialMode } = useTerminalStore()
   const collapsed = sidebarCollapsed
 
   return (
@@ -110,24 +112,65 @@ export function Sidebar() {
                 title={collapsed ? `${item.label}${item.fkey ? ` (${item.fkey})` : ''}` : undefined}
               >
                 <span className="sidebar-icon">{item.icon}</span>
-                {!collapsed && (
-                  <>
-                    <span style={{ flex: 1 }}>{item.label}</span>
-                    {item.fkey && <span className="fkey-hint">{item.fkey}</span>}
-                  </>
-                )}
+              {!collapsed && (
+                <>
+                  <span style={{ flex: 1 }}>{item.label}</span>
+                  {item.type === 'WTCH' && <span className="soon-badge">Soon</span>}
+                  {item.fkey && <span className="fkey-hint">{item.fkey}</span>}
+                </>
+              )}
               </button>
             ))}
           </div>
         ))}
       </div>
 
-      {/* Bottom: version tag */}
-      {!collapsed && (
-        <div style={{ padding: '10px 12px', borderTop: '1px solid var(--border)', fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
-          v0.1.0-pre.1
-        </div>
-      )}
+      {/* Bottom: Confidential Mode toggle + Settings + version */}
+      <div style={{
+        borderTop: `1px solid ${confidentialMode ? 'rgba(200,160,60,0.35)' : 'var(--border)'}`,
+        transition: 'border-color 0.2s',
+      }}>
+        {/* Confidential mode toggle — always visible */}
+        <button
+          onClick={toggleConfidentialMode}
+          className={`sidebar-item${view.type === 'CONF' ? ' active' : ''}`}
+          style={{
+            justifyContent: collapsed ? 'center' : undefined,
+            color: confidentialMode ? '#c8a03c' : 'var(--text-muted)',
+            background: confidentialMode ? 'rgba(200,160,60,0.07)' : 'transparent',
+          }}
+          title={collapsed
+            ? confidentialMode ? 'Confidential mode ON — click to disable' : 'Confidential mode OFF — click to enable'
+            : undefined}
+        >
+          <span className="sidebar-icon" style={{ color: confidentialMode ? '#c8a03c' : 'var(--text-muted)' }}>
+            {confidentialMode ? <Lock size={14} /> : <Unlock size={14} />}
+          </span>
+          {!collapsed && (
+            <>
+              <span style={{ flex: 1, fontSize: 12 }}>
+                {confidentialMode ? 'Confidential' : 'Standard mode'}
+              </span>
+              <button
+                onClick={e => { e.stopPropagation(); navigate('CONF') }}
+                style={{
+                  background: 'transparent', border: 'none', cursor: 'pointer', padding: '0 4px',
+                  fontSize: 10, color: 'var(--text-muted)',
+                }}
+                title="Privacy settings"
+              >
+                Settings
+              </button>
+            </>
+          )}
+        </button>
+
+        {!collapsed && (
+          <div style={{ padding: '6px 12px 8px', fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
+            v0.1.0-pre.1
+          </div>
+        )}
+      </div>
     </aside>
   )
 }

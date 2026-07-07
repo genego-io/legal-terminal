@@ -7,6 +7,7 @@ export type PanelType =
   | 'PREC' | 'CASE' | 'STAT' | 'CITE'
   | 'CTRX' | 'DOCA' | 'PRIV' | 'BRF'
   | 'JOBS' | 'LIVE' | 'WKFL' | 'AUDT'
+  | 'WTCH' | 'CONF'
 
 export type ViewType = PanelType | 'HOME'
 
@@ -33,6 +34,14 @@ interface TerminalStore {
   clientMode: ClientMode
   liveUrl: string
   switchClientMode(mode: ClientMode, url?: string): Promise<void>
+
+  // Confidential mode
+  confidentialMode: boolean
+  localModelUrl: string
+  localModel: string
+  toggleConfidentialMode(): void
+  setLocalModelUrl(url: string): void
+  setLocalModel(m: string): void
 
   // Context
   commandHistory: string[]
@@ -75,6 +84,17 @@ export const useTerminalStore = create<TerminalStore>((set, get) => ({
     set({ clientMode: mode, liveUrl: url ?? get().liveUrl })
     get().pushActivity(`Client switched to ${mode}${mode === 'live' ? ` — ${url ?? get().liveUrl}` : ''}`)
   },
+
+  confidentialMode: false,
+  localModelUrl: 'http://localhost:11434',
+  localModel: 'llama3.2:latest',
+  toggleConfidentialMode() {
+    const next = !get().confidentialMode
+    set({ confidentialMode: next })
+    get().pushActivity(next ? 'Confidential mode enabled — local inference only' : 'Confidential mode disabled')
+  },
+  setLocalModelUrl(url) { set({ localModelUrl: url }) },
+  setLocalModel(m) { set({ localModel: m }) },
 
   commandHistory: [],
   selectedCase: null,

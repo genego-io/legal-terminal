@@ -17,6 +17,8 @@ export const MNEMONICS: { cmd: string; panel: ViewType; desc: string; tool: stri
   { cmd: 'LIVE', panel: 'LIVE', desc: 'Integration status',         tool: 'integration_status' },
   { cmd: 'WKFL', panel: 'WKFL', desc: 'Workflow launcher',          tool: 'skill_playbooks' },
   { cmd: 'AUDT', panel: 'AUDT', desc: 'Audit log',                  tool: 'utils.audit' },
+  { cmd: 'WTCH', panel: 'WTCH', desc: 'Docket Watch — entity monitoring', tool: 'pacer.docket_watch' },
+  { cmd: 'CONF', panel: 'CONF', desc: 'Privacy settings',           tool: 'confidential_mode' },
 ]
 
 function parseCommand(raw: string): { panel: ViewType | null; query: string } {

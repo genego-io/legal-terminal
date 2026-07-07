@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Lock } from 'lucide-react'
 import { useTerminalStore } from '../store/terminalStore'
 import { ClientModeToggle } from './ClientModeToggle'
 
@@ -18,16 +19,38 @@ function Clock() {
 const SEP = <span style={{ color: 'var(--border-bright)' }}>│</span>
 
 export function StatusBar() {
-  const { view, splitView, recentActivity } = useTerminalStore()
+  const { view, splitView, recentActivity, confidentialMode, navigate } = useTerminalStore()
   const lastActivity = recentActivity[0]
 
   return (
     <div style={{
       display: 'flex', alignItems: 'center', gap: 10,
-      background: 'var(--bg-panel2)', borderTop: '1px solid var(--border)',
+      background: confidentialMode ? 'rgba(200,160,60,0.06)' : 'var(--bg-panel2)',
+      borderTop: `1px solid ${confidentialMode ? 'rgba(200,160,60,0.3)' : 'var(--border)'}`,
       padding: '3px 14px', fontSize: 10, color: 'var(--text-muted)',
       flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace",
+      transition: 'background 0.2s, border-color 0.2s',
     }}>
+      {/* Confidential mode badge — only when active */}
+      {confidentialMode && (
+        <>
+          <button
+            onClick={() => navigate('CONF')}
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 5,
+              background: 'rgba(200,160,60,0.15)', border: '1px solid rgba(200,160,60,0.5)',
+              color: '#c8a03c', fontSize: 10, padding: '1px 7px', cursor: 'pointer',
+              fontFamily: "'IBM Plex Mono', monospace", letterSpacing: '0.04em',
+              animation: 'none',
+            }}
+            title="Confidential mode active — click to open settings"
+          >
+            <Lock size={10} />
+            CONF
+          </button>
+          {SEP}
+        </>
+      )}
       {/* Runtime mode toggle */}
       <ClientModeToggle />
       {SEP}

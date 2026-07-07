@@ -29,6 +29,10 @@
 |------------------------------------------------|------------------------|
 | ![DOCA](docs/screenshots/web-07-doca.png) | ![Palette](docs/screenshots/web-08-palette.png) |
 
+| Docket Watch — entity monitoring (under consideration) | Privacy Settings — Confidential Mode active |
+|--------------------------------------------------------|---------------------------------------------|
+| ![Docket Watch](docs/screenshots/web-10-docket-watch.png) | ![CONF active](docs/screenshots/web-12-conf-on.png) |
+
 ---
 
 ### TUI (Terminal UI)
@@ -75,6 +79,8 @@ server over SSE — see the Quick Start below.
 | `WKFL` | Workflow Launcher | `legal-mcp-toolkit` SKILL.md playbooks |
 | `AUDT` | Audit Log | `utils.audit` — all tool invocations |
 | `LIVE` | Integration Status | `integration_status` — CourtListener, PACER |
+| `WTCH` | Docket Watch *(under consideration)* | PACER docket monitoring — requires PACER API |
+| `CONF` | Privacy Settings | Confidential Mode — local inference only, ABA Rule 1.6 |
 
 ---
 
