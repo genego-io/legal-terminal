@@ -5,7 +5,9 @@ FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY webterm/package.json webterm/package-lock.json ./
-RUN npm ci
+# npm install (not ci) — lockfile is generated on Windows; Linux optional
+# deps (@emnapi/*) are resolved at build time on Alpine.
+RUN npm install --no-audit --no-fund
 
 COPY webterm/ .
 

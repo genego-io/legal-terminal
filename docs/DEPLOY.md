@@ -63,8 +63,10 @@ docker build --build-arg VITE_MCP_URL=https://your-mcp.example.com -t legal-term
 
 If you prefer Nixpacks over Docker, remove or rename `railway.toml` and Railway will detect Node automatically:
 
-- **Build command:** `npm ci && npm run build`
+- **Build command:** `npm install && npm run build`
 - **Start command:** `npm run start` (uses `serve` on `$PORT`)
+
+> Use `npm install` rather than `npm ci` when the lockfile is generated on Windows — Linux-only optional dependencies (`@emnapi/*`) are not always present in the lockfile and will cause `npm ci` to fail in Docker.
 
 ---
 
