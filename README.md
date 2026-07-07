@@ -124,8 +124,7 @@ Keyboard shortcuts: `F1`–`F10` open modules. Type mnemonics in the command bar
 See [docs/DEPLOY.md](./docs/DEPLOY.md) for full instructions. Quick version:
 
 1. Railway → **New Project** → deploy from this GitHub repo
-2. Set service **Root Directory** to `webterm`
-3. Generate a public domain under **Networking**
+2. Generate a public domain under **Networking** (no root directory config needed)
 
 Runs in mock mode by default — no backend required for the live demo.
 

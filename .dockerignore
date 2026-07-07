@@ -1,0 +1,11 @@
+node_modules
+webterm/node_modules
+webterm/dist
+webterm/.vite
+.git
+.cursor
+tui
+*.md
+!README.md
+docs
+fixtures

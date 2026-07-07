@@ -12,8 +12,9 @@ The web terminal is a static Vite SPA served by `serve`. It ships with a Dockerf
 
 1. Go to [railway.com](https://railway.com) → **New Project** → **Deploy from GitHub repo**
 2. Select `genego-io/legal-terminal` (or your fork)
-3. In the service **Settings → Source**, set **Root Directory** to `webterm`
-4. Railway reads `webterm/railway.toml` and builds via `webterm/Dockerfile`
+3. **No root directory change needed** — the repo-root `Dockerfile` and `railway.toml` build `webterm/` automatically
+
+> **Alternative:** set service **Root Directory** to `webterm` and Railway will use `webterm/Dockerfile` instead.
 
 ### 2. Deploy
 

@@ -1,0 +1,14 @@
+# Railway config — repo root (monorepo).
+# Builds the web terminal from webterm/ via the root Dockerfile.
+# Alternative: set service Root Directory to `webterm` and use webterm/Dockerfile instead.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = ["webterm/**"]
+
+[deploy]
+healthcheckPath = "/"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 5
