@@ -1,31 +1,93 @@
 import { useState } from 'react'
 import { PanelChrome, RiskBadge, LoadingDots } from '../components/PanelChrome'
+import { FileUploadZone } from '../components/FileUploadZone'
+import type { UploadedFile } from '../components/FileUploadZone'
 import { client } from '../mcp/index'
+import { useTerminalStore } from '../store/terminalStore'
 
 const MOCK_FILES = ['vendor_nda_2026.docx', 'saas_msa_draft.docx', 'dpa_addendum_eu.pdf', 'hipaa_baa_template.docx']
 
 export function DocaPanel({ id }: { id: string }) {
+  const { pushActivity } = useTerminalStore()
   const [file, setFile] = useState('')
   const [customFile, setCustomFile] = useState('')
   const [result, setResult] = useState<Awaited<ReturnType<typeof client.analyzeDocument>> | null>(null)
   const [loading, setLoading] = useState(false)
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
 
   async function analyze(f: string) {
     if (!f) return
     setLoading(true)
+    setResult(null)
     const res = await client.analyzeDocument(f)
-    setResult(res); setLoading(false)
+    setResult(res)
+    setLoading(false)
+    pushActivity(`Analyzed: ${f}`)
   }
 
   async function queue(f: string) {
+    if (!f) return
     await client.queueDocumentAnalysis(f)
-    alert(`"${f}" queued for background analysis. Check the JOBS panel.`)
+    pushActivity(`Queued for background analysis: ${f}`)
+  }
+
+  function onUpload(files: UploadedFile[]) {
+    setUploadedFiles(prev => {
+      const existing = new Set(prev.map(f => f.name))
+      return [...prev, ...files.filter(f => !existing.has(f.name))]
+    })
+    // Auto-analyze the first newly uploaded file
+    if (files.length > 0) {
+      setFile(files[0].name)
+      analyze(files[0].name)
+    }
+  }
+
+  function removeUploaded(name: string) {
+    setUploadedFiles(prev => prev.filter(f => f.name !== name))
+    if (file === name) { setFile(''); setResult(null) }
   }
 
   return (
     <PanelChrome id={id} mnemonic="DOCA" title="Document Analyzer" subtitle="analyze_document · extract_contract_metadata" panelType="DOCA">
-      <div style={{ padding: '8px 10px', borderBottom: '1px solid var(--border)' }}>
-        <div className="section-label">Select file</div>
+      <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--border)' }}>
+
+        {/* ── Upload zone ── */}
+        <div className="section-label" style={{ marginBottom: 6 }}>Upload documents</div>
+        <FileUploadZone
+          allowFolder
+          accept=".pdf,.docx,.doc,.txt,.md"
+          onFiles={onUpload}
+          style={{ marginBottom: uploadedFiles.length > 0 ? 8 : 0 }}
+        />
+
+        {/* Uploaded file chips */}
+        {uploadedFiles.length > 0 && (
+          <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 6, marginBottom: 8 }}>
+            {uploadedFiles.map(f => (
+              <button key={f.name}
+                onClick={() => { setFile(f.name); analyze(f.name) }}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 4,
+                  background: file === f.name ? 'var(--accent-faint)' : 'var(--bg-panel2)',
+                  border: '1px solid ' + (file === f.name ? 'var(--accent-dim)' : 'var(--border)'),
+                  color: file === f.name ? 'var(--accent)' : 'var(--text-muted)',
+                  fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, padding: '2px 8px', cursor: 'pointer',
+                }}
+              >
+                {f.path ? `${f.path}` : f.name}
+                <span
+                  onClick={e => { e.stopPropagation(); removeUploaded(f.name) }}
+                  style={{ opacity: 0.5, marginLeft: 2, fontSize: 11, lineHeight: 1 }}
+                  title="Remove"
+                >×</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* ── Example files ── */}
+        <div className="section-label" style={{ marginTop: 8, marginBottom: 6 }}>Example files</div>
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 8 }}>
           {MOCK_FILES.map(f => (
             <button key={f} onClick={() => { setFile(f); analyze(f) }} style={{
@@ -38,6 +100,7 @@ export function DocaPanel({ id }: { id: string }) {
             </button>
           ))}
         </div>
+
         <div style={{ display: 'flex', gap: 6 }}>
           <input value={customFile} onChange={e => setCustomFile(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && (setFile(customFile), analyze(customFile))}
@@ -86,7 +149,11 @@ export function DocaPanel({ id }: { id: string }) {
           </>
         )}
         {!result && !loading && (
-          <div style={{ color: 'var(--text-muted)', fontSize: 12 }}>Select a file above to analyze it.</div>
+          <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-muted)' }}>
+            <div style={{ fontSize: 32, marginBottom: 12, opacity: 0.3 }}>⬆</div>
+            <div style={{ fontSize: 13, marginBottom: 4, color: 'var(--text-dim)' }}>Upload a document to analyze</div>
+            <div style={{ fontSize: 11 }}>Drop a PDF, DOCX, or select a folder containing contracts</div>
+          </div>
         )}
       </div>
     </PanelChrome>

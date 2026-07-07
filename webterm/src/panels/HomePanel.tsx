@@ -88,7 +88,7 @@ export function HomePanel() {
         display: 'flex', alignItems: 'flex-start', gap: 20, flexWrap: 'wrap',
       }}>
         <div style={{ flex: 1, minWidth: 240 }}>
-          <div style={{ color: 'var(--text-heading)', fontWeight: 700, fontSize: 16, marginBottom: 6 }}>
+          <div style={{ color: 'var(--text-heading)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 20, marginBottom: 6, letterSpacing: '0.01em' }}>
             Legal Terminal
           </div>
           <div style={{ color: 'var(--text-dim)', fontSize: 12, lineHeight: 1.7, maxWidth: 480 }}>

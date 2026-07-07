@@ -63,7 +63,7 @@ export function Sidebar() {
       {/* Logo row */}
       <div className="sidebar-logo" style={{ justifyContent: collapsed ? 'center' : undefined }}>
         {!collapsed && (
-          <span style={{ color: 'var(--text-heading)', fontWeight: 700, fontSize: 13, letterSpacing: '0.04em', flex: 1 }}>
+          <span style={{ color: 'var(--text-heading)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 14, letterSpacing: '0.01em', flex: 1 }}>
             Legal Terminal
           </span>
         )}

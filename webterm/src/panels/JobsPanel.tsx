@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { PanelChrome } from '../components/PanelChrome'
+import { FileUploadZone } from '../components/FileUploadZone'
 import { client } from '../mcp/index'
 import { useTerminalStore } from '../store/terminalStore'
 import type { AnalysisJob } from '../mcp/types'
@@ -50,13 +51,27 @@ export function JobsPanel({ id }: { id: string }) {
       }
     >
       {/* Queue toolbar */}
-      <div style={{ padding: '8px 14px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 8, flexShrink: 0 }}>
-        <input value={newFile} onChange={e => setNewFile(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && queue()}
-          placeholder="Filename to queue for analysis…"
-          className="field-input" style={{ flex: 1 }}
+      <div style={{ padding: '8px 14px', borderBottom: '1px solid var(--border)', flexShrink: 0 }}>
+        <FileUploadZone
+          allowFolder
+          accept=".pdf,.docx,.doc,.txt,.md"
+          onFiles={files => {
+            files.forEach(f => {
+              client.queueDocumentAnalysis(f.name)
+              pushActivity(`JOBS queued "${f.name}"`)
+            })
+            setTimeout(refresh, 200)
+          }}
+          style={{ marginBottom: 6 }}
         />
-        <button onClick={queue} className="btn">+ Queue</button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <input value={newFile} onChange={e => setNewFile(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && queue()}
+            placeholder="Or type a filename to queue…"
+            className="field-input" style={{ flex: 1 }}
+          />
+          <button onClick={queue} className="btn">+ Queue</button>
+        </div>
       </div>
 
       {/* Stats strip */}

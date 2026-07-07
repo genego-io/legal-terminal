@@ -1,4 +1,6 @@
 import { create } from 'zustand'
+import { setClientMode as _setClientMode, getClientMode, getLiveUrl } from '../mcp/index'
+import type { ClientMode } from '../mcp/index'
 
 export type PanelType =
   | 'PREC' | 'CASE' | 'STAT' | 'CITE'
@@ -25,6 +27,11 @@ interface TerminalStore {
   view: ViewState
   splitView: ViewState | null
   sidebarCollapsed: boolean
+
+  // Client mode
+  clientMode: ClientMode
+  liveUrl: string
+  switchClientMode(mode: ClientMode, url?: string): Promise<void>
 
   // Context
   commandHistory: string[]
@@ -59,6 +66,14 @@ export const useTerminalStore = create<TerminalStore>((set, get) => ({
   view: { type: 'HOME' },
   splitView: null,
   sidebarCollapsed: false,
+
+  clientMode: getClientMode(),
+  liveUrl: getLiveUrl(),
+  async switchClientMode(mode, url) {
+    await _setClientMode(mode, url)
+    set({ clientMode: mode, liveUrl: url ?? get().liveUrl })
+    get().pushActivity(`Client switched to ${mode}${mode === 'live' ? ` — ${url ?? get().liveUrl}` : ''}`)
+  },
 
   commandHistory: [],
   selectedCase: null,

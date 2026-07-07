@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTerminalStore } from '../store/terminalStore'
+import { ClientModeToggle } from './ClientModeToggle'
 
 function Clock() {
   const [t, setT] = useState(new Date())
@@ -18,21 +19,17 @@ const SEP = <span style={{ color: 'var(--border-bright)' }}>│</span>
 
 export function StatusBar() {
   const { view, splitView, recentActivity } = useTerminalStore()
-  const isLive = Boolean(import.meta.env.VITE_MCP_URL)
   const lastActivity = recentActivity[0]
 
   return (
     <div style={{
-      display: 'flex', alignItems: 'center', gap: 12,
+      display: 'flex', alignItems: 'center', gap: 10,
       background: 'var(--bg-panel2)', borderTop: '1px solid var(--border)',
       padding: '3px 14px', fontSize: 10, color: 'var(--text-muted)',
       flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace",
     }}>
-      {/* Connection */}
-      <span>
-        <span style={{ color: isLive ? 'var(--status-ok)' : 'var(--text-muted)' }}>●</span>
-        {' '}{isLive ? 'live :8000' : 'mock'}
-      </span>
+      {/* Runtime mode toggle */}
+      <ClientModeToggle />
       {SEP}
       <span style={{ opacity: 0.5 }}>○ CourtListener</span>
       {SEP}
