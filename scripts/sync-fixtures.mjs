@@ -9,7 +9,10 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
 const FIX = path.join(ROOT, 'fixtures')
-const OUT = path.join(ROOT, 'webterm', 'src', 'fixtures.ts')
+// Monorepo: webterm/src/fixtures.ts — Docker standalone: may use repo layout above
+const OUT = fs.existsSync(path.join(ROOT, 'webterm', 'src'))
+  ? path.join(ROOT, 'webterm', 'src', 'fixtures.ts')
+  : path.join(ROOT, 'src', 'fixtures.ts')
 
 const FILES = [
   ['cases.json', 'CASES', 'Case[]'],
