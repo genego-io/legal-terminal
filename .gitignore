@@ -1,0 +1,35 @@
+# Node / webterm
+node_modules/
+dist/
+.vite/
+webterm/node_modules/
+webterm/dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+build/
+*.dist-info/
+.venv/
+venv/
+.env
+
+# Upstream AGPL dependency — never vendor; link instead
+legal-mcp/
+
+# Capture script (dev tool only)
+tui/capture_screenshots.py
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.cursor/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

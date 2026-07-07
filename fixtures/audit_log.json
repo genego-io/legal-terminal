@@ -1,0 +1,14 @@
+[
+  { "id": "a-001", "timestamp": "2026-07-07T02:03:11Z", "tool": "queue_document_analysis", "user": "attorney", "category": "analysis", "input": { "file": "vendor_nda_2026.docx" }, "success": true, "duration_ms": 42 },
+  { "id": "a-002", "timestamp": "2026-07-07T02:03:44Z", "tool": "get_analysis_result", "user": "attorney", "category": "analysis", "input": { "job_id": "job-001" }, "success": true, "duration_ms": 18 },
+  { "id": "a-003", "timestamp": "2026-07-07T02:04:02Z", "tool": "analyze_clauses", "user": "attorney", "category": "contract", "input": { "contract_id": "client_proposed_nda" }, "success": true, "duration_ms": 310 },
+  { "id": "a-004", "timestamp": "2026-07-07T02:04:18Z", "tool": "suggest_clause_alternatives", "user": "attorney", "category": "contract", "input": { "clause_type": "indemnification" }, "success": true, "duration_ms": 195 },
+  { "id": "a-005", "timestamp": "2026-07-07T02:05:00Z", "tool": "queue_document_analysis", "user": "attorney", "category": "analysis", "input": { "file": "saas_msa_draft.docx" }, "success": true, "duration_ms": 35 },
+  { "id": "a-006", "timestamp": "2026-07-07T02:05:28Z", "tool": "get_analysis_result", "user": "attorney", "category": "analysis", "input": { "job_id": "job-002" }, "success": true, "duration_ms": 22 },
+  { "id": "a-007", "timestamp": "2026-07-07T02:06:10Z", "tool": "search_precedents", "user": "attorney", "category": "search", "input": { "query": "breach of contract delivery" }, "success": true, "duration_ms": 88 },
+  { "id": "a-008", "timestamp": "2026-07-07T02:06:45Z", "tool": "validate_citation", "user": "attorney", "category": "validation", "input": { "citation": "2022 Cal.App.4th 1234" }, "success": true, "duration_ms": 14 },
+  { "id": "a-009", "timestamp": "2026-07-07T02:07:30Z", "tool": "check_privilege_risk", "user": "attorney", "category": "privilege", "input": { "file": "litigation_memo.docx", "provider": "openai" }, "success": true, "duration_ms": 54 },
+  { "id": "a-010", "timestamp": "2026-07-07T02:08:55Z", "tool": "queue_document_analysis", "user": "attorney", "category": "analysis", "input": { "file": "dpa_addendum_eu.pdf" }, "success": true, "duration_ms": 38 },
+  { "id": "a-011", "timestamp": "2026-07-07T02:09:10Z", "tool": "queue_document_analysis", "user": "attorney", "category": "analysis", "input": { "file": "advisor_agreement_v3.docx" }, "success": false, "duration_ms": 3200 },
+  { "id": "a-012", "timestamp": "2026-07-07T02:10:00Z", "tool": "generate_negotiation_guide", "user": "attorney", "category": "contract", "input": { "contract_id": "client_proposed_nda", "party_role": "buyer" }, "success": true, "duration_ms": 241 }
+]

@@ -1,0 +1,296 @@
+@import "tailwindcss";
+
+/* Professional dark theme — graphite/slate palette */
+@layer base {
+  :root {
+    /* Backgrounds */
+    --bg:          #0e1114;
+    --bg-panel:    #131720;
+    --bg-panel2:   #1a1f2a;
+    --bg-hover:    #1f2433;
+    --bg-selected: #232a38;
+
+    /* Borders */
+    --border:        #252b38;
+    --border-bright: #2e3648;
+
+    /* Text */
+    --text:         #d4d8df;
+    --text-dim:     #8a9099;
+    --text-muted:   #4d5563;
+    --text-heading: #e8eaf0;
+
+    /* Accent — single steel blue */
+    --accent:       #5b8dbe;
+    --accent-dim:   #3d6490;
+    --accent-faint: #1c2f45;
+
+    /* Risk — desaturated, used as dots/borders only */
+    --risk-critical: #c25b5b;
+    --risk-high:     #c2854f;
+    --risk-medium:   #b3a44f;
+    --risk-low:      #6fa370;
+
+    /* Status */
+    --status-ok:   #6fa370;
+    --status-warn: #b3a44f;
+    --status-err:  #c25b5b;
+    --status-info: #5b8dbe;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  /* Monospace only where data lives */
+  .mono {
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 12px;
+  }
+
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+}
+
+@layer utilities {
+  /* ── Layout ── */
+  .panel-chrome {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    background: var(--bg-panel2);
+    border-bottom: 1px solid var(--border);
+    padding: 5px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  /* ── Mnemonic badges — quiet outlined */
+  .mnemonic-badge {
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border: 1px solid var(--accent-dim);
+    letter-spacing: 0.06em;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Command input ── */
+  .term-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-heading);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    width: 100%;
+    caret-color: var(--accent);
+  }
+  .term-input::placeholder { color: var(--text-muted); }
+
+  /* ── Risk indicators — dot + label, no filled badges ── */
+  .risk-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .risk-critical .risk-dot, .risk-critical-dot { background: var(--risk-critical); }
+  .risk-high .risk-dot, .risk-high-dot         { background: var(--risk-high); }
+  .risk-medium .risk-dot, .risk-medium-dot     { background: var(--risk-medium); }
+  .risk-low .risk-dot, .risk-low-dot           { background: var(--risk-low); }
+
+  .risk-critical { color: var(--risk-critical); }
+  .risk-high     { color: var(--risk-high); }
+  .risk-medium   { color: var(--risk-medium); }
+  .risk-low      { color: var(--risk-low); }
+
+  /* ── Tables ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .data-table th {
+    padding: 5px 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--bg-panel2);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .data-table td {
+    padding: 5px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .data-table tr:hover td { background: var(--bg-hover); }
+  .data-table tr.selected td { background: var(--bg-selected); }
+  .data-table td.num { text-align: right; font-family: 'IBM Plex Mono', monospace; color: var(--text-dim); }
+  .data-table td.mono-cell { font-family: 'IBM Plex Mono', monospace; color: var(--text-dim); font-size: 11px; }
+
+  /* ── Buttons ── */
+  .btn {
+    background: var(--bg-panel2);
+    border: 1px solid var(--border-bright);
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: color 0.1s, border-color 0.1s;
+  }
+  .btn:hover { color: var(--text); border-color: var(--accent-dim); }
+
+  .btn-primary {
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: #fff;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 14px;
+    cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); }
+
+  .btn-active {
+    background: var(--accent-faint);
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  /* ── Inputs ── */
+  .field-input {
+    background: var(--bg-panel2);
+    border: 1px solid var(--border-bright);
+    color: var(--text-heading);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 5px 10px;
+    outline: none;
+    width: 100%;
+  }
+  .field-input:focus { border-color: var(--accent-dim); }
+  .field-input::placeholder { color: var(--text-muted); }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  /* ── Tabs ── */
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-panel2);
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tab-btn:hover { color: var(--text-dim); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ── Relevance bar ── */
+  .relevance-bar {
+    height: 3px;
+    background: var(--border-bright);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .relevance-fill {
+    height: 100%;
+    background: var(--accent-dim);
+    border-radius: 2px;
+  }
+
+  /* ── Static activity strip (replaces ticker) ── */
+  .activity-strip {
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--bg-panel2);
+    border-bottom: 1px solid var(--border);
+    padding: 3px 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Info pane ── */
+  .info-pane {
+    padding: 14px;
+    color: var(--text-dim);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .info-pane h3 {
+    color: var(--text-heading);
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .info-pane .citation {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 7px;
+    border: 1px solid var(--border-bright);
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "job-001",
+    "file": "vendor_nda_2026.docx",
+    "status": "complete",
+    "queued_at": "2026-07-07T02:03:11Z",
+    "completed_at": "2026-07-07T02:03:44Z",
+    "risk_level": "HIGH",
+    "clause_count": 12,
+    "flags": 3
+  },
+  {
+    "id": "job-002",
+    "file": "saas_msa_draft.docx",
+    "status": "complete",
+    "queued_at": "2026-07-07T02:05:00Z",
+    "completed_at": "2026-07-07T02:05:28Z",
+    "risk_level": "MEDIUM",
+    "clause_count": 9,
+    "flags": 1
+  },
+  {
+    "id": "job-003",
+    "file": "dpa_addendum_eu.pdf",
+    "status": "processing",
+    "queued_at": "2026-07-07T02:08:55Z",
+    "completed_at": null,
+    "risk_level": null,
+    "clause_count": null,
+    "flags": null
+  },
+  {
+    "id": "job-004",
+    "file": "advisor_agreement_v3.docx",
+    "status": "queued",
+    "queued_at": "2026-07-07T02:09:10Z",
+    "completed_at": null,
+    "risk_level": null,
+    "clause_count": null,
+    "flags": null
+  },
+  {
+    "id": "job-005",
+    "file": "hipaa_baa_template.docx",
+    "status": "error",
+    "queued_at": "2026-07-07T02:01:00Z",
+    "completed_at": "2026-07-07T02:01:03Z",
+    "risk_level": null,
+    "clause_count": null,
+    "flags": null,
+    "error": "File parse error: unsupported encryption format"
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "Cal.Civ.Code.1657",
+    "title": "Reasonable Time for Performance",
+    "jurisdiction": "CA",
+    "citation": "Cal. Civ. Code § 1657",
+    "text": "Where no time is specified for the performance of an act required to be performed, a reasonable time is allowed. If the act is in its nature capable of being done instantly, it must be performed immediately, or at least within such time as may be necessary for the performance of the act.",
+    "enacted": "1872",
+    "last_amended": "1983",
+    "history": "Enacted in 1872 as part of the original California Civil Code; amended in 1983 for a minor language clarification. Codifies the common-law reasonable-time principle for contract performance.",
+    "topics": ["reasonable time", "contract performance", "default timing"]
+  },
+  {
+    "id": "Cal.Com.Code.2106",
+    "title": "Definitions: Conforming to Contract; Termination; Cancellation",
+    "jurisdiction": "CA",
+    "citation": "Cal. Com. Code § 2106",
+    "text": "In this division unless the context otherwise requires 'contract' and 'agreement' are limited to those relating to the present or future sale of goods. Goods or conduct including any part of a performance are 'conforming' or conform to the contract when they are in accordance with the obligations under the contract.",
+    "enacted": "1963",
+    "last_amended": "2006",
+    "history": "Part of California's adoption of the Uniform Commercial Code, Division 2 (Sales).",
+    "topics": ["sale of goods", "conforming performance", "UCC"]
+  },
+  {
+    "id": "18.USC.1030",
+    "title": "Computer Fraud and Abuse Act",
+    "jurisdiction": "Federal",
+    "citation": "18 U.S.C. § 1030",
+    "text": "Whoever knowingly accesses a computer without authorization or exceeds authorized access, and thereby obtains information contained in a financial record of a financial institution, or of a card issuer as defined in section 1602(n) of title 15, or contained in a file of a consumer reporting agency on a consumer, as such terms are defined in the Fair Credit Reporting Act (15 U.S.C. 1681 et seq.) shall be punished as provided in subsection (c).",
+    "enacted": "1986",
+    "last_amended": "2008",
+    "history": "Originally enacted as the Counterfeit Access Device and Computer Fraud and Abuse Act of 1984; substantially amended in 1986, 1994, 1996, 2001, and 2008.",
+    "topics": ["computer fraud", "unauthorized access", "cybersecurity", "criminal liability"]
+  },
+  {
+    "id": "GDPR.Art.28",
+    "title": "GDPR Article 28 — Processor",
+    "jurisdiction": "EU",
+    "citation": "GDPR Art. 28",
+    "text": "Where processing is to be carried out on behalf of a controller, the controller shall use only processors providing sufficient guarantees to implement appropriate technical and organisational measures in such a manner that processing will meet the requirements of this Regulation and ensure the protection of the rights of the data subject.",
+    "enacted": "2016",
+    "last_amended": "2018",
+    "history": "Part of Regulation (EU) 2016/679 (GDPR), effective 25 May 2018.",
+    "topics": ["data processing", "processor obligations", "GDPR", "data protection"]
+  }
+]

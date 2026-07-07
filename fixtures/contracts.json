@@ -1,0 +1,146 @@
+[
+  {
+    "id": "standard_nda_template",
+    "title": "Standard Mutual Non-Disclosure Agreement",
+    "type": "NDA",
+    "risk_level": "MEDIUM",
+    "clauses": [
+      {
+        "key": "confidentiality_scope",
+        "label": "Confidentiality Scope",
+        "text": "Recipient shall hold in strict confidence all proprietary information disclosed by the Disclosing Party, including all technical, business, and financial information, whether or not marked confidential.",
+        "risk": "LOW",
+        "risk_note": "Broad scope favors disclosing party. Standard language."
+      },
+      {
+        "key": "term_duration",
+        "label": "Term & Duration",
+        "text": "The obligations of confidentiality shall survive for five (5) years following termination of this Agreement.",
+        "risk": "LOW",
+        "risk_note": "5-year survival is standard for commercial NDAs."
+      },
+      {
+        "key": "return_of_materials",
+        "label": "Return of Materials",
+        "text": "Upon termination, Recipient shall return or destroy all Confidential Materials within thirty (30) days.",
+        "risk": "LOW",
+        "risk_note": "30-day window is standard. Consider adding a certification requirement."
+      },
+      {
+        "key": "governing_law",
+        "label": "Governing Law",
+        "text": "This Agreement shall be governed by the laws of the State of California.",
+        "risk": "LOW",
+        "risk_note": "California is an acceptable jurisdiction for commercial agreements."
+      },
+      {
+        "key": "remedies",
+        "label": "Remedies",
+        "text": "The Disclosing Party shall be entitled to seek injunctive relief in addition to any other remedies available at law or in equity.",
+        "risk": "LOW",
+        "risk_note": "Standard injunctive relief provision."
+      }
+    ],
+    "missing_clauses": ["indemnification", "dispute_resolution", "limitation_of_liability"],
+    "parties": { "disclosing": "Client Corp", "receiving": "Vendor LLC" },
+    "governing_law": "California",
+    "term": "2 years",
+    "liability_cap": null
+  },
+  {
+    "id": "client_proposed_nda",
+    "title": "Client Proposed Non-Disclosure Agreement",
+    "type": "NDA",
+    "risk_level": "HIGH",
+    "clauses": [
+      {
+        "key": "confidentiality_scope",
+        "label": "Confidentiality Scope",
+        "text": "Recipient shall hold in confidence only information that is specifically marked 'Confidential' at the time of disclosure.",
+        "risk": "HIGH",
+        "risk_note": "Narrowly scoped — only marked materials protected. Oral disclosures unprotected. Consider broadening."
+      },
+      {
+        "key": "term_duration",
+        "label": "Term & Duration",
+        "text": "The obligations of confidentiality shall survive for three (3) years following termination of this Agreement.",
+        "risk": "MEDIUM",
+        "risk_note": "3-year survival is below the 5-year market standard. Recommend extending."
+      },
+      {
+        "key": "return_of_materials",
+        "label": "Return of Materials",
+        "text": "Upon termination, Recipient shall return or destroy all Confidential Materials within sixty (60) days.",
+        "risk": "MEDIUM",
+        "risk_note": "60-day window is longer than standard 30 days. Creates extended exposure window."
+      },
+      {
+        "key": "governing_law",
+        "label": "Governing Law",
+        "text": "This Agreement shall be governed by the laws of the State of California.",
+        "risk": "LOW",
+        "risk_note": "California jurisdiction acceptable."
+      },
+      {
+        "key": "indemnification",
+        "label": "Indemnification",
+        "text": "Recipient shall indemnify and hold harmless the Disclosing Party against any and all losses arising from unauthorized disclosure, without limitation of liability.",
+        "risk": "CRITICAL",
+        "risk_note": "Unlimited indemnification with no liability cap is highly unusual and risky. Negotiate a cap."
+      }
+    ],
+    "missing_clauses": ["remedies", "dispute_resolution", "limitation_of_liability"],
+    "parties": { "disclosing": "Client Corp", "receiving": "Vendor LLC" },
+    "governing_law": "California",
+    "term": "3 years",
+    "liability_cap": null
+  },
+  {
+    "id": "master_services_agreement_tech",
+    "title": "Master Services Agreement — Technology & Software",
+    "type": "MSA",
+    "risk_level": "MEDIUM",
+    "clauses": [
+      {
+        "key": "scope_of_services",
+        "label": "Scope of Services",
+        "text": "Provider shall develop, deliver, and maintain the software and technology services described in mutually executed Statements of Work.",
+        "risk": "LOW",
+        "risk_note": "Clear scope delegation to SOWs. Standard approach."
+      },
+      {
+        "key": "intellectual_property",
+        "label": "Intellectual Property",
+        "text": "All work product, code, and deliverables created by Provider specifically for Client under this Agreement shall be works-made-for-hire. Provider retains ownership of its pre-existing tools, frameworks, and methodologies ('Background IP').",
+        "risk": "MEDIUM",
+        "risk_note": "Works-for-hire favorable for client but review Background IP carve-out scope carefully."
+      },
+      {
+        "key": "data_security",
+        "label": "Data Security",
+        "text": "Provider shall maintain industry-standard security controls, including encryption in transit and at rest, access controls, and annual penetration testing. Provider shall notify Client of any confirmed security incident within forty-eight (48) hours.",
+        "risk": "LOW",
+        "risk_note": "48-hour incident notification is standard. SOC 2 attestation should be referenced."
+      },
+      {
+        "key": "limitation_of_liability",
+        "label": "Limitation of Liability",
+        "text": "Each party's aggregate liability shall not exceed the greater of (i) fees paid in the twelve (12) months preceding the claim or (ii) $500,000. Liability for gross negligence, willful misconduct, or IP infringement is not capped.",
+        "risk": "LOW",
+        "risk_note": "Balanced cap with appropriate carve-outs for gross negligence and IP."
+      },
+      {
+        "key": "dispute_resolution",
+        "label": "Dispute Resolution",
+        "text": "Disputes shall first be escalated to senior management for good-faith negotiation. Unresolved disputes shall be submitted to binding arbitration under JAMS rules in San Francisco, California.",
+        "risk": "LOW",
+        "risk_note": "JAMS arbitration is standard. Consider specifying arbitrator selection process."
+      }
+    ],
+    "missing_clauses": [],
+    "parties": { "provider": "TechVendor Inc.", "client": "Enterprise Corp" },
+    "governing_law": "Delaware",
+    "term": "2 years, auto-renewing",
+    "liability_cap": "$500,000"
+  }
+]

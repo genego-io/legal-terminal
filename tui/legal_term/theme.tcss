@@ -1,0 +1,242 @@
+/* Professional dark theme — graphite/slate palette */
+
+Screen {
+    background: #0e1114;
+    color: #d4d8df;
+}
+
+/* ── App shell ── */
+
+Header {
+    background: #131720;
+    color: #d4d8df;
+    border-bottom: tall #252b38;
+    padding: 0 1;
+    height: 1;
+    dock: top;
+}
+
+Footer {
+    background: #131720;
+    color: #4d5563;
+    border-top: tall #252b38;
+    height: 1;
+    dock: bottom;
+}
+
+/* ── Command input ── */
+
+#command-bar {
+    background: #0e1114;
+    border-bottom: tall #252b38;
+    height: 3;
+    padding: 0 1;
+    dock: top;
+}
+
+#cmd-prompt {
+    color: #5b8dbe;
+    width: 3;
+    margin-top: 1;
+}
+
+#cmd-input {
+    background: transparent;
+    border: none;
+    color: #e8eaf0;
+    width: 1fr;
+}
+
+#cmd-input:focus {
+    border: none;
+}
+
+/* ── Tabbed content ── */
+
+TabbedContent {
+    background: #0e1114;
+    height: 1fr;
+}
+
+TabbedContent ContentSwitcher {
+    background: #0e1114;
+}
+
+TabPane {
+    background: #0e1114;
+    padding: 0;
+}
+
+Tabs {
+    background: #131720;
+    border-bottom: tall #252b38;
+    height: 3;
+}
+
+Tab {
+    background: #131720;
+    color: #4d5563;
+    border-bottom: tall #252b38;
+    padding: 0 2;
+    text-style: none;
+}
+
+Tab:hover {
+    color: #8a9099;
+    background: #1a1f2a;
+}
+
+Tab.-active {
+    color: #5b8dbe;
+    background: #131720;
+    border-bottom: tall #5b8dbe;
+    text-style: none;
+}
+
+/* ── Data table ── */
+
+DataTable {
+    background: #0e1114;
+    color: #d4d8df;
+    border: none;
+    height: 1fr;
+}
+
+DataTable > .datatable--header {
+    background: #131720;
+    color: #4d5563;
+    text-style: none;
+}
+
+DataTable > .datatable--cursor {
+    background: #232a38;
+    color: #e8eaf0;
+}
+
+DataTable > .datatable--even-row {
+    background: #111318;
+}
+
+DataTable > .datatable--odd-row {
+    background: #0e1114;
+}
+
+/* ── Widgets ── */
+
+#panel-chrome {
+    background: #131720;
+    border: tall #252b38;
+    height: 1fr;
+}
+
+.panel-header {
+    background: #1a1f2a;
+    color: #4d5563;
+    border-bottom: tall #252b38;
+    height: 3;
+    padding: 0 2;
+}
+
+.panel-header Label {
+    color: #8a9099;
+    text-style: none;
+}
+
+.mnemonic {
+    color: #5b8dbe;
+    background: #0e1114;
+    border: tall #3d6490;
+    width: auto;
+    padding: 0 1;
+}
+
+/* ── Risk indicator ── */
+
+.risk-CRITICAL { color: #c25b5b; }
+.risk-HIGH     { color: #c2854f; }
+.risk-MEDIUM   { color: #b3a44f; }
+.risk-LOW      { color: #6fa370; }
+
+/* ── Input fields ── */
+
+Input {
+    background: #1a1f2a;
+    border: tall #2e3648;
+    color: #e8eaf0;
+    height: 3;
+}
+
+Input:focus {
+    border: tall #3d6490;
+}
+
+Button {
+    background: #1a1f2a;
+    border: tall #2e3648;
+    color: #8a9099;
+    height: 3;
+    min-width: 12;
+}
+
+Button:hover {
+    background: #1f2433;
+    border: tall #3d6490;
+    color: #d4d8df;
+}
+
+Button.-primary {
+    background: #5b8dbe;
+    border: tall #5b8dbe;
+    color: #ffffff;
+}
+
+Button.-primary:hover {
+    background: #3d6490;
+    border: tall #3d6490;
+}
+
+/* ── Rich text detail pane ── */
+
+.detail-pane {
+    background: #131720;
+    color: #8a9099;
+    padding: 1 2;
+    height: 1fr;
+    overflow-y: auto;
+}
+
+.detail-pane Label {
+    color: #d4d8df;
+}
+
+/* ── Status bar ── */
+
+#status-bar {
+    background: #131720;
+    border-top: tall #252b38;
+    height: 1;
+    padding: 0 1;
+    dock: bottom;
+}
+
+/* ── Scrollbar ── */
+
+ScrollBar {
+    background: #0e1114;
+    color: #2e3648;
+}
+
+ScrollBarSlider {
+    background: #2e3648;
+}
+
+/* ── Log ── */
+
+RichLog {
+    background: #0e1114;
+    color: #8a9099;
+    border: none;
+    padding: 0 1;
+    height: 1fr;
+    overflow-y: auto;
+}

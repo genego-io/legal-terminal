@@ -1,0 +1,44 @@
+PROPRIETARY LICENSE
+
+Copyright (c) 2026 Edwin Genego / agentic-ops. All rights reserved.
+
+This repository and all of its contents — including but not limited to
+source code, design assets, screenshots, documentation, configuration files,
+and compiled artefacts (collectively, the "Work") — are the exclusive
+intellectual property of Edwin Genego / agentic-ops.
+
+SHOWCASE NOTICE
+This repository is published solely as a portfolio and showcase artefact.
+Viewing is permitted for personal evaluation purposes only.
+
+RESTRICTIONS
+Without prior written permission from Edwin Genego (edwin@genego.io), you
+may NOT:
+
+  1. Copy, reproduce, or distribute the Work in whole or in part.
+  2. Modify, adapt, translate, or create derivative works based on the Work.
+  3. Use the Work, or any substantial portion of it, in any commercial or
+     non-commercial product, service, or project.
+  4. Sublicense, sell, rent, lease, or otherwise transfer rights to the Work.
+  5. Remove or alter any proprietary notices, labels, or markings.
+
+DEPENDENCIES AND THIRD-PARTY CODE
+The Work integrates with the following separately-licensed upstream projects,
+which are NOT included in this repository:
+
+  - agentic-ops/legal-mcp  (AGPL-3.0)  https://github.com/agentic-ops/legal-mcp
+
+Those projects are governed by their own licenses. This license applies
+exclusively to the original code in this repository.
+
+DISCLAIMER
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING
+FROM, OUT OF, OR IN CONNECTION WITH THE WORK OR THE USE OR OTHER DEALINGS
+IN THE WORK.
+
+CONTACT
+For licensing inquiries or permissions: edwin@genego.io

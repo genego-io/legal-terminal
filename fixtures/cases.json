@@ -1,0 +1,72 @@
+[
+  {
+    "id": "smith-v-abc-corp-2022",
+    "name": "Smith v. ABC Corp",
+    "citation": "2022 Cal.App.4th 1234",
+    "court": "California Court of Appeal",
+    "jurisdiction": "CA",
+    "year": 2022,
+    "topics": ["contract breach", "delivery timing", "time is of the essence"],
+    "holding": "Time is of the essence clauses must be explicitly stated and cannot be implied from the circumstances alone.",
+    "summary": "The court held that where a commercial contract does not expressly state that time is of the essence, a reasonable-time standard governs delivery obligations.",
+    "disposition": "Judgment for plaintiff affirmed in part.",
+    "relevance_score": 0.97,
+    "cites": ["johnson-v-xyz-industries-2020"]
+  },
+  {
+    "id": "johnson-v-xyz-industries-2020",
+    "name": "Johnson v. XYZ Industries",
+    "citation": "2020 Cal.4th 567",
+    "court": "California Supreme Court",
+    "jurisdiction": "CA",
+    "year": 2020,
+    "topics": ["contract breach", "delivery terms", "reasonable time"],
+    "holding": "Commercial contracts are presumed to include reasonable delivery terms informed by industry standards.",
+    "summary": "The California Supreme Court clarified that industry standards are relevant, though not dispositive, when determining a reasonable time for performance.",
+    "disposition": "Reversed and remanded.",
+    "relevance_score": 0.91,
+    "cites": []
+  },
+  {
+    "id": "davis-v-tech-solutions-2021",
+    "name": "Davis v. Tech Solutions",
+    "citation": "2021 Cal.App.4th 890",
+    "court": "California Court of Appeal",
+    "jurisdiction": "CA",
+    "year": 2021,
+    "topics": ["material breach", "damages", "substantial non-performance"],
+    "holding": "A material breach requires substantial non-performance; minor delays are generally not material.",
+    "summary": "The court defined the threshold for material breach in commercial delivery disputes and addressed the calculation of foreseeable damages.",
+    "disposition": "Affirmed.",
+    "relevance_score": 0.85,
+    "cites": ["johnson-v-xyz-industries-2020"]
+  },
+  {
+    "id": "hadley-v-baxendale-1854",
+    "name": "Hadley v. Baxendale",
+    "citation": "156 Eng. Rep. 145",
+    "court": "Court of Exchequer",
+    "jurisdiction": "UK",
+    "year": 1854,
+    "topics": ["consequential damages", "foreseeability", "contract breach"],
+    "holding": "Consequential damages are recoverable only where they were reasonably foreseeable at the time of contracting.",
+    "summary": "The foundational rule on the foreseeability of contract damages, still routinely cited in United States commercial litigation.",
+    "disposition": "New trial ordered.",
+    "relevance_score": 0.78,
+    "cites": []
+  },
+  {
+    "id": "northstar-v-delta-2023",
+    "name": "Northstar Capital LLC v. Delta Ventures",
+    "citation": "2023 Del. Ch. 412",
+    "court": "Delaware Court of Chancery",
+    "jurisdiction": "DE",
+    "year": 2023,
+    "topics": ["fiduciary duty", "merger agreement", "earnout dispute"],
+    "holding": "A board's failure to disclose material synergies in an earnout schedule constitutes a breach of fiduciary duty to minority shareholders.",
+    "summary": "The court awarded equitable relief after finding management withheld forecasted synergies during vote on acquisition earnout terms.",
+    "disposition": "Relief granted in part.",
+    "relevance_score": 0.72,
+    "cites": []
+  }
+]

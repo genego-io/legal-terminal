@@ -1,0 +1,93 @@
+[
+  {
+    "id": "contract-risk-triage",
+    "mnemonic": "CTRX",
+    "title": "Contract Risk Triage",
+    "trigger": "Review a contract, compare two NDAs, identify risky clauses",
+    "steps": [
+      { "n": 1, "tool": "analyze_document / analyze_clauses",   "desc": "Run clause-level risk analysis on the contract" },
+      { "n": 2, "tool": "compare_documents / compare_contracts", "desc": "Diff two versions side-by-side if applicable" },
+      { "n": 3, "tool": "suggest_clause_alternatives",          "desc": "Get rewrite options for flagged clauses" },
+      { "n": 4, "tool": "deep_analyze_clause",                  "desc": "Deep reasoning on highest-risk clause (MCP sampling)" },
+      { "n": 5, "tool": "export_analysis_report",               "desc": "Export formatted .docx risk report" }
+    ]
+  },
+  {
+    "id": "negotiation-prep",
+    "mnemonic": "NEGO",
+    "title": "Negotiation Prep",
+    "trigger": "Buyer/seller wants to know what to push back on",
+    "steps": [
+      { "n": 1, "tool": "generate_negotiation_guide", "desc": "Per-clause accept/negotiate/reject guide with fallback language" },
+      { "n": 2, "tool": "suggest_clause_alternatives","desc": "Alternative phrasings for clauses flagged 'negotiate'" },
+      { "n": 3, "tool": "analyze_document",           "desc": "If real file: run analyze_document first, apply logic manually" }
+    ]
+  },
+  {
+    "id": "metadata-lookup",
+    "mnemonic": "META",
+    "title": "Contract Metadata Lookup",
+    "trigger": "What is the governing law / term / liability cap in this contract",
+    "steps": [
+      { "n": 1, "tool": "extract_contract_metadata", "desc": "Extract parties, dates, governing law, term, liability cap, payment terms as JSON" }
+    ]
+  },
+  {
+    "id": "privilege-safe-review",
+    "mnemonic": "PRIV",
+    "title": "Privilege-Safe AI Review",
+    "trigger": "Can I paste this into ChatGPT / Claude? Is this privileged?",
+    "steps": [
+      { "n": 1, "tool": "check_privilege_risk", "desc": "Assess routing risk against Heppner and ABA Rule 1.6" },
+      { "n": 2, "tool": "(advisory)",           "desc": "On HIGH/CRITICAL: advise against routing; suggest ollama (local, zero-retention)" }
+    ]
+  },
+  {
+    "id": "legal-research",
+    "mnemonic": "PREC",
+    "title": "Legal Research",
+    "trigger": "Find precedents for …, what does this statute say, research this issue",
+    "steps": [
+      { "n": 1, "tool": "search_precedents / search_case_law", "desc": "Keyword-ranked case search across local seed data" },
+      { "n": 2, "tool": "extract_statute",                    "desc": "Full statutory text with legislative history" },
+      { "n": 3, "tool": "research_legal_issue",               "desc": "Multi-source: cases + statutes + optional CourtListener" },
+      { "n": 4, "tool": "validate_citation",                  "desc": "Validate every citation before presenting" },
+      { "n": 5, "tool": "search_live_case_law",               "desc": "Live CourtListener/PACER query (only if local results insufficient and integration enabled)" }
+    ]
+  },
+  {
+    "id": "brief-drafting",
+    "mnemonic": "BRF",
+    "title": "Brief / Motion Drafting",
+    "trigger": "Draft a motion, outline this brief, argument structure",
+    "steps": [
+      { "n": 1, "tool": "generate_brief_outline",    "desc": "Outline from brief framework by case type" },
+      { "n": 2, "tool": "create_argument_structure", "desc": "IRAC-style argument scaffold" },
+      { "n": 3, "tool": "generate_issue_statement",  "desc": "Issue-statement framework from facts + law" },
+      { "n": 4, "tool": "search_precedents",         "desc": "Pull supporting precedents for each argument" }
+    ]
+  },
+  {
+    "id": "citation-cleanup",
+    "mnemonic": "CITE",
+    "title": "Citation Cleanup",
+    "trigger": "Validate citations, normalize Bluebook format, check integrity",
+    "steps": [
+      { "n": 1, "tool": "validate_citation",          "desc": "Validate citation structure and reporter" },
+      { "n": 2, "tool": "normalize_citation",         "desc": "Normalize to Bluebook-style abbreviations" },
+      { "n": 3, "tool": "verify_citation_integrity",  "desc": "Cross-check citation against case database" }
+    ]
+  },
+  {
+    "id": "batch-analysis",
+    "mnemonic": "JOBS",
+    "title": "Batch Document Analysis",
+    "trigger": "Analyze multiple contracts or documents in the background",
+    "steps": [
+      { "n": 1, "tool": "queue_document_analysis", "desc": "Queue each document; receive job IDs" },
+      { "n": 2, "tool": "list_analysis_jobs",      "desc": "List all jobs with status and timestamps" },
+      { "n": 3, "tool": "get_analysis_status",     "desc": "Poll status for in-progress jobs" },
+      { "n": 4, "tool": "get_analysis_result",     "desc": "Retrieve completed analysis result" }
+    ]
+  }
+]
