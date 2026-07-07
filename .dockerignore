@@ -8,4 +8,4 @@ tui
 *.md
 !README.md
 docs
-fixtures
+# fixtures/ required at build time for scripts/sync-fixtures.mjs
