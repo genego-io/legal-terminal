@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import type { KeyboardEvent } from 'react'
+import { Menu } from 'lucide-react'
 import { useTerminalStore } from '../store/terminalStore'
 import type { ViewType } from '../store/terminalStore'
 import { useViewport } from '../hooks/useViewport'
@@ -39,8 +40,8 @@ export function CommandLine({ onOpenPalette }: Props) {
   const [value, setValue] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
-  const { navigate, pushCommand } = useTerminalStore()
-  const { isTablet } = useViewport()
+  const { navigate, pushCommand, sidebarCollapsed, setSidebarCollapsed } = useTerminalStore()
+  const { isTablet, isCompact } = useViewport()
 
   const suggestions = value
     ? MNEMONICS.filter(m =>
@@ -104,6 +105,16 @@ export function CommandLine({ onOpenPalette }: Props) {
         padding: '6px 14px',
         height: '100%',
       }}>
+        {isCompact && sidebarCollapsed && (
+          <button
+            type="button"
+            className="sidebar-menu-btn"
+            onClick={() => setSidebarCollapsed(false)}
+            aria-label="Open navigation menu"
+          >
+            <Menu size={16} />
+          </button>
+        )}
         <span style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600, flexShrink: 0 }}>›</span>
         <input
           ref={inputRef}

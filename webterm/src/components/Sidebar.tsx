@@ -3,11 +3,12 @@ import {
   FileText, FolderOpen, ShieldAlert,
   PenTool, Scale,
   ClockIcon, GitBranch, ScrollText, Activity, Zap, Mail,
-  ChevronLeft, ChevronRight, Home,
+  ChevronLeft, ChevronRight, Home, X,
   Radar, Lock, Unlock, Sun, Moon,
 } from 'lucide-react'
 import { useTerminalStore } from '../store/terminalStore'
 import type { ViewType } from '../store/terminalStore'
+import { useViewport } from '../hooks/useViewport'
 
 interface NavItem {
   type: ViewType
@@ -66,129 +67,149 @@ const GROUPS: Group[] = [
 
 export function Sidebar() {
   const { view, navigate, sidebarCollapsed, setSidebarCollapsed, confidentialMode, toggleConfidentialMode, theme, toggleTheme } = useTerminalStore()
+  const { isCompact, isTablet } = useViewport()
   const collapsed = sidebarCollapsed
+  const mobileOpen = isCompact && !collapsed
+
+  function closeMobileNav() {
+    if (isCompact) setSidebarCollapsed(true)
+  }
+
+  function goTo(type: ViewType) {
+    navigate(type)
+    closeMobileNav()
+  }
+
+  function toggleCollapsed() {
+    if (isCompact && collapsed) {
+      setSidebarCollapsed(false)
+    } else {
+      setSidebarCollapsed(!collapsed)
+    }
+  }
+
+  const asideClass = [
+    'sidebar',
+    collapsed ? 'collapsed' : '',
+    mobileOpen ? 'mobile-open' : '',
+    isTablet && !isCompact ? 'tablet' : '',
+  ].filter(Boolean).join(' ')
 
   return (
-    <aside className={`sidebar${collapsed ? ' collapsed' : ''}`} style={{ display: 'flex', flexDirection: 'column' }}>
-      {/* Logo row */}
-      <div className="sidebar-logo" style={{ justifyContent: collapsed ? 'center' : undefined }}>
-        {!collapsed && (
-          <span style={{ color: 'var(--text-heading)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 700, fontSize: 14, letterSpacing: '0.01em', flex: 1 }}>
-            Legal Terminal
-          </span>
-        )}
+    <>
+      {mobileOpen && (
         <button
-          onClick={() => setSidebarCollapsed(!collapsed)}
-          style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', padding: 2 }}
-          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          type="button"
+          className="sidebar-backdrop"
+          onClick={closeMobileNav}
+          aria-label="Close navigation menu"
+        />
+      )}
+      <aside className={asideClass}>
+        <div className="sidebar-logo">
+          {!collapsed && (
+            <span className="sidebar-brand">Legal Terminal</span>
+          )}
+          <button
+            type="button"
+            className="sidebar-toggle-btn"
+            onClick={mobileOpen ? closeMobileNav : toggleCollapsed}
+            title={mobileOpen ? 'Close menu' : collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-label={mobileOpen ? 'Close menu' : collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {mobileOpen ? <X size={16} /> : collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+          </button>
+        </div>
+
+        <button
+          type="button"
+          className={`sidebar-item${view.type === 'HOME' ? ' active' : ''}`}
+          onClick={() => goTo('HOME')}
+          title={collapsed && !isCompact ? 'Home' : undefined}
         >
-          {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+          <Home size={14} className="sidebar-icon" />
+          {!collapsed && <span>Home</span>}
         </button>
-      </div>
 
-      {/* Home */}
-      <button
-        className={`sidebar-item${view.type === 'HOME' ? ' active' : ''}`}
-        onClick={() => navigate('HOME')}
-        style={collapsed ? { justifyContent: 'center', paddingLeft: 0 } : undefined}
-        title="Home"
-      >
-        <Home size={14} className="sidebar-icon" />
-        {!collapsed && <span>Home</span>}
-      </button>
-
-      {/* Nav groups */}
-      <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
-        {GROUPS.map(group => (
-          <div key={group.label}>
-            {!collapsed && (
-              <div className="sidebar-group-label">{group.label}</div>
-            )}
-            {collapsed && <div style={{ height: 8 }} />}
-            {group.items.map(item => (
-              <button
-                key={item.type}
-                className={`sidebar-item${view.type === item.type ? ' active' : ''}`}
-                onClick={() => navigate(item.type)}
-                style={collapsed ? { justifyContent: 'center', paddingLeft: 0 } : undefined}
-                title={collapsed ? `${item.label}${item.fkey ? ` (${item.fkey})` : ''}` : undefined}
-              >
-                <span className="sidebar-icon">{item.icon}</span>
+        <div className="sidebar-nav-scroll">
+          {GROUPS.map(group => (
+            <div key={group.label}>
               {!collapsed && (
-                <>
-                  <span style={{ flex: 1 }}>{item.label}</span>
-                  {item.type === 'WTCH' && <span className="soon-badge">Soon</span>}
-                  {item.fkey && <span className="fkey-hint">{item.fkey}</span>}
-                </>
+                <div className="sidebar-group-label">{group.label}</div>
               )}
-              </button>
-            ))}
-          </div>
-        ))}
-      </div>
+              {collapsed && !isCompact && <div className="sidebar-group-spacer" />}
+              {group.items.map(item => (
+                <button
+                  key={item.type}
+                  type="button"
+                  className={`sidebar-item${view.type === item.type ? ' active' : ''}`}
+                  onClick={() => goTo(item.type)}
+                  title={collapsed && !isCompact ? `${item.label}${item.fkey ? ` (${item.fkey})` : ''}` : undefined}
+                >
+                  <span className="sidebar-icon">{item.icon}</span>
+                  {!collapsed && (
+                    <>
+                      <span className="sidebar-item-label">{item.label}</span>
+                      {item.type === 'WTCH' && <span className="soon-badge">Soon</span>}
+                      {item.fkey && <span className="fkey-hint">{item.fkey}</span>}
+                    </>
+                  )}
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
 
-      {/* Bottom: theme + confidential mode + version */}
-      <div style={{
-        borderTop: `1px solid ${confidentialMode ? 'var(--confidential-border)' : 'var(--border)'}`,
-        transition: 'border-color 0.2s',
-      }}>
-        <button
-          onClick={toggleTheme}
-          className="sidebar-item"
-          style={{ justifyContent: collapsed ? 'center' : undefined }}
-          title={collapsed ? (theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode') : undefined}
-        >
-          <span className="sidebar-icon">
-            {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
-          </span>
-          {!collapsed && (
-            <span style={{ flex: 1, fontSize: 12 }}>
-              {theme === 'light' ? 'Dark mode' : 'Light mode'}
+        <div className={`sidebar-footer${confidentialMode ? ' confidential' : ''}`}>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="sidebar-item"
+            title={collapsed && !isCompact ? (theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode') : undefined}
+          >
+            <span className="sidebar-icon">
+              {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
             </span>
-          )}
-        </button>
-
-        {/* Confidential mode toggle — always visible */}
-        <button
-          onClick={toggleConfidentialMode}
-          className={`sidebar-item${view.type === 'CONF' ? ' active' : ''}`}
-          style={{
-            justifyContent: collapsed ? 'center' : undefined,
-            color: confidentialMode ? 'var(--confidential)' : 'var(--text-muted)',
-            background: confidentialMode ? 'var(--confidential-faint)' : 'transparent',
-          }}
-          title={collapsed
-            ? confidentialMode ? 'Confidential mode ON — click to disable' : 'Confidential mode OFF — click to enable'
-            : undefined}
-        >
-          <span className="sidebar-icon" style={{ color: confidentialMode ? 'var(--confidential)' : 'var(--text-muted)' }}>
-            {confidentialMode ? <Lock size={14} /> : <Unlock size={14} />}
-          </span>
-          {!collapsed && (
-            <>
-              <span style={{ flex: 1, fontSize: 12 }}>
-                {confidentialMode ? 'Confidential' : 'Standard mode'}
+            {!collapsed && (
+              <span className="sidebar-item-label">
+                {theme === 'light' ? 'Dark mode' : 'Light mode'}
               </span>
-              <button
-                onClick={e => { e.stopPropagation(); navigate('CONF') }}
-                style={{
-                  background: 'transparent', border: 'none', cursor: 'pointer', padding: '0 4px',
-                  fontSize: 10, color: 'var(--text-muted)',
-                }}
-                title="Privacy settings"
-              >
-                Settings
-              </button>
-            </>
-          )}
-        </button>
+            )}
+          </button>
 
-        {!collapsed && (
-          <div style={{ padding: '6px 12px 8px', fontSize: 10, color: 'var(--text-muted)', fontFamily: "'IBM Plex Mono', monospace" }}>
-            v0.2.0-pre.3
-          </div>
-        )}
-      </div>
-    </aside>
+          <button
+            type="button"
+            onClick={toggleConfidentialMode}
+            className={`sidebar-item sidebar-item--conf${view.type === 'CONF' ? ' active' : ''}${confidentialMode ? ' on' : ''}`}
+            title={collapsed && !isCompact
+              ? confidentialMode ? 'Confidential mode ON — click to disable' : 'Confidential mode OFF — click to enable'
+              : undefined}
+          >
+            <span className="sidebar-icon">
+              {confidentialMode ? <Lock size={14} /> : <Unlock size={14} />}
+            </span>
+            {!collapsed && (
+              <>
+                <span className="sidebar-item-label">
+                  {confidentialMode ? 'Confidential' : 'Standard mode'}
+                </span>
+                <button
+                  type="button"
+                  onClick={e => { e.stopPropagation(); goTo('CONF') }}
+                  className="sidebar-settings-link"
+                  title="Privacy settings"
+                >
+                  Settings
+                </button>
+              </>
+            )}
+          </button>
+
+          {!collapsed && (
+            <div className="sidebar-version">v0.2.0-pre.3</div>
+          )}
+        </div>
+      </aside>
+    </>
   )
 }

@@ -8,7 +8,7 @@ import { StatusBar } from './components/StatusBar'
 import { Workspace } from './components/Workspace'
 import { useTerminalStore } from './store/terminalStore'
 import type { PanelType } from './store/terminalStore'
-import { TABLET_BREAKPOINT } from './hooks/useViewport'
+import { useViewport, TABLET_BREAKPOINT } from './hooks/useViewport'
 import { automationScheduler } from './services/automationScheduler'
 import { client } from './mcp/index'
 
@@ -20,7 +20,8 @@ const FKEY_MAP: Record<string, PanelType> = {
 
 export default function App() {
   const [paletteOpen, setPaletteOpen] = useState(false)
-  const { navigate, setSidebarCollapsed, closeSplit } = useTerminalStore()
+  const { navigate, setSidebarCollapsed, closeSplit, sidebarCollapsed } = useTerminalStore()
+  const { isCompact } = useViewport()
 
   const theme = useTerminalStore(s => s.theme)
 
@@ -35,6 +36,12 @@ export default function App() {
     automationScheduler.start()
     return () => automationScheduler.stop()
   }, [])
+
+  useEffect(() => {
+    const lock = isCompact && !sidebarCollapsed
+    document.body.style.overflow = lock ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [isCompact, sidebarCollapsed])
 
   useEffect(() => {
     const mq = window.matchMedia(`(max-width: ${TABLET_BREAKPOINT}px)`)
@@ -63,17 +70,21 @@ export default function App() {
         setPaletteOpen(p => !p)
         return
       }
-      // Escape → close palette
-      if (e.key === 'Escape' && paletteOpen) {
-        setPaletteOpen(false)
+      // Escape → close palette or mobile sidebar
+      if (e.key === 'Escape') {
+        if (paletteOpen) setPaletteOpen(false)
+        else if (isCompact && !useTerminalStore.getState().sidebarCollapsed) {
+          setSidebarCollapsed(true)
+        }
+        return
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [navigate, paletteOpen])
+  }, [navigate, paletteOpen, setSidebarCollapsed, isCompact])
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell${isCompact && !sidebarCollapsed ? ' nav-open' : ''}`}>
       <Sidebar />
 
       <div className="main-column">
