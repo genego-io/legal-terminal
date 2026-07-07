@@ -13,17 +13,21 @@
 
 ### Web Terminal
 
-| Home Dashboard | Precedent Search — full master-detail |
-|----------------|--------------------------------------|
-| ![Home](docs/screenshots/web-01-home.png) | ![PREC](docs/screenshots/web-02-prec.png) |
+| Home Dashboard | Paralegal — digital assistant |
+|----------------|-------------------------------|
+| ![Home](docs/screenshots/web-01-home.png) | ![Paralegal empty](docs/screenshots/web-02-chat-empty.png) |
+
+| Paralegal — research conversation with case cards | Precedent Search — master-detail |
+|---------------------------------------------------|----------------------------------|
+| ![Paralegal research](docs/screenshots/web-03-chat-research.png) | ![PREC](docs/screenshots/web-04-prec.png) |
 
 | Contract Workbench — clause analysis | Privilege Check — provider comparison |
 |---------------------------------------|---------------------------------------|
-| ![CTRX](docs/screenshots/web-03-ctrx.png) | ![PRIV](docs/screenshots/web-04-priv.png) |
+| ![CTRX](docs/screenshots/web-05-ctrx.png) | ![PRIV](docs/screenshots/web-06-priv.png) |
 
-| Ctrl+K Command Palette |
-|------------------------|
-| ![Palette](docs/screenshots/web-05-palette.png) |
+| Document Analyzer — upload zone + risk summary | Ctrl+K Command Palette |
+|------------------------------------------------|------------------------|
+| ![DOCA](docs/screenshots/web-07-doca.png) | ![Palette](docs/screenshots/web-08-palette.png) |
 
 ---
 
@@ -47,8 +51,11 @@ inspired by Bloomberg Terminal's density and workflow philosophy. It wraps the
 in a professional-grade UI — both a browser-based web terminal and a native Python TUI.
 
 **Current state:** Full hybrid UI with sidebar navigation, home dashboard, Ctrl+K command palette,
-and full-viewport module views. Includes both a `MockClient` (works offline) and a `LiveClient`
-that connects to a running `legal-mcp` server over SSE — see the Quick Start below.
+and full-viewport module views. Features a **Paralegal chat** (F1) for conversational legal research,
+citation validation, contract review, and brief outlining. Runtime mock/live toggle in the status bar.
+Local document upload and folder picker in DOCA and JOBS. Playfair Display legal serif typography.
+Includes both a `MockClient` (works offline) and a `LiveClient` that connects to a running `legal-mcp`
+server over SSE — see the Quick Start below.
 
 ---
 
@@ -56,6 +63,7 @@ that connects to a running `legal-mcp` server over SSE — see the Quick Start b
 
 | Key | Panel | MCP Tool(s) |
 |-----|-------|-------------|
+| `CHAT` | Paralegal (chat assistant) | `research_legal_issue`, `validate_citation`, `generate_brief_outline`, `list_contracts` |
 | `PREC` | Precedent & Case Search | `search_precedents`, `search_case_law` |
 | `STAT` | Statute Viewer | `extract_statute` |
 | `CITE` | Citation Console | `validate_citation`, `normalize_citation`, `verify_citation_integrity` |

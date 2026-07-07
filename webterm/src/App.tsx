@@ -9,6 +9,7 @@ import { useTerminalStore } from './store/terminalStore'
 import type { PanelType } from './store/terminalStore'
 
 const FKEY_MAP: Record<string, PanelType> = {
+  F1: 'CHAT',
   F2: 'PREC', F3: 'CITE', F4: 'CTRX', F5: 'JOBS',
   F6: 'WKFL', F7: 'AUDT', F9: 'PRIV', F10: 'LIVE',
 }

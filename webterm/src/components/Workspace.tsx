@@ -1,6 +1,7 @@
 import { useTerminalStore } from '../store/terminalStore'
 import type { ViewState } from '../store/terminalStore'
 import { HomePanel } from '../panels/HomePanel'
+import { ChatPanel } from '../panels/ChatPanel'
 import { PrecPanel } from '../panels/PrecPanel'
 import { StatPanel } from '../panels/StatPanel'
 import { CitePanel } from '../panels/CitePanel'
@@ -17,6 +18,7 @@ function renderView(v: ViewState) {
   const id = `view-${v.type}`
   switch (v.type) {
     case 'HOME': return <HomePanel />
+    case 'CHAT': return <ChatPanel id={id} />
     case 'PREC': case 'CASE': return <PrecPanel id={id} query={v.query} />
     case 'STAT': return <StatPanel id={id} statuteId={v.statuteId ?? v.query} />
     case 'CITE': return <CitePanel id={id} query={v.query} />

@@ -3,6 +3,7 @@ import { setClientMode as _setClientMode, getClientMode, getLiveUrl } from '../m
 import type { ClientMode } from '../mcp/index'
 
 export type PanelType =
+  | 'CHAT'
   | 'PREC' | 'CASE' | 'STAT' | 'CITE'
   | 'CTRX' | 'DOCA' | 'PRIV' | 'BRF'
   | 'JOBS' | 'LIVE' | 'WKFL' | 'AUDT'

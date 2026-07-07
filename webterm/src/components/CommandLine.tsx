@@ -4,6 +4,7 @@ import { useTerminalStore } from '../store/terminalStore'
 import type { ViewType } from '../store/terminalStore'
 
 export const MNEMONICS: { cmd: string; panel: ViewType; desc: string; tool: string }[] = [
+  { cmd: 'CHAT', panel: 'CHAT', desc: 'Paralegal assistant',        tool: 'research_legal_issue' },
   { cmd: 'PREC', panel: 'PREC', desc: 'Precedent & case search',   tool: 'search_precedents' },
   { cmd: 'CASE', panel: 'CASE', desc: 'Case law research',          tool: 'search_case_law' },
   { cmd: 'STAT', panel: 'STAT', desc: 'Statute viewer',             tool: 'extract_statute' },

@@ -1,7 +1,7 @@
 import {
   Search, BookOpen, Quote,
   FileText, FolderOpen, ShieldAlert,
-  PenTool,
+  PenTool, Scale,
   ClockIcon, GitBranch, ScrollText, Activity,
   ChevronLeft, ChevronRight, Home,
 } from 'lucide-react'
@@ -21,6 +21,12 @@ interface Group {
 }
 
 const GROUPS: Group[] = [
+  {
+    label: 'Assistant',
+    items: [
+      { type: 'CHAT', label: 'Paralegal', icon: <Scale size={14} />, fkey: 'F1' },
+    ],
+  },
   {
     label: 'Research',
     items: [

@@ -58,6 +58,20 @@
     font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
   }
 
+  /* Paralegal chat thinking dots */
+  .chat-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    display: inline-block;
+    animation: chat-pulse 1s ease-in-out infinite;
+  }
+  @keyframes chat-pulse {
+    0%, 100% { opacity: 0.25; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(-2px); }
+  }
+
   /* Monospace only where data lives */
   .mono {
     font-family: 'IBM Plex Mono', 'JetBrains Mono', 'Courier New', monospace;

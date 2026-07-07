@@ -1,6 +1,6 @@
 import { useTerminalStore } from '../store/terminalStore'
 import type { PanelType } from '../store/terminalStore'
-import { Search, FileText, ShieldAlert, ClockIcon } from 'lucide-react'
+import { Search, FileText, ShieldAlert, ClockIcon, Scale } from 'lucide-react'
 
 interface QuickAction {
   cmd: string
@@ -95,6 +95,20 @@ export function HomePanel() {
             Bloomberg-style interface over <code style={{ color: 'var(--accent)', fontFamily: "'IBM Plex Mono', monospace" }}>legal-mcp</code>.
             Use the sidebar to navigate modules, type a mnemonic command below, or press an F-key.
           </div>
+          <button
+            onClick={() => navigate('CHAT')}
+            style={{
+              marginTop: 12, display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'var(--accent-faint)', border: '1px solid var(--accent-dim)',
+              color: 'var(--accent)', fontFamily: 'inherit', fontSize: 12, fontWeight: 600,
+              padding: '7px 14px', cursor: 'pointer',
+            }}
+            title="Open the Paralegal chat (F1)"
+          >
+            <Scale size={14} />
+            Ask the Paralegal
+            <span className="fkey-hint" style={{ marginLeft: 4 }}>F1</span>
+          </button>
         </div>
         {/* Connection status */}
         <div style={{ background: 'var(--bg-panel2)', border: '1px solid var(--border)', padding: '10px 16px', fontSize: 11, minWidth: 200 }}>
