@@ -6,10 +6,16 @@ export {
   PANEL_META,
 } from './fixtures'
 
-/** Contract picker labels — derived from canonical fixtures */
+/** Contract picker — derived from canonical fixtures */
 export const CONTRACT_PICKER = CONTRACTS.map(c => ({
   id: c.id,
   label: c.short_label ?? c.title,
+  title: c.title,
+  type: c.type,
+  risk_level: c.risk_level,
+  parties: c.parties,
+  governing_law: c.governing_law,
+  term: c.term,
 }))
 
 /** Example document filenames for DOCA / PRIV panels */

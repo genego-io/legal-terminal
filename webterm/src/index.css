@@ -753,6 +753,164 @@
     width: 100%;
   }
 
+  /* ── Contract Workbench (CTRX) ── */
+  .ctrx-library {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    background: var(--bg-panel);
+  }
+
+  .ctrx-library-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .ctrx-library-count {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .ctrx-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .ctrx-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: var(--bg-panel2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.1s, background 0.1s;
+  }
+
+  .ctrx-chip:hover {
+    border-color: var(--border-bright);
+    color: var(--text);
+  }
+
+  .ctrx-chip.active {
+    background: var(--accent-faint);
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  .ctrx-chip-type {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 1px 4px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+  }
+
+  .ctrx-chip.active .ctrx-chip-type {
+    color: var(--accent-dim);
+    border-color: var(--accent-dim);
+  }
+
+  .ctrx-chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ctrx-chip-viewing {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .ctrx-banner {
+    display: flex;
+    gap: 14px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-panel2);
+    flex-shrink: 0;
+    align-items: flex-start;
+  }
+
+  .ctrx-banner-label {
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .ctrx-banner-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ctrx-banner-title {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+
+  .ctrx-banner-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .ctrx-banner-meta .tag {
+    font-size: 10px;
+  }
+
+  .ctrx-clause-header {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ctrx-clause-header-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .ctrx-breadcrumb {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    margin-bottom: 10px;
+  }
+
+  .ctrx-breadcrumb strong {
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
   /* ── Tablet (≤1024px) — desktop layout unchanged above ── */
   @media (max-width: 1024px) {
     .command-palette-overlay {
